@@ -1,19 +1,23 @@
+// External dependencies
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+
+// Internal dependencies
+import { colors, spacing, typography } from "../styles";
 
 interface CompatibilityIndicatorProps {
   status: string;
 }
 
 const CompatibilityIndicator = ({ status }: CompatibilityIndicatorProps) => {
-  let backgroundColor = "#2ecc71"; // Default green for allowed
+  let backgroundColor = colors.statusAllowed; // Default green for allowed
   let statusText = "Allowed";
 
   if (status.includes("not allowed")) {
-    backgroundColor = "#e74c3c"; // Red for not allowed
+    backgroundColor = colors.statusNotAllowed; // Red for not allowed
     statusText = "Not Allowed";
   } else if (status.includes("acceptable")) {
-    backgroundColor = "#f39c12"; // Yellow for acceptable in small quantities
+    backgroundColor = colors.statusAcceptable; // Yellow for acceptable in small quantities
     statusText = status.includes("boiled")
       ? "Acceptable (Boiled)"
       : "Acceptable in Small Quantities";
@@ -28,16 +32,16 @@ const CompatibilityIndicator = ({ status }: CompatibilityIndicatorProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
+    paddingHorizontal: spacing.sm + 4,
+    paddingVertical: spacing.xs + 2,
+    borderRadius: spacing.radiusRound,
     alignSelf: "flex-start",
-    marginTop: 4,
+    marginTop: spacing.xs,
   },
   text: {
-    color: "white",
-    fontWeight: "600",
-    fontSize: 12,
+    color: colors.textLight,
+    fontWeight: typography.fontWeight.semiBold as "600",
+    fontSize: typography.fontSize.small,
   },
 });
 

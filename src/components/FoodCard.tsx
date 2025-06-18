@@ -1,14 +1,19 @@
+// External dependencies
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
+// Internal dependencies
 import { FoodItem } from "../types";
+import { RootStackParamList } from "../navigation/types";
+import { useFavorites } from "../hooks/useFavorites";
+import { colors, spacing, typography, shadow } from "../styles";
+
+// Components
 import FoodIcon from "./FoodIcon";
 import CompatibilityIndicator from "./CompatibilityIndicator";
 import FavoriteButton from "./FavoriteButton";
-import { RootStackParamList } from "../navigation/types";
-import { useFavorites } from "../hooks/useFavorites";
 
 interface FoodCardProps {
   food: FoodItem;
@@ -58,15 +63,11 @@ const FoodCard = ({ food, animalName }: FoodCardProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 3,
+    backgroundColor: colors.card,
+    borderRadius: spacing.radiusLarge,
+    padding: spacing.md,
+    marginBottom: spacing.itemMargin,
+    ...shadow.medium,
   },
   topRow: {
     flexDirection: "row",
@@ -83,21 +84,21 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   spacer: {
-    height: 8,
+    height: spacing.xs,
   },
   textContainer: {
-    marginLeft: 12,
+    marginLeft: spacing.sm,
     flex: 1,
   },
   foodName: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#2c3e50",
+    fontSize: typography.fontSize.large,
+    fontWeight: typography.fontWeight.semiBold as "600",
+    color: colors.textPrimary,
   },
   categoryName: {
-    fontSize: 14,
-    color: "#7f8c8d",
-    marginTop: 2,
+    fontSize: typography.fontSize.medium,
+    color: colors.textSecondary,
+    marginTop: spacing.tiny,
   },
 });
 

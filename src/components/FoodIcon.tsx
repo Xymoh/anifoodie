@@ -1,5 +1,9 @@
+// External dependencies
 import React from "react";
 import { Text, StyleSheet } from "react-native";
+
+// Internal dependencies
+import { spacing } from "../styles";
 
 interface FoodIconProps {
   category: string;
@@ -43,7 +47,7 @@ const FoodIcon = ({ category, size = 24 }: FoodIconProps) => {
 
 const styles = StyleSheet.create({
   icon: {
-    marginRight: 8,
+    marginRight: spacing.sm,
   },
 });
 

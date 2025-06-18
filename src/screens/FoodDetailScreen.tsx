@@ -1,9 +1,15 @@
+// External dependencies
 import React from "react";
 import { StyleSheet, Text, View, SectionList } from "react-native";
 import { RouteProp } from "@react-navigation/native";
+
+// Internal dependencies
 import { RootStackParamList } from "../navigation/types";
 import { getAnimalsForFood } from "../data/data-utils";
 import { AnimalName, CompatibilityStatus } from "../types";
+import { colors, spacing, typography, shadow } from "../styles";
+
+// Components
 import CompatibilityIndicator from "../components/CompatibilityIndicator";
 import AnimalIcon from "../components/AnimalIcon";
 import FoodIcon from "../components/FoodIcon";
@@ -87,66 +93,62 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: colors.background,
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginVertical: 20,
+    marginVertical: spacing.md + 4,
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: typography.fontSize.title,
+    fontWeight: typography.fontWeight.bold as "700",
     textAlign: "center",
-    color: "#2c3e50",
-    marginLeft: 10,
+    color: colors.textPrimary,
+    marginLeft: spacing.sm + 2,
   },
   listContent: {
-    padding: 16,
+    padding: spacing.md,
   },
   sectionHeader: {
-    backgroundColor: "#ecf0f1",
-    padding: 10,
-    borderRadius: 8,
-    marginBottom: 8,
+    backgroundColor: colors.gray200,
+    padding: spacing.sm + 2,
+    borderRadius: spacing.radiusMedium,
+    marginBottom: spacing.xs + 4,
   },
   sectionTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#2c3e50",
+    fontSize: typography.fontSize.large,
+    fontWeight: typography.fontWeight.bold as "700",
+    color: colors.textPrimary,
   },
   animalItem: {
-    backgroundColor: "white",
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 12,
-    marginLeft: 8,
-    elevation: 2,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
+    backgroundColor: colors.card,
+    padding: spacing.md,
+    borderRadius: spacing.radiusMedium,
+    marginBottom: spacing.itemMargin,
+    marginLeft: spacing.xs + 4,
+    ...shadow.small,
   },
   animalRow: {
     flexDirection: "row",
     alignItems: "center",
   },
   animalName: {
-    fontSize: 18,
-    fontWeight: "500",
-    color: "#2c3e50",
-    marginLeft: 12,
+    fontSize: typography.fontSize.large,
+    fontWeight: typography.fontWeight.medium as "500",
+    color: colors.textPrimary,
+    marginLeft: spacing.sm + 4,
   },
   emptySection: {
-    padding: 16,
+    padding: spacing.md,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 20,
+    marginBottom: spacing.md + 4,
   },
   emptyText: {
-    fontSize: 16,
-    color: "#95a5a6",
+    fontSize: typography.fontSize.regular,
+    color: colors.textSecondary,
     fontStyle: "italic",
   },
 });

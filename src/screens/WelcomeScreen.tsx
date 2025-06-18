@@ -1,8 +1,12 @@
+// External dependencies
 import React from "react";
 import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+// Internal dependencies
 import { RootStackParamList } from "../navigation/types";
+import { colors, spacing, typography, shadow } from "../styles";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Welcome">;
 
@@ -95,115 +99,111 @@ const WelcomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: colors.background,
   },
   scrollContent: {
-    padding: 20,
+    padding: spacing.md,
   },
   header: {
     alignItems: "center",
-    marginBottom: 30,
-    marginTop: 20,
+    marginBottom: spacing.lg + 6,
+    marginTop: spacing.md,
   },
   title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    color: "#2c3e50",
-    marginBottom: 10,
+    fontSize: typography.fontSize.huge,
+    fontWeight: typography.fontWeight.bold as "700",
+    color: colors.textPrimary,
+    marginBottom: spacing.sm + 2,
   },
   subtitle: {
-    fontSize: 18,
-    color: "#7f8c8d",
+    fontSize: typography.fontSize.xl,
+    color: colors.textSecondary,
     textAlign: "center",
   },
   section: {
-    marginBottom: 25,
+    marginBottom: spacing.lg,
   },
   sectionTitle: {
-    fontSize: 22,
-    fontWeight: "bold",
-    color: "#2c3e50",
-    marginBottom: 10,
+    fontSize: typography.fontSize.xl,
+    fontWeight: typography.fontWeight.bold as "700",
+    color: colors.textPrimary,
+    marginBottom: spacing.sm + 2,
   },
   text: {
-    fontSize: 16,
-    color: "#34495e",
-    lineHeight: 24,
+    fontSize: typography.fontSize.regular,
+    color: colors.textPrimary,
+    lineHeight: typography.lineHeight.normal * typography.fontSize.regular,
   },
   featureSection: {
     flexDirection: "column",
-    marginBottom: 25,
+    marginBottom: spacing.lg,
   },
   feature: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 15,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 3,
+    backgroundColor: colors.card,
+    borderRadius: spacing.radiusMedium,
+    padding: spacing.md - 1,
+    marginBottom: spacing.md - 1,
+    ...shadow.medium,
   },
   emoji: {
-    fontSize: 36,
-    marginBottom: 10,
+    fontSize: typography.fontSize.huge + 8,
+    marginBottom: spacing.sm + 2,
   },
   featureTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#2c3e50",
-    marginBottom: 5,
+    fontSize: typography.fontSize.large,
+    fontWeight: typography.fontWeight.bold as "700",
+    color: colors.textPrimary,
+    marginBottom: spacing.xs + 1,
   },
   featureText: {
-    fontSize: 14,
-    color: "#34495e",
-    lineHeight: 20,
+    fontSize: typography.fontSize.medium,
+    color: colors.textPrimary,
+    lineHeight: typography.lineHeight.normal * typography.fontSize.medium,
   },
   colorKey: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 10,
+    marginBottom: spacing.sm + 2,
   },
   colorIndicator: {
-    width: 20,
-    height: 20,
-    borderRadius: 4,
-    marginRight: 10,
+    width: spacing.md + 4,
+    height: spacing.md + 4,
+    borderRadius: spacing.radiusSmall,
+    marginRight: spacing.sm + 2,
   },
   colorKeyText: {
-    fontSize: 16,
-    color: "#34495e",
+    fontSize: typography.fontSize.regular,
+    color: colors.textPrimary,
   },
   disclaimer: {
-    backgroundColor: "#edf0f1",
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 60,
+    backgroundColor: colors.gray200,
+    padding: spacing.md - 1,
+    borderRadius: spacing.radiusMedium,
+    marginBottom: spacing.xl + 28,
   },
   disclaimerTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#2c3e50",
-    marginBottom: 8,
+    fontSize: typography.fontSize.large,
+    fontWeight: typography.fontWeight.bold as "700",
+    color: colors.textPrimary,
+    marginBottom: spacing.xs + 4,
   },
   disclaimerText: {
-    fontSize: 14,
-    color: "#34495e",
-    lineHeight: 20,
+    fontSize: typography.fontSize.medium,
+    color: colors.textPrimary,
+    lineHeight: typography.lineHeight.normal * typography.fontSize.medium,
   },
   button: {
-    backgroundColor: "#3498db",
-    paddingVertical: 15,
-    borderRadius: 8,
-    marginHorizontal: 20,
-    marginBottom: 30,
+    backgroundColor: colors.primary,
+    paddingVertical: spacing.md - 1,
+    borderRadius: spacing.radiusMedium,
+    marginHorizontal: spacing.md,
+    marginBottom: spacing.lg + 6,
     alignItems: "center",
   },
   buttonText: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
+    color: colors.white,
+    fontSize: typography.fontSize.large,
+    fontWeight: typography.fontWeight.bold as "700",
   },
 });
 

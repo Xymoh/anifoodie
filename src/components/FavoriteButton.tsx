@@ -1,5 +1,9 @@
+// External dependencies
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
+
+// Internal dependencies
+import { colors, spacing } from "../styles";
 
 interface FavoriteButtonProps {
   initialValue?: boolean;
@@ -56,10 +60,10 @@ const FavoriteButton = ({
 
 const styles = StyleSheet.create({
   button: {
-    padding: 5,
+    padding: spacing.xs,
   },
   icon: {
-    color: "#f1c40f",
+    color: colors.favorite,
   },
 });
 

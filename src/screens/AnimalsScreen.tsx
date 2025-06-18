@@ -1,3 +1,4 @@
+// External dependencies
 import React, { useState, useMemo } from "react";
 import {
   FlatList,
@@ -8,9 +9,14 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+// Internal dependencies
 import { getAllAnimals } from "../data/data-utils";
 import { RootStackParamList } from "../navigation/types";
 import { AnimalName } from "../types";
+import { colors, spacing, typography, shadow } from "../styles";
+
+// Components
 import SearchBar from "../components/SearchBar";
 import AnimalIcon from "../components/AnimalIcon";
 import AnimalCategoryFilter, {
@@ -136,47 +142,43 @@ const AnimalsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: colors.background,
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: typography.fontSize.title,
+    fontWeight: typography.fontWeight.bold as "700",
     textAlign: "center",
-    marginVertical: 20,
-    color: "#2c3e50",
+    marginVertical: spacing.sectionMargin,
+    color: colors.textPrimary,
   },
   listContent: {
-    padding: 16,
+    padding: spacing.md,
   },
   animalItem: {
-    backgroundColor: "white",
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 12,
-    elevation: 2,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
+    backgroundColor: colors.card,
+    padding: spacing.md,
+    borderRadius: spacing.radiusMedium,
+    marginBottom: spacing.itemMargin,
+    ...shadow.small,
   },
   animalRow: {
     flexDirection: "row",
     alignItems: "center",
   },
   animalName: {
-    fontSize: 18,
-    fontWeight: "500",
-    color: "#2c3e50",
-    marginLeft: 12,
+    fontSize: typography.fontSize.large,
+    fontWeight: typography.fontWeight.medium as "500",
+    color: colors.textPrimary,
+    marginLeft: spacing.sm,
   },
   emptyContainer: {
-    padding: 20,
+    padding: spacing.md + 4,
     alignItems: "center",
     justifyContent: "center",
   },
   emptyText: {
-    fontSize: 16,
-    color: "#7f8c8d",
+    fontSize: typography.fontSize.regular,
+    color: colors.textSecondary,
     textAlign: "center",
   },
 });

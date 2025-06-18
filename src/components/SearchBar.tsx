@@ -1,5 +1,9 @@
+// External dependencies
 import React from "react";
 import { StyleSheet, TextInput, View } from "react-native";
+
+// Internal dependencies
+import { colors, spacing, typography, shadow } from "../styles";
 
 interface SearchBarProps {
   value: string;
@@ -19,7 +23,7 @@ const SearchBar = ({
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        placeholderTextColor="#95a5a6"
+        placeholderTextColor={colors.textMuted}
         clearButtonMode="while-editing"
         autoCapitalize="none"
         autoCorrect={false}
@@ -30,20 +34,16 @@ const SearchBar = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
-    borderRadius: 8,
-    marginHorizontal: 16,
-    marginBottom: 16,
-    elevation: 2,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
+    backgroundColor: colors.card,
+    borderRadius: spacing.radiusMedium,
+    marginHorizontal: spacing.md,
+    marginBottom: spacing.md,
+    ...shadow.small,
   },
   input: {
-    padding: 12,
-    fontSize: 16,
-    color: "#2c3e50",
+    padding: spacing.sm + 4,
+    fontSize: typography.fontSize.regular,
+    color: colors.textPrimary,
   },
 });
 

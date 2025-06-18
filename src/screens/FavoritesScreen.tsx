@@ -1,3 +1,4 @@
+// External dependencies
 import React from "react";
 import {
   View,
@@ -9,13 +10,18 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+// Internal dependencies
 import { useFavorites } from "../hooks/useFavorites";
 import { RootStackParamList } from "../navigation/types";
+import { parseCSVData } from "../data/data-utils";
+import { FoodItem, AnimalName } from "../types";
+import { colors, spacing, typography, shadow } from "../styles";
+
+// Components
 import AnimalIcon from "../components/AnimalIcon";
 import FoodIcon from "../components/FoodIcon";
 import LoadingIndicator from "../components/LoadingIndicator";
-import { parseCSVData } from "../data/data-utils";
-import { FoodItem, AnimalName } from "../types";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Main">;
 
@@ -117,74 +123,70 @@ const FavoritesScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: colors.background,
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: typography.fontSize.title,
+    fontWeight: typography.fontWeight.bold as "700",
     textAlign: "center",
-    marginVertical: 20,
-    color: "#2c3e50",
+    marginVertical: spacing.sectionMargin,
+    color: colors.textPrimary,
   },
   listContent: {
-    padding: 16,
+    padding: spacing.md,
     flexGrow: 1,
   },
   sectionHeader: {
-    backgroundColor: "#ecf0f1",
-    padding: 10,
-    borderRadius: 8,
-    marginBottom: 8,
+    backgroundColor: colors.gray200,
+    padding: spacing.sm + 2,
+    borderRadius: spacing.radiusMedium,
+    marginBottom: spacing.xs + 4,
   },
   sectionTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#2c3e50",
+    fontSize: typography.fontSize.large,
+    fontWeight: typography.fontWeight.bold as "700",
+    color: colors.textPrimary,
   },
   item: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "white",
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 12,
-    marginLeft: 8,
-    elevation: 2,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
+    backgroundColor: colors.card,
+    padding: spacing.md,
+    borderRadius: spacing.radiusMedium,
+    marginBottom: spacing.itemMargin,
+    marginLeft: spacing.xs + 4,
+    ...shadow.small,
   },
   itemName: {
-    fontSize: 18,
-    fontWeight: "500",
-    color: "#2c3e50",
-    marginLeft: 12,
+    fontSize: typography.fontSize.large,
+    fontWeight: typography.fontWeight.medium as "500",
+    color: colors.textPrimary,
+    marginLeft: spacing.sm + 4,
   },
   foodTextContainer: {
-    marginLeft: 12,
+    marginLeft: spacing.sm + 4,
   },
   categoryName: {
-    fontSize: 14,
-    color: "#7f8c8d",
-    marginTop: 2,
+    fontSize: typography.fontSize.medium,
+    color: colors.textSecondary,
+    marginTop: spacing.tiny,
   },
   emptyContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
+    padding: spacing.md + 4,
   },
   emptyText: {
-    fontSize: 18,
-    fontWeight: "500",
-    color: "#7f8c8d",
-    marginBottom: 10,
+    fontSize: typography.fontSize.large,
+    fontWeight: typography.fontWeight.medium as "500",
+    color: colors.textSecondary,
+    marginBottom: spacing.sm + 2,
     textAlign: "center",
   },
   emptySubtext: {
-    fontSize: 16,
-    color: "#95a5a6",
+    fontSize: typography.fontSize.regular,
+    color: colors.textMuted,
     textAlign: "center",
   },
   loadingContainer: {

@@ -1,3 +1,4 @@
+// External dependencies
 import React from "react";
 import {
   ActivityIndicator,
@@ -6,6 +7,9 @@ import {
   Text,
   ViewStyle,
 } from "react-native";
+
+// Internal dependencies
+import { colors, spacing, typography } from "../styles";
 
 interface LoadingIndicatorProps {
   message?: string;
@@ -18,7 +22,7 @@ const LoadingIndicator = ({
   message = "Loading...",
   containerStyle,
   size = "large",
-  color = "#3498db",
+  color = colors.primary,
 }: LoadingIndicatorProps) => {
   return (
     <View style={[styles.container, containerStyle]}>
@@ -33,12 +37,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f5f5f5",
+    backgroundColor: colors.background,
   },
   message: {
-    marginTop: 10,
-    fontSize: 16,
-    color: "#2c3e50",
+    marginTop: spacing.sm + 2,
+    fontSize: typography.fontSize.regular,
+    color: colors.textPrimary,
   },
 });
 
