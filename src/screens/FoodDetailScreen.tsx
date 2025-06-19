@@ -1,0 +1,156 @@
+// External dependencies
+import React from "react";
+import { StyleSheet, Text, View, SectionList } from "react-native";
+import { RouteProp } from "@react-navigation/native";
+
+// Internal dependencies
+import { RootStackParamList } from "../navigation/types";
+import { getAnimalsForFood } from "../data/data-utils";
+import { AnimalName, CompatibilityStatus } from "../types";
+import { colors, spacing, typography, shadow } from "../styles";
+
+// Components
+import CompatibilityIndicator from "../components/CompatibilityIndicator";
+import AnimalIcon from "../components/AnimalIcon";
+import FoodIcon from "../components/FoodIcon";
+import AnimalCard from "../components/AnimalCard";
+
+type FoodDetailScreenProps = {
+  route: RouteProp<RootStackParamList, "FoodDetail">;
+};
+
+interface SectionData {
+  title: string;
+  data: AnimalName[];
+  status: CompatibilityStatus;
+}
+
+const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
+  const { foodName } = route.params;
+  const animalData = getAnimalsForFood(foodName);
+
+  const sections: SectionData[] = [
+    {
+      title: "Animals that can eat this food",
+      data: animalData["allowed"],
+      status: "allowed",
+    },
+    {
+      title: "Animals that can eat this food in small quantities",
+      data: [
+        ...animalData["acceptable in small quantities"],
+        ...animalData["acceptable in small quantities (boiled)"],
+      ],
+      status: "acceptable in small quantities",
+    },
+    {
+      title: "Animals that cannot eat this food",
+      data: animalData["not allowed"],
+      status: "not allowed",
+    },
+  ];
+
+  const renderSectionHeader = ({ section }: { section: SectionData }) => (
+    <View style={styles.sectionHeader}>
+      <Text style={styles.sectionTitle}>{section.title}</Text>
+      <CompatibilityIndicator status={section.status} />
+    </View>
+  );
+
+  const renderAnimalItem = ({
+    item,
+    section,
+  }: {
+    item: AnimalName;
+    section: SectionData;
+  }) => <AnimalCard animal={item} status={section.status} />;
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <FoodIcon category={foodName} size={36} />
+        <Text style={styles.title}>{foodName}</Text>
+      </View>
+      <SectionList
+        sections={sections}
+        renderItem={renderAnimalItem}
+        renderSectionHeader={renderSectionHeader}
+        keyExtractor={(item) => item}
+        contentContainerStyle={styles.listContent}
+        stickySectionHeadersEnabled
+        renderSectionFooter={({ section }) =>
+          section.data.length === 0 ? (
+            <View style={styles.emptySection}>
+              <Text style={styles.emptyText}>No animals in this category</Text>
+            </View>
+          ) : null
+        }
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginVertical: spacing.md + 4,
+  },
+  title: {
+    fontSize: typography.fontSize.title,
+    fontWeight: typography.fontWeight.bold as "700",
+    textAlign: "center",
+    color: colors.textPrimary,
+    marginLeft: spacing.sm + 2,
+  },
+  listContent: {
+    padding: spacing.md,
+  },
+  sectionHeader: {
+    backgroundColor: colors.gray200,
+    padding: spacing.sm + 2,
+    borderRadius: spacing.radiusMedium,
+    marginBottom: spacing.xs + 4,
+  },
+  sectionTitle: {
+    fontSize: typography.fontSize.large,
+    fontWeight: typography.fontWeight.bold as "700",
+    color: colors.textPrimary,
+  },
+  animalItem: {
+    backgroundColor: colors.card,
+    padding: spacing.md,
+    borderRadius: spacing.radiusMedium,
+    marginBottom: spacing.itemMargin,
+    marginLeft: spacing.xs + 4,
+    ...shadow.small,
+  },
+  animalRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  animalName: {
+    fontSize: typography.fontSize.large,
+    fontWeight: typography.fontWeight.medium as "500",
+    color: colors.textPrimary,
+    marginLeft: spacing.sm + 4,
+  },
+  emptySection: {
+    padding: spacing.md,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: spacing.md + 4,
+  },
+  emptyText: {
+    fontSize: typography.fontSize.regular,
+    color: colors.textSecondary,
+    fontStyle: "italic",
+  },
+});
+
+export default FoodDetailScreen;
