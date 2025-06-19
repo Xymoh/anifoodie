@@ -70,7 +70,7 @@ export const getFoodsForAnimal = (animalName: AnimalName): FilteredResults => {
   data.forEach(item => {
     const status = item.compatibility[animalName] as CompatibilityStatus;
     
-    if (status.includes('allowed') && !status.includes('not allowed')) {
+    if (status === 'allowed') {
       filtered.allowed.push(item);
     } else if (status === 'not allowed') {
       filtered.notAllowed.push(item);
