@@ -8,7 +8,10 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { getFoodCategories, parseCSVData } from "../data/data-utils";
 import { RootStackParamList } from "../navigation/types";
 import { FoodItem } from "../types";
@@ -39,11 +42,32 @@ const FoodsScreen = () => {
 
   const sections: SectionData[] = useMemo(() => {
     const foodCategories = getFoodCategories();
-    const filteredFoods = searchQuery.trim()
-      ? allFoods.filter((food) =>
-          food.item.toLowerCase().includes(searchQuery.toLowerCase())
+
+    // First check if the search query matches a food type (case insensitive)
+    const isSearchingForType = searchQuery.trim()
+      ? availableFoodTypes.some(
+          (type) => type.toLowerCase() === searchQuery.toLowerCase()
         )
-      : allFoods;
+      : false;
+
+    let filteredFoods = allFoods;
+
+    // If searching for a type, prioritize that filter
+    if (isSearchingForType) {
+      const searchedType = availableFoodTypes.find(
+        (type) => type.toLowerCase() === searchQuery.toLowerCase()
+      );
+      filteredFoods = allFoods.filter((food) => food.type === searchedType);
+    }
+    // Otherwise apply normal item name search
+    else if (searchQuery.trim()) {
+      filteredFoods = allFoods.filter(
+        (food) =>
+          food.item.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          food.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          food.category.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
 
     // Filter by food type if not "All"
     const typedFoods =
@@ -51,14 +75,23 @@ const FoodsScreen = () => {
         ? filteredFoods.filter((food) => food.type === selectedType)
         : filteredFoods;
 
-    // If we're searching or filtering by type, return a simplified list
+    // If we're searching or filtering by type, organize by food type
     if (searchQuery.trim() || selectedType !== "All") {
-      return [
-        {
-          title: searchQuery.trim() ? "Search Results" : selectedType,
-          data: typedFoods,
-        },
-      ];
+      // Group the filtered foods by their type
+      const foodsByType: Record<string, FoodItem[]> = {};
+
+      typedFoods.forEach((food) => {
+        if (!foodsByType[food.type]) {
+          foodsByType[food.type] = [];
+        }
+        foodsByType[food.type].push(food);
+      });
+
+      // Convert the grouped foods into sections
+      return Object.entries(foodsByType).map(([type, foods]) => ({
+        title: type,
+        data: foods,
+      }));
     }
 
     // Otherwise return the categorized list
@@ -79,7 +112,7 @@ const FoodsScreen = () => {
         return sectionItems;
       })
       .flat();
-  }, [allFoods, searchQuery]);
+  }, [allFoods, searchQuery, selectedType, availableFoodTypes]);
 
   const handleFoodPress = (foodName: string) => {
     navigation.navigate("FoodDetail", { foodName });
@@ -109,12 +142,12 @@ const FoodsScreen = () => {
   const insets = useSafeAreaInsets();
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView style={styles.container} edges={["top"]}>
       <Text style={styles.title}>Select a Food</Text>
       <SearchBar
         value={searchQuery}
         onChangeText={setSearchQuery}
-        placeholder="Search foods..."
+        placeholder="Search foods or food types..."
       />
       <FoodTypeFilter
         selectedType={selectedType}
@@ -125,7 +158,9 @@ const FoodsScreen = () => {
         sections={sections}
         renderItem={renderFoodItem}
         renderSectionHeader={renderSectionHeader}
-        keyExtractor={(item) => item.item}
+        keyExtractor={(item, index) =>
+          `${item.type}-${item.category}-${item.item}-${index}`
+        }
         contentContainerStyle={styles.listContent}
         stickySectionHeadersEnabled
         ListEmptyComponent={

@@ -1,8 +1,17 @@
 // External dependencies
 import React from "react";
-import { StyleSheet, Text, View, SectionList } from "react-native";
-import { RouteProp } from "@react-navigation/native";
-import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SectionList,
+  TouchableOpacity,
+} from "react-native";
+import { RouteProp, useNavigation } from "@react-navigation/native";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 // Internal dependencies
 import { RootStackParamList } from "../navigation/types";
@@ -28,6 +37,7 @@ interface SectionData {
 
 const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
   const { foodName } = route.params;
+  const navigation = useNavigation();
   const animalData = getAnimalsForFood(foodName);
 
   const sections: SectionData[] = [
@@ -69,10 +79,18 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
   const insets = useSafeAreaInsets();
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
-      <View style={styles.header}>
-        <FoodIcon category={foodName} size={36} />
-        <Text style={styles.title}>{foodName}</Text>
+    <SafeAreaView style={styles.container} edges={["top"]}>
+      <View style={styles.headerContainer}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={styles.backButtonText}>←</Text>
+        </TouchableOpacity>
+        <View style={styles.header}>
+          <FoodIcon category={foodName} size={36} />
+          <Text style={styles.title}>{foodName}</Text>
+        </View>
       </View>
       <SectionList
         sections={sections}
@@ -97,6 +115,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+  },
+  headerContainer: {
+    position: "relative",
+    paddingHorizontal: spacing.md,
+    marginTop: spacing.md,
+  },
+  backButton: {
+    position: "absolute",
+    left: spacing.md,
+    top: spacing.sm,
+    zIndex: 10,
+    padding: spacing.sm,
+  },
+  backButtonText: {
+    fontSize: 24,
+    color: colors.textPrimary,
   },
   header: {
     flexDirection: "row",

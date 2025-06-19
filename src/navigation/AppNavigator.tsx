@@ -18,7 +18,7 @@ const AnimalsStackScreen = () => (
   <AnimalsStack.Navigator
     screenOptions={{
       headerShadowVisible: false,
-      contentStyle: { backgroundColor: '#fff' },
+      contentStyle: { backgroundColor: "#fff" },
     }}
   >
     <AnimalsStack.Screen
@@ -29,18 +29,12 @@ const AnimalsStackScreen = () => (
     <AnimalsStack.Screen
       name="AnimalDetail"
       component={AnimalDetailScreen}
-      options={({ route }) => ({
-        title: route.params.animalName,
-        headerBackTitleVisible: false,
-      })}
+      options={{ headerShown: false }}
     />
     <AnimalsStack.Screen
       name="FoodDetail"
       component={FoodDetailScreen}
-      options={({ route }) => ({
-        title: route.params.foodName,
-        headerBackTitleVisible: false,
-      })}
+      options={{ headerShown: false }}
     />
   </AnimalsStack.Navigator>
 );
@@ -51,7 +45,7 @@ const FoodsStackScreen = () => (
   <FoodsStack.Navigator
     screenOptions={{
       headerShadowVisible: false,
-      contentStyle: { backgroundColor: '#fff' },
+      contentStyle: { backgroundColor: "#fff" },
     }}
   >
     <FoodsStack.Screen
@@ -62,18 +56,12 @@ const FoodsStackScreen = () => (
     <FoodsStack.Screen
       name="AnimalDetail"
       component={AnimalDetailScreen}
-      options={({ route }) => ({
-        title: route.params.animalName,
-        headerBackTitleVisible: false,
-      })}
+      options={{ headerShown: false }}
     />
     <FoodsStack.Screen
       name="FoodDetail"
       component={FoodDetailScreen}
-      options={({ route }) => ({
-        title: route.params.foodName,
-        headerBackTitleVisible: false,
-      })}
+      options={{ headerShown: false }}
     />
   </FoodsStack.Navigator>
 );
@@ -84,7 +72,7 @@ const FavoritesStackScreen = () => (
   <FavoritesStack.Navigator
     screenOptions={{
       headerShadowVisible: false,
-      contentStyle: { backgroundColor: '#fff' },
+      contentStyle: { backgroundColor: "#fff" },
     }}
   >
     <FavoritesStack.Screen
@@ -95,18 +83,12 @@ const FavoritesStackScreen = () => (
     <FavoritesStack.Screen
       name="AnimalDetail"
       component={AnimalDetailScreen}
-      options={({ route }) => ({
-        title: route.params.animalName,
-        headerBackTitleVisible: false,
-      })}
+      options={{ headerShown: false }}
     />
     <FavoritesStack.Screen
       name="FoodDetail"
       component={FoodDetailScreen}
-      options={({ route }) => ({
-        title: route.params.foodName,
-        headerBackTitleVisible: false,
-      })}
+      options={{ headerShown: false }}
     />
   </FavoritesStack.Navigator>
 );

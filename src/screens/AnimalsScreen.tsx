@@ -1,7 +1,7 @@
 // External dependencies
 import React, { useState, useMemo } from "react";
 import {
-  FlatList,
+  SectionList,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -9,7 +9,10 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 // Internal dependencies
 import { getAllAnimals } from "../data/data-utils";
@@ -25,6 +28,11 @@ import AnimalCategoryFilter, {
 } from "../components/AnimalCategoryFilter";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Main">;
+
+interface AnimalSection {
+  title: AnimalCategory;
+  data: AnimalName[];
+}
 
 const AnimalsScreen = () => {
   const navigation = useNavigation<NavigationProp>();
@@ -77,13 +85,50 @@ const AnimalsScreen = () => {
     return "All";
   };
 
+  const animalCategories: AnimalCategory[] = [
+    "Mammals",
+    "Birds",
+    "Reptiles",
+    "Amphibians",
+    "Fish",
+  ];
+
   const filteredAnimals = useMemo(() => {
     let filtered = allAnimals;
 
-    // Apply search filter
-    if (searchQuery.trim()) {
+    const isExactCategoryMatch = searchQuery.trim()
+      ? animalCategories.some(
+          (category) => category.toLowerCase() === searchQuery.toLowerCase()
+        )
+      : false;
+
+    const isPartialCategoryMatch = searchQuery.trim()
+      ? animalCategories.some((category) =>
+          category.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : false;
+
+    if (isExactCategoryMatch) {
+      const searchedCategory = animalCategories.find(
+        (category) => category.toLowerCase() === searchQuery.toLowerCase()
+      );
+      filtered = filtered.filter(
+        (animal) => getAnimalCategory(animal) === searchedCategory
+      );
+    } else if (isPartialCategoryMatch && searchQuery.trim().length > 2) {
+      const matchingCategories = animalCategories.filter((category) =>
+        category.toLowerCase().includes(searchQuery.toLowerCase())
+      );
       filtered = filtered.filter((animal) =>
-        animal.toLowerCase().includes(searchQuery.toLowerCase())
+        matchingCategories.includes(getAnimalCategory(animal))
+      );
+    } else if (searchQuery.trim()) {
+      filtered = filtered.filter(
+        (animal) =>
+          animal.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          getAnimalCategory(animal)
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase())
       );
     }
 
@@ -95,7 +140,30 @@ const AnimalsScreen = () => {
     }
 
     return filtered;
-  }, [allAnimals, searchQuery, selectedCategory]);
+  }, [allAnimals, searchQuery, selectedCategory, animalCategories]);
+
+  const groupedAnimals = useMemo(() => {
+    const animalsByCategory: Record<AnimalCategory, AnimalName[]> = {
+      All: [],
+      Mammals: [],
+      Birds: [],
+      Reptiles: [],
+      Amphibians: [],
+      Fish: [],
+    };
+
+    filteredAnimals.forEach((animal) => {
+      const category = getAnimalCategory(animal);
+      animalsByCategory[category].push(animal);
+    });
+
+    return Object.entries(animalsByCategory)
+      .filter(([_, animals]) => animals.length > 0)
+      .map(([category, animals]) => ({
+        title: category as AnimalCategory,
+        data: animals,
+      }));
+  }, [filteredAnimals]);
 
   const handleAnimalPress = (animalName: AnimalName) => {
     navigation.navigate("AnimalDetail", { animalName });
@@ -113,25 +181,33 @@ const AnimalsScreen = () => {
     </TouchableOpacity>
   );
 
+  const renderSectionHeader = ({ section }: { section: AnimalSection }) => (
+    <View style={styles.sectionHeader}>
+      <Text style={styles.sectionTitle}>{section.title}</Text>
+    </View>
+  );
+
   const insets = useSafeAreaInsets();
-  
+
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView style={styles.container} edges={["top"]}>
       <Text style={styles.title}>Select an Animal</Text>
       <SearchBar
         value={searchQuery}
         onChangeText={setSearchQuery}
-        placeholder="Search animals..."
+        placeholder="Search by animal name or category..."
       />
       <AnimalCategoryFilter
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory}
       />
-      <FlatList
-        data={filteredAnimals}
+      <SectionList
+        sections={groupedAnimals}
         renderItem={renderAnimalItem}
-        keyExtractor={(item) => item}
+        renderSectionHeader={renderSectionHeader}
+        keyExtractor={(item, index) => `${item}-${index}`}
         contentContainerStyle={styles.listContent}
+        stickySectionHeadersEnabled
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>No animals found</Text>
@@ -162,6 +238,7 @@ const styles = StyleSheet.create({
     padding: spacing.md,
     borderRadius: spacing.radiusMedium,
     marginBottom: spacing.itemMargin,
+    marginLeft: 8,
     ...shadow.small,
   },
   animalRow: {
@@ -183,6 +260,17 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSize.regular,
     color: colors.textSecondary,
     textAlign: "center",
+  },
+  sectionHeader: {
+    backgroundColor: colors.background || "#f0f0f0",
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 8,
+  },
+  sectionTitle: {
+    fontSize: typography.fontSize.large,
+    fontWeight: typography.fontWeight.bold as "700",
+    color: colors.textPrimary,
   },
 });
 

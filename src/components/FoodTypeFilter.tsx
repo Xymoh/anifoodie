@@ -13,7 +13,9 @@ export type FoodType =
   | "Fruit"
   | "Grain"
   | "Protein"
-  | "Dairy";
+  | "Dairy"
+  | "Meat"
+  | "Nut";
 
 interface FoodTypeFilterProps {
   selectedType: FoodType;
@@ -30,7 +32,15 @@ const FoodTypeFilter = ({
   const types: FoodType[] = [
     "All",
     ...availableTypes.filter((type) =>
-      ["Vegetable", "Fruit", "Grain", "Protein", "Dairy"].includes(type)
+      [
+        "Vegetable",
+        "Fruit",
+        "Grain",
+        "Protein",
+        "Dairy",
+        "Meat",
+        "Nut",
+      ].includes(type)
     ),
   ] as FoodType[];
 

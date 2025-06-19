@@ -10,7 +10,10 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 // Internal dependencies
 import { useFavorites } from "../hooks/useFavorites";
@@ -101,7 +104,7 @@ const FavoritesScreen = () => {
   const insets = useSafeAreaInsets();
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView style={styles.container} edges={["top"]}>
       <Text style={styles.title}>Your Favorites</Text>
 
       {isLoading ? (
