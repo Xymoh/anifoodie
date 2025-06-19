@@ -3,6 +3,10 @@ import React from "react";
 import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 // Internal dependencies
 import { RootStackParamList } from "../navigation/types";
@@ -17,8 +21,10 @@ const WelcomeScreen = () => {
     navigation.navigate("Main");
   };
 
+  const insets = useSafeAreaInsets();
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <Text style={styles.title}>Welcome to AniFood</Text>
@@ -92,7 +98,7 @@ const WelcomeScreen = () => {
       <Pressable style={styles.button} onPress={handleGetStarted}>
         <Text style={styles.buttonText}>Get Started</Text>
       </Pressable>
-    </View>
+    </SafeAreaView>
   );
 };
 

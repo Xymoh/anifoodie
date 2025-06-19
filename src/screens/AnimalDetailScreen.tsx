@@ -1,7 +1,17 @@
 // External dependencies
 import React from "react";
-import { StyleSheet, Text, View, SectionList } from "react-native";
-import { RouteProp } from "@react-navigation/native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SectionList,
+  TouchableOpacity,
+} from "react-native";
+import { RouteProp, useNavigation } from "@react-navigation/native";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
 // Internal dependencies
 import { RootStackParamList } from "../navigation/types";
@@ -27,6 +37,7 @@ interface SectionData {
 
 const AnimalDetailScreen = ({ route }: AnimalDetailScreenProps) => {
   const { animalName } = route.params;
+  const navigation = useNavigation();
   const foodData = getFoodsForAnimal(animalName);
 
   const sections: SectionData[] = [
@@ -50,11 +61,21 @@ const AnimalDetailScreen = ({ route }: AnimalDetailScreenProps) => {
     <FoodCard food={item} animalName={animalName} />
   );
 
+  const insets = useSafeAreaInsets();
+
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <AnimalIcon animal={animalName} size={32} />
-        <Text style={styles.title}>{animalName} Can Eat</Text>
+    <SafeAreaView style={styles.container} edges={["top"]}>
+      <View style={styles.headerContainer}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={styles.backButtonText}>←</Text>
+        </TouchableOpacity>
+        <View style={styles.header}>
+          <AnimalIcon animal={animalName} size={32} />
+          <Text style={styles.title}>{animalName} Can Eat</Text>
+        </View>
       </View>
       <SectionList
         sections={sections}
@@ -64,7 +85,7 @@ const AnimalDetailScreen = ({ route }: AnimalDetailScreenProps) => {
         contentContainerStyle={styles.listContent}
         stickySectionHeadersEnabled
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -72,6 +93,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+  },
+  headerContainer: {
+    position: "relative",
+    paddingHorizontal: spacing.md,
+    marginTop: spacing.md,
+  },
+  backButton: {
+    position: "absolute",
+    left: spacing.md,
+    top: spacing.sm,
+    zIndex: 10,
+    padding: spacing.sm,
+  },
+  backButtonText: {
+    fontSize: 24,
+    color: colors.textPrimary,
   },
   header: {
     flexDirection: "row",
