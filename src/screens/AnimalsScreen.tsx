@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 
 // Internal dependencies
 import { getAllAnimals } from "../data/data-utils";
@@ -112,8 +113,10 @@ const AnimalsScreen = () => {
     </TouchableOpacity>
   );
 
+  const insets = useSafeAreaInsets();
+  
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
       <Text style={styles.title}>Select an Animal</Text>
       <SearchBar
         value={searchQuery}
@@ -135,7 +138,7 @@ const AnimalsScreen = () => {
           </View>
         }
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

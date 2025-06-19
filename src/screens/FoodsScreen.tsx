@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { getFoodCategories, parseCSVData } from "../data/data-utils";
 import { RootStackParamList } from "../navigation/types";
 import { FoodItem } from "../types";
@@ -105,8 +106,10 @@ const FoodsScreen = () => {
     </TouchableOpacity>
   );
 
+  const insets = useSafeAreaInsets();
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
       <Text style={styles.title}>Select a Food</Text>
       <SearchBar
         value={searchQuery}
@@ -131,7 +134,7 @@ const FoodsScreen = () => {
           </View>
         }
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -139,6 +142,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f5f5f5",
+  },
+  content: {
+    flex: 1,
   },
   title: {
     fontSize: 24,

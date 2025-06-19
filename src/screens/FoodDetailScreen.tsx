@@ -2,6 +2,7 @@
 import React from "react";
 import { StyleSheet, Text, View, SectionList } from "react-native";
 import { RouteProp } from "@react-navigation/native";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 
 // Internal dependencies
 import { RootStackParamList } from "../navigation/types";
@@ -65,8 +66,10 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
     section: SectionData;
   }) => <AnimalCard animal={item} status={section.status} />;
 
+  const insets = useSafeAreaInsets();
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.header}>
         <FoodIcon category={foodName} size={36} />
         <Text style={styles.title}>{foodName}</Text>
@@ -86,7 +89,7 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
           ) : null
         }
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -10,11 +10,17 @@ import AnimalDetailScreen from "../screens/AnimalDetailScreen";
 import FoodDetailScreen from "../screens/FoodDetailScreen";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import FavoritesScreen from "../screens/FavoritesScreen";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 // Create the Animals Stack
 const AnimalsStack = createNativeStackNavigator<RootStackParamList>();
 const AnimalsStackScreen = () => (
-  <AnimalsStack.Navigator>
+  <AnimalsStack.Navigator
+    screenOptions={{
+      headerShadowVisible: false,
+      contentStyle: { backgroundColor: '#fff' },
+    }}
+  >
     <AnimalsStack.Screen
       name="Main"
       component={AnimalsScreen}
@@ -42,7 +48,12 @@ const AnimalsStackScreen = () => (
 // Create the Foods Stack
 const FoodsStack = createNativeStackNavigator<RootStackParamList>();
 const FoodsStackScreen = () => (
-  <FoodsStack.Navigator>
+  <FoodsStack.Navigator
+    screenOptions={{
+      headerShadowVisible: false,
+      contentStyle: { backgroundColor: '#fff' },
+    }}
+  >
     <FoodsStack.Screen
       name="Main"
       component={FoodsScreen}
@@ -70,7 +81,12 @@ const FoodsStackScreen = () => (
 // Create the Favorites Stack
 const FavoritesStack = createNativeStackNavigator<RootStackParamList>();
 const FavoritesStackScreen = () => (
-  <FavoritesStack.Navigator>
+  <FavoritesStack.Navigator
+    screenOptions={{
+      headerShadowVisible: false,
+      contentStyle: { backgroundColor: '#fff' },
+    }}
+  >
     <FavoritesStack.Screen
       name="Main"
       component={FavoritesScreen}
