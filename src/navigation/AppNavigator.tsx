@@ -1,24 +1,23 @@
 import React from "react";
 import { Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Stack, Tab, RootStackParamList, TabParamList } from "./types";
+
+import { Stack, Tab, RootStackParamList } from "./types";
 import AnimalsScreen from "../screens/AnimalsScreen";
 import FoodsScreen from "../screens/FoodsScreen";
 import AnimalDetailScreen from "../screens/AnimalDetailScreen";
 import FoodDetailScreen from "../screens/FoodDetailScreen";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import FavoritesScreen from "../screens/FavoritesScreen";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { colors, shadow } from "../styles";
 
-// Create the Animals Stack
 const AnimalsStack = createNativeStackNavigator<RootStackParamList>();
 const AnimalsStackScreen = () => (
   <AnimalsStack.Navigator
     screenOptions={{
       headerShadowVisible: false,
-      contentStyle: { backgroundColor: "#fff" },
+      contentStyle: { backgroundColor: colors.white },
     }}
   >
     <AnimalsStack.Screen
@@ -39,13 +38,12 @@ const AnimalsStackScreen = () => (
   </AnimalsStack.Navigator>
 );
 
-// Create the Foods Stack
 const FoodsStack = createNativeStackNavigator<RootStackParamList>();
 const FoodsStackScreen = () => (
   <FoodsStack.Navigator
     screenOptions={{
       headerShadowVisible: false,
-      contentStyle: { backgroundColor: "#fff" },
+      contentStyle: { backgroundColor: colors.white },
     }}
   >
     <FoodsStack.Screen
@@ -66,13 +64,12 @@ const FoodsStackScreen = () => (
   </FoodsStack.Navigator>
 );
 
-// Create the Favorites Stack
 const FavoritesStack = createNativeStackNavigator<RootStackParamList>();
 const FavoritesStackScreen = () => (
   <FavoritesStack.Navigator
     screenOptions={{
       headerShadowVisible: false,
-      contentStyle: { backgroundColor: "#fff" },
+      contentStyle: { backgroundColor: colors.white },
     }}
   >
     <FavoritesStack.Screen
@@ -93,26 +90,21 @@ const FavoritesStackScreen = () => (
   </FavoritesStack.Navigator>
 );
 
-// Main Tab Navigator
 const TabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: "#3498db",
-        tabBarInactiveTintColor: "#95a5a6",
+        tabBarActiveTintColor: colors.tabActive,
+        tabBarInactiveTintColor: colors.tabInactive,
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: "500",
         },
         tabBarStyle: {
-          backgroundColor: "#ffffff",
+          backgroundColor: colors.white,
           borderTopWidth: 1,
-          borderTopColor: "#ecf0f1",
-          elevation: 8,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: -2 },
-          shadowOpacity: 0.1,
-          shadowRadius: 3,
+          borderTopColor: colors.gray200,
+          ...shadow.tab,
         },
         headerShown: false,
       }}
@@ -151,7 +143,6 @@ const TabNavigator = () => {
   );
 };
 
-// Root Stack Navigator
 const AppNavigator = () => {
   return (
     <NavigationContainer>

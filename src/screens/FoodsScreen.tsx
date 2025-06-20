@@ -12,12 +12,14 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
+
 import { getFoodCategories, parseCSVData } from "../data/data-utils";
 import { RootStackParamList } from "../navigation/types";
 import { FoodItem } from "../types";
 import SearchBar from "../components/SearchBar";
 import FoodIcon from "../components/FoodIcon";
 import FoodTypeFilter, { FoodType } from "../components/FoodTypeFilter";
+import { colors, spacing, typography, shadow } from "../styles";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Main">;
 
@@ -176,67 +178,63 @@ const FoodsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: colors.background,
   },
   content: {
     flex: 1,
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: typography.fontSize.title,
+    fontWeight: typography.fontWeight.bold as "700",
     textAlign: "center",
-    marginVertical: 20,
-    color: "#2c3e50",
+    marginVertical: spacing.sectionMargin,
+    color: colors.textPrimary,
   },
   listContent: {
-    padding: 16,
+    padding: spacing.md,
   },
   sectionHeader: {
-    backgroundColor: "#ecf0f1",
-    padding: 10,
-    borderRadius: 8,
-    marginBottom: 8,
+    backgroundColor: colors.gray200,
+    padding: spacing.sm + 2,
+    borderRadius: spacing.radiusMedium,
+    marginBottom: spacing.sm,
   },
   sectionTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#2c3e50",
+    fontSize: typography.fontSize.xl,
+    fontWeight: typography.fontWeight.bold as "700",
+    color: colors.textPrimary,
   },
   sectionSubtitle: {
-    fontSize: 16,
-    color: "#7f8c8d",
-    marginTop: 4,
+    fontSize: typography.fontSize.regular,
+    color: colors.textSecondary,
+    marginTop: spacing.xs,
   },
   foodItem: {
-    backgroundColor: "white",
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 12,
-    marginLeft: 8,
-    elevation: 2,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
+    backgroundColor: colors.card,
+    padding: spacing.md,
+    borderRadius: spacing.radiusMedium,
+    marginBottom: spacing.itemMargin,
+    marginLeft: spacing.sm,
+    ...shadow.small,
   },
   foodRow: {
     flexDirection: "row",
     alignItems: "center",
   },
   foodName: {
-    fontSize: 18,
-    fontWeight: "500",
-    color: "#2c3e50",
-    marginLeft: 12,
+    fontSize: typography.fontSize.large,
+    fontWeight: typography.fontWeight.medium as "500",
+    color: colors.textPrimary,
+    marginLeft: spacing.sm + 4,
   },
   emptyContainer: {
-    padding: 20,
+    padding: spacing.lg,
     alignItems: "center",
     justifyContent: "center",
   },
   emptyText: {
-    fontSize: 16,
-    color: "#7f8c8d",
+    fontSize: typography.fontSize.regular,
+    color: colors.textSecondary,
     textAlign: "center",
   },
 });

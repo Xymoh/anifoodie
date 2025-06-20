@@ -2,6 +2,7 @@ import React from "react";
 import { Text, StyleSheet } from "react-native";
 
 import { AnimalName } from "../types";
+import { spacing } from "../styles";
 
 interface AnimalIconProps {
   animal: AnimalName;
@@ -89,7 +90,7 @@ const AnimalIcon = ({ animal, size = 24 }: AnimalIconProps) => {
 
 const styles = StyleSheet.create({
   icon: {
-    marginRight: 8,
+    marginRight: spacing.sm,
   },
 });
 

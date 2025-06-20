@@ -1,8 +1,8 @@
 import { parse } from 'papaparse';
+
 import { csvData } from './csv-data';
 import { AnimalName, CompatibilityStatus, FoodItem, FilteredResults } from '../types';
 
-// Parse the CSV data
 export const parseCSVData = (): FoodItem[] => {
   try {
     const result = parse(csvData, {
@@ -30,17 +30,14 @@ export const parseCSVData = (): FoodItem[] => {
   }
 };
 
-// Get all unique animals from the data
 export const getAllAnimals = (): AnimalName[] => {
   const data = parseCSVData();
   if (data.length === 0) return [];
-  
-  // Get all keys from the first row's compatibility object
+
   const animalNames = Object.keys(data[0].compatibility) as AnimalName[];
   return animalNames;
 };
 
-// Get all unique food types and categories
 export const getFoodCategories = (): { type: string; categories: string[] }[] => {
   const data = parseCSVData();
   const typeCategories: Record<string, Set<string>> = {};
@@ -58,7 +55,6 @@ export const getFoodCategories = (): { type: string; categories: string[] }[] =>
   }));
 };
 
-// Filter foods by animal
 export const getFoodsForAnimal = (animalName: AnimalName): FilteredResults => {
   const data = parseCSVData();
   const filtered: FilteredResults = {
@@ -82,7 +78,6 @@ export const getFoodsForAnimal = (animalName: AnimalName): FilteredResults => {
   return filtered;
 };
 
-// Filter animals by food
 export const getAnimalsForFood = (foodItem: string): Record<CompatibilityStatus, AnimalName[]> => {
   const data = parseCSVData();
   const result: Record<CompatibilityStatus, AnimalName[]> = {
