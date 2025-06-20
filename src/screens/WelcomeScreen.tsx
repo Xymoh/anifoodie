@@ -65,13 +65,19 @@ const WelcomeScreen = () => {
           <Text style={styles.sectionTitle}>Color Key</Text>
           <View style={styles.colorKey}>
             <View
-              style={[styles.colorIndicator, { backgroundColor: "#2ecc71" }]}
+              style={[
+                styles.colorIndicator,
+                { backgroundColor: colors.success },
+              ]}
             />
             <Text style={styles.colorKeyText}>Safe to eat</Text>
           </View>
           <View style={styles.colorKey}>
             <View
-              style={[styles.colorIndicator, { backgroundColor: "#f39c12" }]}
+              style={[
+                styles.colorIndicator,
+                { backgroundColor: colors.statusAcceptable },
+              ]}
             />
             <Text style={styles.colorKeyText}>
               Acceptable in small quantities
@@ -79,7 +85,10 @@ const WelcomeScreen = () => {
           </View>
           <View style={styles.colorKey}>
             <View
-              style={[styles.colorIndicator, { backgroundColor: "#e74c3c" }]}
+              style={[
+                styles.colorIndicator,
+                { backgroundColor: colors.statusNotAllowed },
+              ]}
             />
             <Text style={styles.colorKeyText}>Not allowed - unsafe</Text>
           </View>

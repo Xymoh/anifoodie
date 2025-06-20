@@ -262,8 +262,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   sectionHeader: {
-    backgroundColor: colors.background || "#f0f0f0",
-    padding: 10,
+    backgroundColor: colors.background,
+    padding: spacing.sm + 2,
     borderRadius: 8,
     marginBottom: 8,
   },

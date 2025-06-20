@@ -4,53 +4,53 @@
  */
 export const colors = {
   // Primary colors
-  primary: '#3498db',
-  primaryDark: '#2980b9',
-  primaryLight: '#5dade2',
+  primary: '#0099CC',
+  primaryDark: '#007799',
+  primaryLight: '#33BBEE',
 
   // Secondary colors
-  secondary: '#f1c40f',
-  secondaryDark: '#f39c12',
-  secondaryLight: '#f9e79f',
+  secondary: '#FF00FF',
+  secondaryDark: '#CC00FF',
+  secondaryLight: '#FF80FF',
 
   // Status colors
-  success: '#2ecc71',
-  warning: '#f39c12',
-  error: '#e74c3c',
-  info: '#3498db',
+  success: '#00CC66',
+  warning: '#E6B800',
+  error: '#E63358',
+  info: '#0099CC',
 
   // Neutral colors
   white: '#ffffff',
   black: '#000000',
   
   // Grays
-  gray100: '#f5f5f5',
-  gray200: '#ecf0f1',
-  gray300: '#dde4e6',
-  gray400: '#bdc3c7',
-  gray500: '#95a5a6',
-  gray600: '#7f8c8d',
-  gray700: '#34495e',
-  gray800: '#2c3e50',
-  gray900: '#1a2530',
+  gray100: '#0A0A0A',
+  gray200: '#1A1A1A',
+  gray300: '#2C2C2C',
+  gray400: '#444444',
+  gray500: '#777777',
+  gray600: '#999999',
+  gray700: '#CCCCCC',
+  gray800: '#E6E6E6',
+  gray900: '#FAFAFA',
 
   // Transparent colors
   transparent: 'transparent',
-  semiTransparent: 'rgba(0, 0, 0, 0.1)',
+  semiTransparent: 'rgba(0, 0, 0, 0.5)',
 };
 
 // Semantic color assignments
 export const semanticColors = {
   // Text
-  textPrimary: colors.gray800,
-  textSecondary: colors.gray600,
-  textMuted: colors.gray500,
+  textPrimary: colors.gray900,
+  textSecondary: colors.gray700,
+  textMuted: colors.gray600,
   textLight: colors.white,
 
   // Backgrounds
   background: colors.gray100,
-  card: colors.white,
-  header: colors.white,
+  card: colors.gray200,
+  header: colors.gray100,
 
   // Status indicators
   statusAllowed: colors.success,

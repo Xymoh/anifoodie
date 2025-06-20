@@ -6,6 +6,7 @@ import {
   View,
   ScrollView,
 } from "react-native";
+import { colors, spacing, typography } from "../styles";
 
 export type FoodType =
   | "All"
@@ -77,28 +78,28 @@ const FoodTypeFilter = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 8,
+    marginVertical: spacing.sm,
   },
   scrollContent: {
-    paddingHorizontal: 16,
+    paddingHorizontal: spacing.md,
   },
   typeButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 20,
-    marginRight: 8,
-    backgroundColor: "#f0f0f0",
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    borderRadius: spacing.radiusRound,
+    marginRight: spacing.sm,
+    backgroundColor: colors.gray200,
   },
   selectedType: {
-    backgroundColor: "#3498db",
+    backgroundColor: colors.primary,
   },
   typeText: {
-    fontSize: 14,
-    fontWeight: "500",
-    color: "#34495e",
+    fontSize: typography.fontSize.medium,
+    fontWeight: typography.fontWeight.medium as "500",
+    color: colors.textPrimary,
   },
   selectedTypeText: {
-    color: "#ffffff",
+    color: colors.white,
   },
 });
 
