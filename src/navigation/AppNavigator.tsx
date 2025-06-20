@@ -17,7 +17,7 @@ const AnimalsStackScreen = () => (
   <AnimalsStack.Navigator
     screenOptions={{
       headerShadowVisible: false,
-      contentStyle: { backgroundColor: colors.white },
+      contentStyle: { backgroundColor: colors.background },
     }}
   >
     <AnimalsStack.Screen
@@ -43,7 +43,7 @@ const FoodsStackScreen = () => (
   <FoodsStack.Navigator
     screenOptions={{
       headerShadowVisible: false,
-      contentStyle: { backgroundColor: colors.white },
+      contentStyle: { backgroundColor: colors.background },
     }}
   >
     <FoodsStack.Screen
@@ -69,7 +69,7 @@ const FavoritesStackScreen = () => (
   <FavoritesStack.Navigator
     screenOptions={{
       headerShadowVisible: false,
-      contentStyle: { backgroundColor: colors.white },
+      contentStyle: { backgroundColor: colors.background },
     }}
   >
     <FavoritesStack.Screen
@@ -99,11 +99,12 @@ const TabNavigator = () => {
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: "500",
+          color: colors.gray800,
         },
         tabBarStyle: {
-          backgroundColor: colors.white,
+          backgroundColor: colors.gray200,
           borderTopWidth: 1,
-          borderTopColor: colors.gray200,
+          borderTopColor: colors.gray300,
           ...shadow.tab,
         },
         headerShown: false,
