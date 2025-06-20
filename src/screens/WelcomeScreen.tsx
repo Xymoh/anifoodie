@@ -11,13 +11,16 @@ import {
 // Internal dependencies
 import { RootStackParamList } from "../navigation/types";
 import { colors, spacing, typography, shadow } from "../styles";
+import { useOnboarding } from "../hooks/useOnboarding";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Welcome">;
 
 const WelcomeScreen = () => {
   const navigation = useNavigation<NavigationProp>();
+  const { setWelcomeScreenAsViewed } = useOnboarding();
 
-  const handleGetStarted = () => {
+  const handleUnderstand = () => {
+    setWelcomeScreenAsViewed();
     navigation.navigate("Main");
   };
 
@@ -104,8 +107,8 @@ const WelcomeScreen = () => {
         </View>
       </ScrollView>
 
-      <Pressable style={styles.button} onPress={handleGetStarted}>
-        <Text style={styles.buttonText}>Get Started</Text>
+      <Pressable style={styles.button} onPress={handleUnderstand}>
+        <Text style={styles.buttonText}>I Understand</Text>
       </Pressable>
     </SafeAreaView>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text, ActivityIndicator, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -11,6 +11,7 @@ import FoodDetailScreen from "../screens/FoodDetailScreen";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import FavoritesScreen from "../screens/FavoritesScreen";
 import { colors, shadow } from "../styles";
+import { useOnboarding } from "../hooks/useOnboarding";
 
 const AnimalsStack = createNativeStackNavigator<RootStackParamList>();
 const AnimalsStackScreen = () => (
@@ -145,9 +146,29 @@ const TabNavigator = () => {
 };
 
 const AppNavigator = () => {
+  const { hasViewedWelcomeScreen, isLoading } = useOnboarding();
+
+  // Show loading spinner while checking if user has seen welcome screen
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: colors.background,
+        }}
+      >
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
+    );
+  }
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Welcome">
+      <Stack.Navigator
+        initialRouteName={hasViewedWelcomeScreen ? "Main" : "Welcome"}
+      >
         <Stack.Screen
           name="Welcome"
           component={WelcomeScreen}
