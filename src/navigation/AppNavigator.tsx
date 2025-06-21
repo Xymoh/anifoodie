@@ -1,5 +1,5 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text, ActivityIndicator, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -10,7 +10,11 @@ import AnimalDetailScreen from "../screens/AnimalDetailScreen";
 import FoodDetailScreen from "../screens/FoodDetailScreen";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import FavoritesScreen from "../screens/FavoritesScreen";
+import SettingsScreen from "../screens/SettingsScreen";
 import { colors, shadow } from "../styles";
+import { useOnboarding } from "../hooks/useOnboarding";
+import { useLanguage } from "../hooks/useLanguage";
+import { useTranslations } from "../i18n/translations";
 
 const AnimalsStack = createNativeStackNavigator<RootStackParamList>();
 const AnimalsStackScreen = () => (
@@ -90,7 +94,26 @@ const FavoritesStackScreen = () => (
   </FavoritesStack.Navigator>
 );
 
+const SettingsStack = createNativeStackNavigator<RootStackParamList>();
+const SettingsStackScreen = () => (
+  <SettingsStack.Navigator
+    screenOptions={{
+      headerShadowVisible: false,
+      contentStyle: { backgroundColor: colors.background },
+    }}
+  >
+    <SettingsStack.Screen
+      name="Main"
+      component={SettingsScreen}
+      options={{ headerShown: false }}
+    />
+  </SettingsStack.Navigator>
+);
+
 const TabNavigator = () => {
+  const { language } = useLanguage();
+  const { t } = useTranslations(language);
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -114,7 +137,7 @@ const TabNavigator = () => {
         name="Animals"
         component={AnimalsStackScreen}
         options={{
-          tabBarLabel: "Animals",
+          tabBarLabel: t("animals"),
           tabBarIcon: ({ color, size }) => (
             <Text style={{ color, fontSize: size }}>🐶</Text>
           ),
@@ -124,7 +147,7 @@ const TabNavigator = () => {
         name="Foods"
         component={FoodsStackScreen}
         options={{
-          tabBarLabel: "Foods",
+          tabBarLabel: t("foods"),
           tabBarIcon: ({ color, size }) => (
             <Text style={{ color, fontSize: size }}>🍎</Text>
           ),
@@ -134,9 +157,19 @@ const TabNavigator = () => {
         name="Favorites"
         component={FavoritesStackScreen}
         options={{
-          tabBarLabel: "Favorites",
+          tabBarLabel: t("favorites"),
           tabBarIcon: ({ color, size }) => (
             <Text style={{ color, fontSize: size }}>⭐</Text>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingsStackScreen}
+        options={{
+          tabBarLabel: t("settings"),
+          tabBarIcon: ({ color, size }) => (
+            <Text style={{ color, fontSize: size }}>⚙️</Text>
           ),
         }}
       />
@@ -145,9 +178,29 @@ const TabNavigator = () => {
 };
 
 const AppNavigator = () => {
+  const { hasViewedWelcomeScreen, isLoading } = useOnboarding();
+
+  // Show loading spinner while checking if user has seen welcome screen
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: colors.background,
+        }}
+      >
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
+    );
+  }
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Welcome">
+      <Stack.Navigator
+        initialRouteName={hasViewedWelcomeScreen ? "Main" : "Welcome"}
+      >
         <Stack.Screen
           name="Welcome"
           component={WelcomeScreen}

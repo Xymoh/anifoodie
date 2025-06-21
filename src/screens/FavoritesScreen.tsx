@@ -1,31 +1,27 @@
-// External dependencies
 import React from "react";
 import {
   View,
   Text,
   StyleSheet,
-  FlatList,
   TouchableOpacity,
   SectionList,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-// Internal dependencies
 import { useFavorites } from "../hooks/useFavorites";
 import { RootStackParamList } from "../navigation/types";
 import { parseCSVData } from "../data/data-utils";
 import { FoodItem, AnimalName } from "../types";
 import { colors, spacing, typography, shadow } from "../styles";
+import { useLanguage } from "../hooks/useLanguage";
+import { useTranslations } from "../i18n/translations";
 
-// Components
 import AnimalIcon from "../components/AnimalIcon";
 import FoodIcon from "../components/FoodIcon";
 import LoadingIndicator from "../components/LoadingIndicator";
+import TranslatedText from "../components/TranslatedText";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Main">;
 
@@ -39,6 +35,8 @@ const FavoritesScreen = () => {
   const navigation = useNavigation<NavigationProp>();
   const { favoriteAnimals, favoriteFoods, isLoading } = useFavorites();
   const allFoods = parseCSVData();
+  const { language } = useLanguage();
+  const { t } = useTranslations(language);
 
   // Get full food objects for favorite foods
   const favoriteFoodItems = allFoods.filter((food) =>
@@ -46,8 +44,8 @@ const FavoritesScreen = () => {
   );
 
   const sections: Section[] = [
-    { title: "Favorite Animals", data: favoriteAnimals, type: "animal" },
-    { title: "Favorite Foods", data: favoriteFoodItems, type: "food" },
+    { title: t("favoriteAnimals"), data: favoriteAnimals, type: "animal" },
+    { title: t("favoriteFoods"), data: favoriteFoodItems, type: "food" },
   ];
 
   const handleAnimalPress = (animalName: AnimalName) => {
@@ -94,18 +92,17 @@ const FavoritesScreen = () => {
 
   const renderEmptyList = () => (
     <View style={styles.emptyContainer}>
-      <Text style={styles.emptyText}>You haven't added any favorites yet.</Text>
-      <Text style={styles.emptySubtext}>
-        Tap the star icon on any animal or food to add it to your favorites.
-      </Text>
+      <TranslatedText style={styles.emptyText} translationKey="noFavorites" />
+      <TranslatedText
+        style={styles.emptySubtext}
+        translationKey="addFavorites"
+      />
     </View>
   );
 
-  const insets = useSafeAreaInsets();
-
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
-      <Text style={styles.title}>Your Favorites</Text>
+      <TranslatedText style={styles.title} translationKey="favorites" />
 
       {isLoading ? (
         <LoadingIndicator message="Loading your favorites..." />

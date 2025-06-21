@@ -1,4 +1,3 @@
-// External dependencies
 import React from "react";
 import {
   StyleSheet,
@@ -13,17 +12,18 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 
-// Internal dependencies
 import { RootStackParamList } from "../navigation/types";
 import { getFoodsForAnimal } from "../data/data-utils";
 import { FoodItem } from "../types";
 import { colors, spacing, typography, shadow } from "../styles";
 
-// Components
 import CompatibilityIndicator from "../components/CompatibilityIndicator";
-import FoodIcon from "../components/FoodIcon";
 import AnimalIcon from "../components/AnimalIcon";
 import FoodCard from "../components/FoodCard";
+import { useLanguage } from "../hooks/useLanguage";
+import { useTranslations } from "../i18n/translations";
+import { useDynamicTranslations } from "../hooks/useDynamicTranslations";
+import TranslatedText from "../components/TranslatedText";
 
 type AnimalDetailScreenProps = {
   route: RouteProp<RootStackParamList, "AnimalDetail">;
@@ -39,15 +39,22 @@ const AnimalDetailScreen = ({ route }: AnimalDetailScreenProps) => {
   const { animalName } = route.params;
   const navigation = useNavigation();
   const foodData = getFoodsForAnimal(animalName);
+  const { language } = useLanguage();
+  const { t } = useTranslations(language);
+  const { translateAnimal } = useDynamicTranslations();
 
   const sections: SectionData[] = [
-    { title: "Allowed Foods", data: foodData.allowed, status: "allowed" },
+    { title: t("allowedFoods"), data: foodData.allowed, status: "allowed" },
     {
-      title: "Acceptable in Small Quantities",
+      title: t("acceptableFoods"),
       data: foodData.acceptable,
       status: "acceptable in small quantities",
     },
-    { title: "Not Allowed", data: foodData.notAllowed, status: "not allowed" },
+    {
+      title: t("notAllowedFoods"),
+      data: foodData.notAllowed,
+      status: "not allowed",
+    },
   ];
 
   const renderSectionHeader = ({ section }: { section: SectionData }) => (
@@ -74,7 +81,9 @@ const AnimalDetailScreen = ({ route }: AnimalDetailScreenProps) => {
         </TouchableOpacity>
         <View style={styles.header}>
           <AnimalIcon animal={animalName} size={32} />
-          <Text style={styles.title}>{animalName} Can Eat</Text>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text style={styles.title}>{translateAnimal(animalName)} </Text>
+          </View>
         </View>
       </View>
       <SectionList

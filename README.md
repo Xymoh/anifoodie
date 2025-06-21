@@ -9,6 +9,7 @@ AniFood is a mobile application built with Expo and React Native that helps user
 - **Favorites**: Save your most frequently checked animals and foods for quick access.
 - **Comprehensive Database**: Built on a detailed CSV dataset with compatibility information for various animals and foods.
 - **User-Friendly Interface**: Intuitive navigation and visual indicators for food compatibility status.
+- **Multilingual Support**: Available in English, Spanish, French, and German with language preferences saved between sessions.
 
 ## Compatibility Status Indicators
 
@@ -56,9 +57,10 @@ npm start
 - React Native
 - Expo
 - React Navigation
-- AsyncStorage for persistent favorites
+- AsyncStorage for persistent favorites and settings
 - TypeScript
 - PapaParse for CSV data handling
+- Custom i18n system for multilingual support
 
 ## Project Structure
 
@@ -68,6 +70,7 @@ npm start
 - `/src/data`: Data utilities and CSV dataset
 - `/src/hooks`: Custom React hooks
 - `/src/types`: TypeScript type definitions
+- `/src/i18n`: Translation system and language files
 
 ## License
 

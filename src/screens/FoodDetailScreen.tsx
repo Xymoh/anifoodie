@@ -1,4 +1,3 @@
-// External dependencies
 import React from "react";
 import {
   StyleSheet,
@@ -8,22 +7,20 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { RouteProp, useNavigation } from "@react-navigation/native";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-// Internal dependencies
 import { RootStackParamList } from "../navigation/types";
 import { getAnimalsForFood } from "../data/data-utils";
 import { AnimalName, CompatibilityStatus } from "../types";
 import { colors, spacing, typography, shadow } from "../styles";
 
-// Components
 import CompatibilityIndicator from "../components/CompatibilityIndicator";
-import AnimalIcon from "../components/AnimalIcon";
 import FoodIcon from "../components/FoodIcon";
 import AnimalCard from "../components/AnimalCard";
+import { useLanguage } from "../hooks/useLanguage";
+import { useTranslations } from "../i18n/translations";
+import { useDynamicTranslations } from "../hooks/useDynamicTranslations";
+import TranslatedText from "../components/TranslatedText";
 
 type FoodDetailScreenProps = {
   route: RouteProp<RootStackParamList, "FoodDetail">;
@@ -39,15 +36,18 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
   const { foodName } = route.params;
   const navigation = useNavigation();
   const animalData = getAnimalsForFood(foodName);
+  const { language } = useLanguage();
+  const { t } = useTranslations(language);
+  const { translateFood } = useDynamicTranslations();
 
   const sections: SectionData[] = [
     {
-      title: "Animals that can eat this food",
+      title: t("animalsThatCanEat"),
       data: animalData["allowed"],
       status: "allowed",
     },
     {
-      title: "Animals that can eat this food in small quantities",
+      title: t("animalsThatCanEatSmallQuantities"),
       data: [
         ...animalData["acceptable in small quantities"],
         ...animalData["acceptable in small quantities (boiled)"],
@@ -55,7 +55,7 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
       status: "acceptable in small quantities",
     },
     {
-      title: "Animals that cannot eat this food",
+      title: t("animalsThatCannotEat"),
       data: animalData["not allowed"],
       status: "not allowed",
     },
@@ -76,8 +76,6 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
     section: SectionData;
   }) => <AnimalCard animal={item} status={section.status} />;
 
-  const insets = useSafeAreaInsets();
-
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
       <View style={styles.headerContainer}>
@@ -89,7 +87,7 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
         </TouchableOpacity>
         <View style={styles.header}>
           <FoodIcon category={foodName} size={36} />
-          <Text style={styles.title}>{foodName}</Text>
+          <Text style={styles.title}>{translateFood(foodName)}</Text>
         </View>
       </View>
       <SectionList
@@ -102,7 +100,10 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
         renderSectionFooter={({ section }) =>
           section.data.length === 0 ? (
             <View style={styles.emptySection}>
-              <Text style={styles.emptyText}>No animals in this category</Text>
+              <TranslatedText
+                style={styles.emptyText}
+                translationKey="noAnimalsInCategory"
+              />
             </View>
           ) : null
         }
