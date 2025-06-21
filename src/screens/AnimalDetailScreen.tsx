@@ -83,7 +83,6 @@ const AnimalDetailScreen = ({ route }: AnimalDetailScreenProps) => {
           <AnimalIcon animal={animalName} size={32} />
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text style={styles.title}>{translateAnimal(animalName)} </Text>
-            <TranslatedText style={styles.title} translationKey="canEat" />
           </View>
         </View>
       </View>
