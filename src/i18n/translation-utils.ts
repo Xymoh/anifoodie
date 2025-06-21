@@ -13,7 +13,6 @@ import fs from 'fs';
 import { Language } from '../hooks/useLanguage';
 import { TranslationKey, getTranslation } from './translations';
 
-// Check if all keys are present in all languages
 export const checkMissingTranslations = () => {
   const languages: Language[] = ['en', 'es', 'fr', 'de', 'it', 'ru'];
   const allKeys = Object.keys(require('./translations').translations.en) as TranslationKey[];
@@ -43,7 +42,6 @@ export const checkMissingTranslations = () => {
   return missing;
 };
 
-// Create a new language template
 export const createLanguageTemplate = (targetLang: string) => {
   if (!targetLang || targetLang.length !== 2) {
     console.error('Invalid language code. Please use a 2-letter ISO code (e.g., "it" for Italian)');

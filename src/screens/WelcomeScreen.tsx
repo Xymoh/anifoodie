@@ -1,5 +1,12 @@
 import React from "react";
-import { View, StyleSheet, ScrollView, Pressable } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+  Image,
+  Text,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -10,7 +17,6 @@ import { useOnboarding } from "../hooks/useOnboarding";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTranslations } from "../i18n/translations";
 import TranslatedText from "../components/TranslatedText";
-import { Text } from "react-native";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Welcome">;
 
@@ -49,7 +55,11 @@ const WelcomeScreen = () => {
 
         <View style={styles.featureSection}>
           <View style={styles.feature}>
-            <Text style={styles.emoji}>🐶</Text>
+            <Image
+              source={require("../../assets/animals/dog.png")}
+              style={styles.featureImage}
+              resizeMode="contain"
+            />
             <TranslatedText
               style={styles.featureTitle}
               translationKey="searchByAnimal"
@@ -189,6 +199,12 @@ const styles = StyleSheet.create({
   },
   emoji: {
     fontSize: typography.fontSize.huge + 8,
+    marginBottom: spacing.sm + 2,
+  },
+  featureImage: {
+    width: 45,
+    height: 45,
+    alignSelf: "flex-start",
     marginBottom: spacing.sm + 2,
   },
   featureTitle: {
