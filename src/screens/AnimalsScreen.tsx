@@ -1,4 +1,3 @@
-// External dependencies
 import React, { useState, useMemo } from "react";
 import {
   SectionList,
@@ -14,13 +13,13 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 
-// Internal dependencies
 import { getAllAnimals } from "../data/data-utils";
 import { RootStackParamList } from "../navigation/types";
 import { AnimalName } from "../types";
 import { colors, spacing, typography, shadow } from "../styles";
-
-// Components
+import { useLanguage } from "../hooks/useLanguage";
+import { useTranslations } from "../i18n/translations";
+import TranslatedText from "../components/TranslatedText";
 import SearchBar from "../components/SearchBar";
 import AnimalIcon from "../components/AnimalIcon";
 import AnimalCategoryFilter, {
@@ -40,6 +39,8 @@ const AnimalsScreen = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] =
     useState<AnimalCategory>("All");
+  const { language } = useLanguage();
+  const { t } = useTranslations(language);
 
   const getAnimalCategory = (animal: AnimalName): AnimalCategory => {
     const mammals = [
@@ -183,7 +184,17 @@ const AnimalsScreen = () => {
 
   const renderSectionHeader = ({ section }: { section: AnimalSection }) => (
     <View style={styles.sectionHeader}>
-      <Text style={styles.sectionTitle}>{section.title}</Text>
+      <TranslatedText
+        style={styles.sectionTitle}
+        translationKey={
+          section.title.toLowerCase() as
+            | "mammals"
+            | "birds"
+            | "reptiles"
+            | "amphibians"
+            | "fish"
+        }
+      />
     </View>
   );
 
@@ -191,11 +202,11 @@ const AnimalsScreen = () => {
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
-      <Text style={styles.title}>Select an Animal</Text>
+      <TranslatedText style={styles.title} translationKey="selectAnAnimal" />
       <SearchBar
         value={searchQuery}
         onChangeText={setSearchQuery}
-        placeholder="Search by animal name or category..."
+        placeholder={t("searchByAnimalOrCategory")}
       />
       <AnimalCategoryFilter
         selectedCategory={selectedCategory}
@@ -210,7 +221,10 @@ const AnimalsScreen = () => {
         stickySectionHeadersEnabled
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>No animals found</Text>
+            <TranslatedText
+              style={styles.emptyText}
+              translationKey="noAnimalsFound"
+            />
           </View>
         }
       />

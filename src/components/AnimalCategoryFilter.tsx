@@ -1,12 +1,10 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, TouchableOpacity, View, ScrollView } from "react-native";
+
 import { colors, spacing, typography } from "../styles";
+import { useLanguage } from "../hooks/useLanguage";
+import { useTranslations } from "../i18n/translations";
+import TranslatedText from "./TranslatedText";
 
 export type AnimalCategory =
   | "All"
@@ -34,6 +32,20 @@ const AnimalCategoryFilter = ({
     "Fish",
   ];
 
+  const { language } = useLanguage();
+  const { t } = useTranslations(language);
+
+  // Map category to translation key
+  const getCategoryTranslationKey = (category: AnimalCategory) => {
+    if (category === "All") return "allAnimals";
+    return category.toLowerCase() as
+      | "mammals"
+      | "birds"
+      | "reptiles"
+      | "amphibians"
+      | "fish";
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -50,14 +62,13 @@ const AnimalCategoryFilter = ({
             ]}
             onPress={() => onSelectCategory(category)}
           >
-            <Text
+            <TranslatedText
               style={[
                 styles.categoryText,
                 selectedCategory === category && styles.selectedCategoryText,
               ]}
-            >
-              {category}
-            </Text>
+              translationKey={getCategoryTranslationKey(category)}
+            />
           </TouchableOpacity>
         ))}
       </ScrollView>

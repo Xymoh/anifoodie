@@ -20,6 +20,9 @@ import SearchBar from "../components/SearchBar";
 import FoodIcon from "../components/FoodIcon";
 import FoodTypeFilter, { FoodType } from "../components/FoodTypeFilter";
 import { colors, spacing, typography, shadow } from "../styles";
+import { useLanguage } from "../hooks/useLanguage";
+import { useTranslations } from "../i18n/translations";
+import TranslatedText from "../components/TranslatedText";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Main">;
 
@@ -34,6 +37,8 @@ const FoodsScreen = () => {
   const allFoods = parseCSVData();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState<FoodType>("All");
+  const { language } = useLanguage();
+  const { t } = useTranslations(language);
 
   // Get all available food types
   const availableFoodTypes = useMemo(() => {
@@ -145,11 +150,11 @@ const FoodsScreen = () => {
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
-      <Text style={styles.title}>Select a Food</Text>
+      <TranslatedText style={styles.title} translationKey="selectAFood" />
       <SearchBar
         value={searchQuery}
         onChangeText={setSearchQuery}
-        placeholder="Search foods or food types..."
+        placeholder={t("searchFoodsOrTypes")}
       />
       <FoodTypeFilter
         selectedType={selectedType}
@@ -167,7 +172,10 @@ const FoodsScreen = () => {
         stickySectionHeadersEnabled
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>No foods found</Text>
+            <TranslatedText
+              style={styles.emptyText}
+              translationKey="noFoodsFound"
+            />
           </View>
         }
       />

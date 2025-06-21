@@ -1,12 +1,10 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, TouchableOpacity, View, ScrollView } from "react-native";
+
 import { colors, spacing, typography } from "../styles";
+import { useLanguage } from "../hooks/useLanguage";
+import { useTranslations } from "../i18n/translations";
+import TranslatedText from "./TranslatedText";
 
 export type FoodType =
   | "All"
@@ -29,6 +27,9 @@ const FoodTypeFilter = ({
   onSelectType,
   availableTypes,
 }: FoodTypeFilterProps) => {
+  const { language } = useLanguage();
+  const { t } = useTranslations(language);
+
   // Convert all available food types to proper format for the filter
   const types: FoodType[] = [
     "All",
@@ -44,6 +45,18 @@ const FoodTypeFilter = ({
       ].includes(type)
     ),
   ] as FoodType[];
+
+  // Helper function to get translation key for food type
+  const getFoodTypeTranslationKey = (type: FoodType): string => {
+    if (type === "All") return "allFoods";
+    if (type === "Fruit") return "fruits";
+    if (type === "Vegetable") return "vegetables";
+    if (type === "Dairy") return "dairy";
+    if (type === "Grain") return "grains";
+    if (type === "Meat") return "meat";
+    if (type === "Nut") return "nuts";
+    return type.toLowerCase(); // Fallback
+  };
 
   return (
     <View style={styles.container}>
@@ -61,14 +74,13 @@ const FoodTypeFilter = ({
             ]}
             onPress={() => onSelectType(type)}
           >
-            <Text
+            <TranslatedText
               style={[
                 styles.typeText,
                 selectedType === type && styles.selectedTypeText,
               ]}
-            >
-              {type}
-            </Text>
+              translationKey={getFoodTypeTranslationKey(type) as any}
+            />
           </TouchableOpacity>
         ))}
       </ScrollView>

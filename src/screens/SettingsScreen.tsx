@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -8,9 +8,11 @@ import {
   SafeAreaView,
   StatusBar,
 } from "react-native";
+
 import { useLanguage, Language } from "../hooks/useLanguage";
 import { useTranslations } from "../i18n/translations";
 import { colors } from "../styles";
+import TranslatedText from "../components/TranslatedText";
 
 const SettingsScreen = () => {
   const { language, setLanguage } = useLanguage();
@@ -19,12 +21,10 @@ const SettingsScreen = () => {
   // App version from package.json
   const appVersion = "1.0.0";
 
-  // Handle language selection
   const handleLanguageChange = async (newLanguage: Language) => {
     await setLanguage(newLanguage);
   };
 
-  // Language options
   const languages: { label: string; value: Language }[] = [
     { label: t("english"), value: "en" },
     { label: t("spanish"), value: "es" },
@@ -36,12 +36,18 @@ const SettingsScreen = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" />
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>{t("settingsTitle")}</Text>
+        <TranslatedText
+          style={styles.headerTitle}
+          translationKey="settingsTitle"
+        />
       </View>
 
       <ScrollView style={styles.scrollView}>
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>{t("languagePreference")}</Text>
+          <TranslatedText
+            style={styles.sectionTitle}
+            translationKey="languagePreference"
+          />
           <View style={styles.optionsContainer}>
             {languages.map((option) => (
               <TouchableOpacity
@@ -66,11 +72,11 @@ const SettingsScreen = () => {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>{t("about")}</Text>
+          <TranslatedText style={styles.sectionTitle} translationKey="about" />
           <View style={styles.aboutContainer}>
             <Text style={styles.aboutText}>AniFoodie</Text>
             <Text style={styles.versionText}>
-              {t("version")}: {appVersion}
+              <TranslatedText translationKey="version" />: {appVersion}
             </Text>
           </View>
         </View>

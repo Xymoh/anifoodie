@@ -1,19 +1,16 @@
-// External dependencies
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
+import { View, StyleSheet, ScrollView, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-// Internal dependencies
 import { RootStackParamList } from "../navigation/types";
 import { colors, spacing, typography, shadow } from "../styles";
 import { useOnboarding } from "../hooks/useOnboarding";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTranslations } from "../i18n/translations";
+import TranslatedText from "../components/TranslatedText";
+import { Text } from "react-native";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Welcome">;
 
@@ -28,46 +25,59 @@ const WelcomeScreen = () => {
     navigation.navigate("Main");
   };
 
-  const insets = useSafeAreaInsets();
-
   return (
     <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
-          <Text style={styles.title}>{t("welcomeTitle")}</Text>
-          <Text style={styles.subtitle}>{t("welcomeDescription")}</Text>
+          <TranslatedText style={styles.title} translationKey="welcomeTitle" />
+          <TranslatedText
+            style={styles.subtitle}
+            translationKey="welcomeDescription"
+          />
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>How it works</Text>
-          <Text style={styles.text}>
-            AniFood helps you discover which foods are safe for your pets and
-            which are potentially harmful.
-          </Text>
+          <TranslatedText
+            style={styles.sectionTitle}
+            translationKey="howItWorks"
+          />
+          <TranslatedText
+            style={styles.text}
+            translationKey="welcomeExplanation"
+          />
         </View>
 
         <View style={styles.featureSection}>
           <View style={styles.feature}>
             <Text style={styles.emoji}>🐶</Text>
-            <Text style={styles.featureTitle}>Search by Animal</Text>
-            <Text style={styles.featureText}>
-              Select an animal to see what foods they can eat, should eat in
-              moderation, or should avoid completely.
-            </Text>
+            <TranslatedText
+              style={styles.featureTitle}
+              translationKey="searchByAnimal"
+            />
+            <TranslatedText
+              style={styles.featureText}
+              translationKey="searchByAnimalDescription"
+            />
           </View>
 
           <View style={styles.feature}>
             <Text style={styles.emoji}>🍎</Text>
-            <Text style={styles.featureTitle}>Search by Food</Text>
-            <Text style={styles.featureText}>
-              Select a food item to discover which animals can safely consume it
-              and which should avoid it.
-            </Text>
+            <TranslatedText
+              style={styles.featureTitle}
+              translationKey="searchByFood"
+            />
+            <TranslatedText
+              style={styles.featureText}
+              translationKey="searchByFoodDescription"
+            />
           </View>
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Color Key</Text>
+          <TranslatedText
+            style={styles.sectionTitle}
+            translationKey="colorKey"
+          />
           <View style={styles.colorKey}>
             <View
               style={[
@@ -75,7 +85,10 @@ const WelcomeScreen = () => {
                 { backgroundColor: colors.success },
               ]}
             />
-            <Text style={styles.colorKeyText}>Safe to eat</Text>
+            <TranslatedText
+              style={styles.colorKeyText}
+              translationKey="safeToEat"
+            />
           </View>
           <View style={styles.colorKey}>
             <View
@@ -84,9 +97,10 @@ const WelcomeScreen = () => {
                 { backgroundColor: colors.statusAcceptable },
               ]}
             />
-            <Text style={styles.colorKeyText}>
-              Acceptable in small quantities
-            </Text>
+            <TranslatedText
+              style={styles.colorKeyText}
+              translationKey="acceptableInSmallQuantities"
+            />
           </View>
           <View style={styles.colorKey}>
             <View
@@ -95,22 +109,30 @@ const WelcomeScreen = () => {
                 { backgroundColor: colors.statusNotAllowed },
               ]}
             />
-            <Text style={styles.colorKeyText}>Not allowed - unsafe</Text>
+            <TranslatedText
+              style={styles.colorKeyText}
+              translationKey="notAllowedUnsafe"
+            />
           </View>
         </View>
 
         <View style={styles.disclaimer}>
-          <Text style={styles.disclaimerTitle}>Disclaimer</Text>
-          <Text style={styles.disclaimerText}>
-            The information provided in this app is for general informational
-            purposes only. Always consult with a veterinarian before introducing
-            new foods to your pet's diet.
-          </Text>
+          <TranslatedText
+            style={styles.disclaimerTitle}
+            translationKey="disclaimer"
+          />
+          <TranslatedText
+            style={styles.disclaimerText}
+            translationKey="disclaimerText"
+          />
         </View>
       </ScrollView>
 
       <Pressable style={styles.button} onPress={handleUnderstand}>
-        <Text style={styles.buttonText}>{t("iUnderstand")}</Text>
+        <TranslatedText
+          style={styles.buttonText}
+          translationKey="iUnderstand"
+        />
       </Pressable>
     </SafeAreaView>
   );
