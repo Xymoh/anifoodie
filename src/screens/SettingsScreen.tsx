@@ -10,13 +10,12 @@ import {
 } from "react-native";
 
 import { useLanguage, Language } from "../hooks/useLanguage";
-import { useTranslations } from "../i18n/translations";
-import { colors } from "../styles";
+import { TranslationKey } from "../i18n/translations";
+import { colors, spacing, typography } from "../styles";
 import TranslatedText from "../components/TranslatedText";
 
 const SettingsScreen = () => {
   const { language, setLanguage } = useLanguage();
-  const { t } = useTranslations(language);
 
   // App version from package.json
   const appVersion = "1.0.0";
@@ -25,11 +24,11 @@ const SettingsScreen = () => {
     await setLanguage(newLanguage);
   };
 
-  const languages: { label: string; value: Language }[] = [
-    { label: t("english"), value: "en" },
-    { label: t("spanish"), value: "es" },
-    { label: t("french"), value: "fr" },
-    { label: t("german"), value: "de" },
+  const languages: { translationKey: TranslationKey; value: Language }[] = [
+    { translationKey: "english", value: "en" },
+    { translationKey: "spanish", value: "es" },
+    { translationKey: "french", value: "fr" },
+    { translationKey: "german", value: "de" },
   ];
 
   return (
@@ -58,14 +57,13 @@ const SettingsScreen = () => {
                 ]}
                 onPress={() => handleLanguageChange(option.value)}
               >
-                <Text
+                <TranslatedText
                   style={[
                     styles.languageText,
                     language === option.value && styles.selectedLanguageText,
                   ]}
-                >
-                  {option.label}
-                </Text>
+                  translationKey={option.translationKey}
+                />
               </TouchableOpacity>
             ))}
           </View>
@@ -75,9 +73,13 @@ const SettingsScreen = () => {
           <TranslatedText style={styles.sectionTitle} translationKey="about" />
           <View style={styles.aboutContainer}>
             <Text style={styles.aboutText}>AniFoodie</Text>
-            <Text style={styles.versionText}>
-              <TranslatedText translationKey="version" />: {appVersion}
-            </Text>
+            <View style={styles.versionContainer}>
+              <TranslatedText
+                style={styles.versionText}
+                translationKey="version"
+              />
+              <Text style={styles.versionText}>: {appVersion}</Text>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -91,40 +93,40 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   header: {
-    paddingVertical: 16,
-    paddingHorizontal: 20,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.containerPadding,
     borderBottomWidth: 1,
     borderBottomColor: colors.gray300,
     backgroundColor: colors.gray200,
   },
   headerTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: typography.fontSize.xl,
+    fontWeight: typography.fontWeight.bold as "700",
     color: colors.textPrimary,
   },
   scrollView: {
     flex: 1,
   },
   section: {
-    padding: 20,
+    padding: spacing.containerPadding,
     borderBottomWidth: 1,
     borderBottomColor: colors.gray300,
   },
   sectionTitle: {
-    fontSize: 16,
-    fontWeight: "600",
+    fontSize: typography.fontSize.regular,
+    fontWeight: typography.fontWeight.semiBold as "600",
     color: colors.textPrimary,
-    marginBottom: 16,
+    marginBottom: spacing.md,
   },
   optionsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 10,
+    gap: spacing.sm + 2,
   },
   languageOption: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 20,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+    borderRadius: spacing.radiusRound,
     borderWidth: 1,
     borderColor: colors.gray400,
     backgroundColor: colors.gray300,
@@ -135,29 +137,33 @@ const styles = StyleSheet.create({
     shadowColor: colors.primary,
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.5,
-    shadowRadius: 6,
+    shadowRadius: spacing.radiusMedium - 2,
     elevation: 4,
   },
   languageText: {
     color: colors.textPrimary,
-    fontSize: 14,
+    fontSize: typography.fontSize.medium,
   },
   selectedLanguageText: {
     color: colors.white,
-    fontWeight: "bold",
+    fontWeight: typography.fontWeight.bold as "700",
   },
   aboutContainer: {
     alignItems: "center",
-    padding: 20,
+    padding: spacing.containerPadding,
   },
   aboutText: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: typography.fontSize.large,
+    fontWeight: typography.fontWeight.bold as "700",
     color: colors.textPrimary,
-    marginBottom: 8,
+    marginBottom: spacing.sm,
+  },
+  versionContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   versionText: {
-    fontSize: 14,
+    fontSize: typography.fontSize.medium,
     color: colors.textSecondary,
   },
 });
