@@ -2,7 +2,7 @@ import React, { createContext, useState, useContext, useEffect, ReactNode } from
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Supported languages
-export type Language = 'en' | 'es' | 'fr' | 'de';
+export type Language = 'en' | 'es' | 'fr' | 'de' | 'it' | 'ru';
 
 // Language context type
 type LanguageContextType = {
@@ -54,7 +54,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
 
   // Check if language is valid
   const isValidLanguage = (lang: string): lang is Language => {
-    return ['en', 'es', 'fr', 'de'].includes(lang);
+    return ['en', 'es', 'fr', 'de', 'it', 'ru'].includes(lang);
   };
 
   // Set language

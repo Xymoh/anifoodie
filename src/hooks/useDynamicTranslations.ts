@@ -24,6 +24,16 @@ const animalTranslations: Record<Language, TranslationDictionary> = {
     'Cat': 'Katze',
     'Rabbit': 'Kaninchen',
   },
+  it: {
+    'Dog': 'Cane',
+    'Cat': 'Gatto',
+    'Rabbit': 'Coniglio',
+  },
+  ru: {
+    'Dog': 'Собака',
+    'Cat': 'Кошка',
+    'Rabbit': 'Кролик',
+  },
 };
 
 const foodTranslations: Record<Language, TranslationDictionary> = {
@@ -46,6 +56,16 @@ const foodTranslations: Record<Language, TranslationDictionary> = {
     'Apple': 'Apfel',
     'Banana': 'Banane',
     'Carrot': 'Karotte',
+  },
+  it: {
+    'Apple': 'Mela',
+    'Banana': 'Banana',
+    'Carrot': 'Carota',
+  },
+  ru: {
+    'Apple': 'Яблоко',
+    'Banana': 'Банан',
+    'Carrot': 'Морковь',
   },
 };
 
@@ -77,6 +97,20 @@ const categoryTranslations: Record<Language, TranslationDictionary> = {
     'Reptiles': 'Reptilien',
     'Amphibians': 'Amphibien',
     'Fish': 'Fische',
+  },
+  it: {
+    'Mammals': 'Mammiferi',
+    'Birds': 'Uccelli',
+    'Reptiles': 'Rettili',
+    'Amphibians': 'Anfibi',
+    'Fish': 'Pesci',
+  },
+  ru: {
+    'Mammals': 'Млекопитающие',
+    'Birds': 'Птицы',
+    'Reptiles': 'Рептилии',
+    'Amphibians': 'Амфибии',
+    'Fish': 'Рыбы',
   },
 };
 

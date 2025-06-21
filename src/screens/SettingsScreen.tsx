@@ -29,6 +29,8 @@ const SettingsScreen = () => {
     { translationKey: "spanish", value: "es" },
     { translationKey: "french", value: "fr" },
     { translationKey: "german", value: "de" },
+    { translationKey: "italian", value: "it" },
+    { translationKey: "russian", value: "ru" },
   ];
 
   return (

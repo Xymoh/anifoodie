@@ -14,6 +14,8 @@ export type TranslationKey =
   | 'spanish'
   | 'french'
   | 'german'
+  | 'italian'
+  | 'russian'
   | 'darkTheme'
   | 'about'
   | 'version'
@@ -101,6 +103,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     spanish: 'Spanish',
     french: 'French',
     german: 'German',
+    italian: 'Italian',
+    russian: 'Russian',
     darkTheme: 'Dark Theme',
     about: 'About',
     version: 'Version',
@@ -426,6 +430,180 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     cancel: 'Abbrechen',
     search: 'Suchen',
     loading: 'Laden...'
+  },
+  it: {
+    // Tab navigation
+    animals: 'Animali',
+    foods: 'Cibi',
+    favorites: 'Preferiti',
+    settings: 'Impostazioni',
+    
+    // Settings screen
+    settingsTitle: 'Impostazioni',
+    languagePreference: 'Lingua',
+    english: 'Inglese',
+    spanish: 'Spagnolo',
+    french: 'Francese',
+    german: 'Tedesco',
+    italian: 'Italiano',
+    russian: 'Russo',
+    darkTheme: 'Tema Scuro',
+    about: 'Informazioni',
+    version: 'Versione',
+    
+    // Welcome screen
+    welcomeTitle: 'Benvenuto in AniFoodie',
+    welcomeDescription: 'Scopri quali cibi sono sicuri per i tuoi animali domestici',
+    howItWorks: 'Come funziona',
+    welcomeExplanation: 'AniFood ti aiuta a scoprire quali cibi sono sicuri per i tuoi animali domestici e quali sono potenzialmente dannosi.',
+    searchByAnimal: 'Cerca per Animale',
+    searchByAnimalDescription: 'Seleziona un animale per vedere quali cibi possono mangiare, quali dovrebbero mangiare con moderazione o quali dovrebbero evitare completamente.',
+    searchByFood: 'Cerca per Cibo',
+    searchByFoodDescription: 'Seleziona un alimento per scoprire quali animali possono consumarlo in sicurezza e quali dovrebbero evitarlo.',
+    colorKey: 'Legenda Colori',
+    safeToEat: 'Sicuro da mangiare',
+    acceptableInSmallQuantities: 'Accettabile in piccole quantità',
+    notAllowedUnsafe: 'Non consentito - non sicuro',
+    disclaimer: 'Avvertenza',
+    disclaimerText: 'Le informazioni fornite in questa app sono solo a scopo informativo generale. Consultare sempre un veterinario prima di introdurre nuovi alimenti nella dieta del vostro animale domestico.',
+    iUnderstand: 'Ho Capito',
+    
+    // Animals Screen
+    allAnimals: 'Tutti gli Animali',
+    searchAnimals: 'Cerca animali...',
+    selectAnAnimal: 'Seleziona un Animale',
+    searchByAnimalOrCategory: 'Cerca per nome o categoria di animale...',
+    noAnimalsFound: 'Nessun animale trovato',
+    mammals: 'Mammiferi',
+    birds: 'Uccelli',
+    reptiles: 'Rettili',
+    amphibians: 'Anfibi',
+    fish: 'Pesci',
+    
+    // Foods Screen
+    allFoods: 'Tutti i Cibi',
+    searchFoods: 'Cerca cibi...',
+    selectAFood: 'Seleziona un Cibo',
+    searchFoodsOrTypes: 'Cerca cibi o tipi di cibo...',
+    noFoodsFound: 'Nessun cibo trovato',
+    fruits: 'Frutta',
+    vegetables: 'Verdura',
+    dairy: 'Latticini',
+    grains: 'Cereali',
+    meat: 'Carne',
+    nuts: 'Frutta secca',
+    
+    // Favorites Screen
+    noFavorites: 'Ancora nessun preferito',
+    addFavorites: 'Aggiungi elementi ai tuoi preferiti',
+    favoriteAnimals: 'Animali Preferiti',
+    favoriteFoods: 'Cibi Preferiti',
+    
+    // Animal Detail Screen
+    backButton: 'Indietro',
+    allowedFoods: 'Cibi Permessi',
+    acceptableFoods: 'Accettabili in Piccole Quantità',
+    notAllowedFoods: 'Non Permessi',
+    noAnimalsInCategory: 'Nessun animale in questa categoria',
+    boiled: 'Bollito',
+    
+    // Food Detail Screen
+    animalsThatCanEat: 'Animali che possono mangiare questo cibo',
+    animalsThatCanEatSmallQuantities: 'Animali che possono mangiare questo cibo in piccole quantità',
+    animalsThatCannotEat: 'Animali che non possono mangiare questo cibo',
+    
+    // Common
+    save: 'Salva',
+    cancel: 'Annulla',
+    search: 'Cerca',
+    loading: 'Caricamento...'
+  },
+  ru: {
+    // Tab navigation
+    animals: 'Животные',
+    foods: 'Продукты',
+    favorites: 'Избранное',
+    settings: 'Настройки',
+    
+    // Settings screen
+    settingsTitle: 'Настройки',
+    languagePreference: 'Язык',
+    english: 'Английский',
+    spanish: 'Испанский',
+    french: 'Французский',
+    german: 'Немецкий',
+    italian: 'Итальянский',
+    russian: 'Русский',
+    darkTheme: 'Тёмная тема',
+    about: 'О приложении',
+    version: 'Версия',
+    
+    // Welcome screen
+    welcomeTitle: 'Добро пожаловать в AniFoodie',
+    welcomeDescription: 'Узнайте, какие продукты безопасны для ваших питомцев',
+    howItWorks: 'Как это работает',
+    welcomeExplanation: 'AniFood помогает вам узнать, какие продукты безопасны для ваших питомцев, а какие потенциально опасны.',
+    searchByAnimal: 'Поиск по животному',
+    searchByAnimalDescription: 'Выберите животное, чтобы узнать, какие продукты они могут есть, какие следует есть умеренно или каких следует избегать полностью.',
+    searchByFood: 'Поиск по продукту',
+    searchByFoodDescription: 'Выберите продукт, чтобы узнать, какие животные могут безопасно его употреблять, а каким следует его избегать.',
+    colorKey: 'Обозначение цветов',
+    safeToEat: 'Безопасно для употребления',
+    acceptableInSmallQuantities: 'Приемлемо в малых количествах',
+    notAllowedUnsafe: 'Не разрешено - небезопасно',
+    disclaimer: 'Отказ от ответственности',
+    disclaimerText: 'Информация, представленная в этом приложении, предназначена только для общих информационных целей. Всегда консультируйтесь с ветеринаром перед введением новых продуктов в рацион вашего питомца.',
+    iUnderstand: 'Я понимаю',
+    
+    // Animals Screen
+    allAnimals: 'Все животные',
+    searchAnimals: 'Поиск животных...',
+    selectAnAnimal: 'Выберите животное',
+    searchByAnimalOrCategory: 'Поиск по названию животного или категории...',
+    noAnimalsFound: 'Животные не найдены',
+    mammals: 'Млекопитающие',
+    birds: 'Птицы',
+    reptiles: 'Рептилии',
+    amphibians: 'Амфибии',
+    fish: 'Рыбы',
+    
+    // Foods Screen
+    allFoods: 'Все продукты',
+    searchFoods: 'Поиск продуктов...',
+    selectAFood: 'Выберите продукт',
+    searchFoodsOrTypes: 'Поиск продуктов или типов продуктов...',
+    noFoodsFound: 'Продукты не найдены',
+    fruits: 'Фрукты',
+    vegetables: 'Овощи',
+    dairy: 'Молочные продукты',
+    grains: 'Зерновые',
+    meat: 'Мясо',
+    nuts: 'Орехи',
+    
+    // Favorites Screen
+    noFavorites: 'Пока нет избранного',
+    addFavorites: 'Добавить элементы в избранное',
+    favoriteAnimals: 'Избранные животные',
+    favoriteFoods: 'Избранные продукты',
+    
+    // Animal Detail Screen
+    backButton: 'Назад',
+    allowedFoods: 'Разрешённые продукты',
+    acceptableFoods: 'Приемлемо в малых количествах',
+    notAllowedFoods: 'Запрещённые продукты',
+    noAnimalsInCategory: 'В этой категории нет животных',
+    boiled: 'Варёный',
+    
+    // Food Detail Screen
+    animalsThatCanEat: 'Животные, которые могут есть этот продукт',
+    animalsThatCanEatSmallQuantities: 'Животные, которые могут есть этот продукт в малых количествах',
+    animalsThatCannotEat: 'Животные, которые не могут есть этот продукт',
+    
+    // Common
+    save: 'Сохранить',
+    cancel: 'Отмена',
+    search: 'Поиск',
+    loading: 'Загрузка...'
   }
 };
 
