@@ -68,7 +68,6 @@ export type TranslationKey =
   
   // Animal Detail Screen
   | 'backButton'
-  | 'canEat'
   | 'allowedFoods'
   | 'acceptableFoods'
   | 'notAllowedFoods'
@@ -156,7 +155,6 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     
     // Animal Detail Screen
     backButton: 'Back',
-    canEat: 'Can Eat',
     allowedFoods: 'Allowed Foods',
     acceptableFoods: 'Acceptable in Small Quantities',
     notAllowedFoods: 'Not Allowed',
@@ -242,7 +240,6 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     
     // Animal Detail Screen
     backButton: 'Atrás',
-    canEat: 'Puede Comer',
     allowedFoods: 'Alimentos Permitidos',
     acceptableFoods: 'Aceptables en Pequeñas Cantidades',
     notAllowedFoods: 'No Permitidos',
@@ -328,7 +325,6 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     
     // Animal Detail Screen
     backButton: 'Retour',
-    canEat: 'Peut Manger',
     allowedFoods: 'Aliments Autorisés',
     acceptableFoods: 'Acceptables en Petites Quantités',
     notAllowedFoods: 'Non Autorisés',
@@ -414,7 +410,6 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     
     // Animal Detail Screen
     backButton: 'Zurück',
-    canEat: 'Kann Essen',
     allowedFoods: 'Erlaubte Lebensmittel',
     acceptableFoods: 'In Kleinen Mengen Akzeptabel',
     notAllowedFoods: 'Nicht Erlaubt',
