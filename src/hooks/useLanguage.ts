@@ -1,40 +1,32 @@
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Supported languages
 export type Language = 'en' | 'es' | 'fr' | 'de' | 'it' | 'ru';
 
-// Language context type
 type LanguageContextType = {
   language: Language;
   setLanguage: (language: Language) => Promise<void>;
   isLoading: boolean;
 };
 
-// Default language context
 const defaultLanguageContext: LanguageContextType = {
   language: 'en',
   setLanguage: async () => {},
   isLoading: true,
 };
 
-// AsyncStorage key
 const LANGUAGE_STORAGE_KEY = 'app_language';
 
-// Create the context
 const LanguageContext = createContext<LanguageContextType>(defaultLanguageContext);
 
-// Language provider props
 type LanguageProviderProps = {
   children: ReactNode;
 };
 
-// Language provider component
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>('en');
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load language preference on mount
   useEffect(() => {
     const loadLanguage = async () => {
       try {
@@ -52,12 +44,10 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     loadLanguage();
   }, []);
 
-  // Check if language is valid
   const isValidLanguage = (lang: string): lang is Language => {
     return ['en', 'es', 'fr', 'de', 'it', 'ru'].includes(lang);
   };
 
-  // Set language
   const setLanguage = async (newLanguage: Language) => {
     try {
       await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, newLanguage);
@@ -74,5 +64,4 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   );
 };
 
-// Hook to use language context
 export const useLanguage = () => useContext(LanguageContext);

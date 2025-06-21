@@ -15,14 +15,16 @@ import { TranslationKey, getTranslation } from './translations';
 
 // Check if all keys are present in all languages
 export const checkMissingTranslations = () => {
-  const languages: Language[] = ['en', 'es', 'fr', 'de'];
+  const languages: Language[] = ['en', 'es', 'fr', 'de', 'it', 'ru'];
   const allKeys = Object.keys(require('./translations').translations.en) as TranslationKey[];
   
   const missing: Record<Language, TranslationKey[]> = {
     en: [],
     es: [],
     fr: [],
-    de: []
+    de: [],
+    it: [],
+    ru: []
   };
 
   for (const lang of languages) {
