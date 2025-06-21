@@ -16,6 +16,7 @@ export type TabParamList = {
   Animals: undefined;
   Foods: undefined;
   Favorites: undefined;
+  Settings: undefined;
 };
 
 // Create the navigators

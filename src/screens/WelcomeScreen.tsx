@@ -12,12 +12,16 @@ import {
 import { RootStackParamList } from "../navigation/types";
 import { colors, spacing, typography, shadow } from "../styles";
 import { useOnboarding } from "../hooks/useOnboarding";
+import { useLanguage } from "../hooks/useLanguage";
+import { useTranslations } from "../i18n/translations";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Welcome">;
 
 const WelcomeScreen = () => {
   const navigation = useNavigation<NavigationProp>();
   const { setWelcomeScreenAsViewed } = useOnboarding();
+  const { language } = useLanguage();
+  const { t } = useTranslations(language);
 
   const handleUnderstand = () => {
     setWelcomeScreenAsViewed();
@@ -30,10 +34,8 @@ const WelcomeScreen = () => {
     <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
-          <Text style={styles.title}>Welcome to AniFood</Text>
-          <Text style={styles.subtitle}>
-            Find out what your pets can and cannot eat
-          </Text>
+          <Text style={styles.title}>{t("welcomeTitle")}</Text>
+          <Text style={styles.subtitle}>{t("welcomeDescription")}</Text>
         </View>
 
         <View style={styles.section}>
@@ -108,7 +110,7 @@ const WelcomeScreen = () => {
       </ScrollView>
 
       <Pressable style={styles.button} onPress={handleUnderstand}>
-        <Text style={styles.buttonText}>I Understand</Text>
+        <Text style={styles.buttonText}>{t("iUnderstand")}</Text>
       </Pressable>
     </SafeAreaView>
   );
@@ -217,6 +219,11 @@ const styles = StyleSheet.create({
     marginHorizontal: spacing.md,
     marginBottom: spacing.lg + 6,
     alignItems: "center",
+    shadowColor: colors.primary,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.6,
+    shadowRadius: 8,
+    elevation: 5,
   },
   buttonText: {
     color: colors.white,
