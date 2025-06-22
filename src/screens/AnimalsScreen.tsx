@@ -276,13 +276,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   sectionHeader: {
-    backgroundColor: colors.background,
+    backgroundColor: colors.gray200,
     padding: spacing.sm + 2,
-    borderRadius: 8,
-    marginBottom: 8,
+    borderRadius: spacing.radiusMedium,
+    marginBottom: spacing.sm,
   },
   sectionTitle: {
-    fontSize: typography.fontSize.large,
+    fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.bold as "700",
     color: colors.textPrimary,
   },
