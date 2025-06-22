@@ -4,39 +4,49 @@
  */
 export const colors = {
   // Primary colors
-  primary: '#0099CC',
-  primaryDark: '#007799',
-  primaryLight: '#33BBEE',
+  primary: '#00B8FF',
+  primaryDark: '#0096CC',
+  primaryLight: '#7ADFFF',
 
-  // Secondary colors
-  secondary: '#FF00FF',
-  secondaryDark: '#CC00FF',
-  secondaryLight: '#FF80FF',
+  // Secondary colorss
+  secondary: '#C67BFF',
+  secondaryDark: '#A14CFF',
+  secondaryLight: '#E2BDFF',
+
+  // Animal themed accent colors
+  dogBrown: '#C18955',         // Brighter brown
+  catOrange: '#FF8036',        // Vibrant orange
+  rabbitPink: '#FF6EB5',       // Brighter pink
+  chinchillaGray: '#A5A5D3',   // More colorful gray with purple tint
+  parrotGreen: '#4DEA8C',      // Brighter green
+  turtleGreen: '#33D6A6',      // Vibrant turtle green
+  mouseGray: '#B8B8D8',        // Playful light purple-gray
+  guineaPigBrown: '#D1A76A',   // Warm sandy brown
 
   // Status colors
-  success: '#00CC66',
-  warning: '#E6B800',
-  error: '#E63358',
-  info: '#0099CC',
+  success: '#4BF0AA',          // Brighter fun green
+  warning: '#FFD84C',          // Brighter yellow
+  error: '#FF5E7A',            // Playful pink-red
+  info: '#5DCFFF',             // Brighter light blue
 
   // Neutral colors
   white: '#ffffff',
   black: '#000000',
   
   // Grays
-  gray100: '#0A0A0A',
-  gray200: '#1A1A1A',
-  gray300: '#2C2C2C',
-  gray400: '#444444',
-  gray500: '#777777',
-  gray600: '#999999',
-  gray700: '#CCCCCC',
-  gray800: '#E6E6E6',
-  gray900: '#FAFAFA',
+  gray100: '#18171F',          // Slightly purple-tinted black for background
+  gray200: '#252336',          // Warmer dark purple-blue
+  gray300: '#383652',          // Less harsh, slightly purple mid-dark
+  gray400: '#4F4C6C',          // Purplish mid-dark
+  gray500: '#8A87B3',          // Purplish mid-gray
+  gray600: '#B0ADC9',          // Light purple-gray
+  gray700: '#D8D6EE',          // Very light purple-gray
+  gray800: '#EEEDF8',          // Almost white with slight purple tint
+  gray900: '#FAFAFF',          // Almost white with hint of blue
 
   // Transparent colors
   transparent: 'transparent',
-  semiTransparent: 'rgba(0, 0, 0, 0.5)',
+  semiTransparent: 'rgba(24, 23, 31, 0.75)', // Slightly more purplish and transparent
 };
 
 // Semantic color assignments
@@ -59,10 +69,21 @@ export const semanticColors = {
 
   // UI elements
   border: colors.gray300,
-  shadow: colors.black,
+  shadow: 'rgba(0, 0, 0, 0.35)',
   tabActive: colors.primary,
   tabInactive: colors.gray500,
-  favorite: colors.secondary,
+  favorite: colors.rabbitPink,
+  
+  // Animal categories (for potential use in UI)
+  dogColor: colors.dogBrown,
+  catColor: colors.catOrange,
+  smallPetColor: colors.chinchillaGray,
+  birdColor: colors.parrotGreen,
+  reptileColor: colors.turtleGreen,
+  
+  // Card and item variations (for list items)
+  cardHighlight: `${colors.primary}33`, // Semi-transparent primary color
+  cardAlt: `${colors.secondary}25`,     // Light secondary background
 };
 
 export default {

@@ -1,5 +1,12 @@
 import React from "react";
-import { View, StyleSheet, ScrollView, Pressable } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+  Image,
+  Text,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -10,7 +17,6 @@ import { useOnboarding } from "../hooks/useOnboarding";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTranslations } from "../i18n/translations";
 import TranslatedText from "../components/TranslatedText";
-import { Text } from "react-native";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Welcome">;
 
@@ -49,7 +55,11 @@ const WelcomeScreen = () => {
 
         <View style={styles.featureSection}>
           <View style={styles.feature}>
-            <Text style={styles.emoji}>🐶</Text>
+            <Image
+              source={require("../../assets/animals/dog.png")}
+              style={styles.featureImage}
+              resizeMode="contain"
+            />
             <TranslatedText
               style={styles.featureTitle}
               translationKey="searchByAnimal"
@@ -154,8 +164,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: typography.fontSize.huge,
     fontWeight: typography.fontWeight.bold as "700",
-    color: colors.textPrimary,
+    color: colors.primary,
     marginBottom: spacing.sm + 2,
+    textShadowColor: "rgba(0, 165, 255, 0.3)",
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 6,
   },
   subtitle: {
     fontSize: typography.fontSize.xl,
@@ -168,7 +181,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.bold as "700",
-    color: colors.textPrimary,
+    color: colors.primaryLight,
     marginBottom: spacing.sm + 2,
   },
   text: {
@@ -183,18 +196,26 @@ const styles = StyleSheet.create({
   feature: {
     backgroundColor: colors.card,
     borderRadius: spacing.radiusMedium,
-    padding: spacing.md - 1,
-    marginBottom: spacing.md - 1,
+    padding: spacing.md,
+    marginBottom: spacing.md,
+    borderLeftWidth: 4,
+    borderLeftColor: colors.primary,
     ...shadow.medium,
   },
   emoji: {
     fontSize: typography.fontSize.huge + 8,
     marginBottom: spacing.sm + 2,
   },
+  featureImage: {
+    width: 80,
+    height: 60,
+    alignSelf: "flex-start",
+    marginBottom: spacing.sm + 2,
+  },
   featureTitle: {
     fontSize: typography.fontSize.large,
     fontWeight: typography.fontWeight.bold as "700",
-    color: colors.textPrimary,
+    color: colors.primaryLight,
     marginBottom: spacing.xs + 1,
   },
   featureText: {
@@ -218,15 +239,17 @@ const styles = StyleSheet.create({
     color: colors.textPrimary,
   },
   disclaimer: {
-    backgroundColor: colors.gray200,
-    padding: spacing.md - 1,
+    backgroundColor: `${colors.gray300}55`,
+    padding: spacing.md,
     borderRadius: spacing.radiusMedium,
     marginBottom: spacing.xl + 28,
+    borderWidth: 1,
+    borderColor: colors.gray400,
   },
   disclaimerTitle: {
     fontSize: typography.fontSize.large,
     fontWeight: typography.fontWeight.bold as "700",
-    color: colors.textPrimary,
+    color: colors.warning,
     marginBottom: spacing.xs + 4,
   },
   disclaimerText: {
@@ -236,16 +259,12 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: colors.primary,
-    paddingVertical: spacing.md - 1,
+    paddingVertical: spacing.md,
     borderRadius: spacing.radiusMedium,
     marginHorizontal: spacing.md,
     marginBottom: spacing.lg + 6,
     alignItems: "center",
-    shadowColor: colors.primary,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.6,
-    shadowRadius: 8,
-    elevation: 5,
+    ...shadow.primary,
   },
   buttonText: {
     color: colors.white,

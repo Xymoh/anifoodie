@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, ActivityIndicator, View } from "react-native";
+import { Text, ActivityIndicator, View, Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -15,6 +15,8 @@ import { colors, shadow } from "../styles";
 import { useOnboarding } from "../hooks/useOnboarding";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTranslations } from "../i18n/translations";
+import AnimalIcon from "../components/AnimalIcon";
+import FoodIcon from "../components/FoodIcon";
 
 const AnimalsStack = createNativeStackNavigator<RootStackParamList>();
 const AnimalsStackScreen = () => (

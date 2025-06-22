@@ -1,16 +1,66 @@
-// External dependencies
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 
-// Internal dependencies
-import { spacing } from "../styles";
+import { colors } from "../styles";
 
 interface FoodIconProps {
   category: string;
   size?: number;
+  tintColor?: string;
+  noBackground?: boolean;
 }
 
-const FoodIcon = ({ category, size = 24 }: FoodIconProps) => {
+const FoodIcon = ({
+  category,
+  size = 24,
+  tintColor,
+  noBackground = false,
+}: FoodIconProps) => {
+  const getBackgroundColor = (): string => {
+    const lowerCategory = category.toLowerCase();
+
+    if (
+      lowerCategory.includes("fruit") ||
+      lowerCategory.includes("berry") ||
+      lowerCategory.includes("citrus") ||
+      lowerCategory.includes("melon") ||
+      lowerCategory.includes("tropical")
+    ) {
+      return `${colors.primary}44`;
+    }
+
+    if (
+      lowerCategory.includes("vegetable") ||
+      lowerCategory.includes("leafy green") ||
+      lowerCategory.includes("root") ||
+      lowerCategory.includes("cruciferous") ||
+      lowerCategory.includes("allium") ||
+      lowerCategory.includes("squash") ||
+      lowerCategory.includes("gourd")
+    ) {
+      return `${colors.parrotGreen}44`;
+    }
+
+    if (
+      lowerCategory.includes("nut") ||
+      lowerCategory.includes("seed") ||
+      lowerCategory.includes("grain") ||
+      lowerCategory.includes("legume")
+    ) {
+      return `${colors.dogBrown}44`;
+    }
+
+    if (lowerCategory.includes("dairy") || lowerCategory.includes("egg")) {
+      return `${colors.secondary}44`;
+    }
+
+    if (lowerCategory.includes("meat") || lowerCategory.includes("fish")) {
+      return `${colors.rabbitPink}44`;
+    }
+
+    return `${colors.gray500}44`;
+  };
+
   const getIconForCategory = (): string => {
     const lowerCategory = category.toLowerCase();
 
@@ -39,15 +89,33 @@ const FoodIcon = ({ category, size = 24 }: FoodIconProps) => {
   };
 
   return (
-    <Text style={[styles.icon, { fontSize: size }]}>
-      {getIconForCategory()}
-    </Text>
+    <View
+      style={[
+        styles.container,
+        {
+          width: size + 24,
+          height: size + 24,
+          backgroundColor: noBackground ? "transparent" : getBackgroundColor(),
+          borderRadius: (size + 24) / 2,
+          borderWidth: noBackground ? 0 : 2,
+        },
+      ]}
+    >
+      <Text style={[styles.icon, { fontSize: size, color: tintColor }]}>
+        {getIconForCategory()}
+      </Text>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "rgba(255,255,255,0.15)",
+  },
   icon: {
-    marginRight: spacing.sm,
+    marginRight: 0,
   },
 });
 
