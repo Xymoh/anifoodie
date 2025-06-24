@@ -8,12 +8,15 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { getFoodCategories, parseCSVData } from "../data/data-utils";
+import {
+  getFoodCategories,
+  parseCSVData,
+  getFoodCategoriesGroupedByCategory,
+  getSimplifiedFoodName,
+  getDisplayCategory,
+} from "../data/data-utils";
 import { RootStackParamList } from "../navigation/types";
 import { FoodItem } from "../types";
 import SearchBar from "../components/SearchBar";
@@ -49,6 +52,7 @@ const FoodsScreen = () => {
 
   const sections: SectionData[] = useMemo(() => {
     const foodCategories = getFoodCategories();
+    const categoryGroups = getFoodCategoriesGroupedByCategory();
 
     // First check if the search query matches a food type (case insensitive)
     const isSearchingForType = searchQuery.trim()
@@ -59,12 +63,27 @@ const FoodsScreen = () => {
 
     let filteredFoods = allFoods;
 
-    // If searching for a type, prioritize that filter
+    // If searching for a type like "Meat", group by categories within that type
     if (isSearchingForType) {
       const searchedType = availableFoodTypes.find(
         (type) => type.toLowerCase() === searchQuery.toLowerCase()
       );
       filteredFoods = allFoods.filter((food) => food.type === searchedType);
+
+      // Group by category (e.g., Chicken, Turkey, Beef for Meat)
+      const foodsByCategory: Record<string, FoodItem[]> = {};
+      filteredFoods.forEach((food) => {
+        const displayCategory = getDisplayCategory(food);
+        if (!foodsByCategory[displayCategory]) {
+          foodsByCategory[displayCategory] = [];
+        }
+        foodsByCategory[displayCategory].push(food);
+      });
+
+      return Object.entries(foodsByCategory).map(([category, foods]) => ({
+        title: category,
+        data: foods,
+      }));
     }
     // Otherwise apply normal item name search
     else if (searchQuery.trim()) {
@@ -82,71 +101,77 @@ const FoodsScreen = () => {
         ? filteredFoods.filter((food) => food.type === selectedType)
         : filteredFoods;
 
-    // If we're searching or filtering by type, organize by food type
+    // If we're searching or filtering by type, organize by food category
     if (searchQuery.trim() || selectedType !== "All") {
-      // Group the filtered foods by their type
-      const foodsByType: Record<string, FoodItem[]> = {};
-
+      // Group the filtered foods by their display category
+      const foodsByCategory: Record<string, FoodItem[]> = {};
       typedFoods.forEach((food) => {
-        if (!foodsByType[food.type]) {
-          foodsByType[food.type] = [];
+        const displayCategory = getDisplayCategory(food);
+        if (!foodsByCategory[displayCategory]) {
+          foodsByCategory[displayCategory] = [];
         }
-        foodsByType[food.type].push(food);
+        foodsByCategory[displayCategory].push(food);
       });
 
       // Convert the grouped foods into sections
-      return Object.entries(foodsByType).map(([type, foods]) => ({
-        title: type,
+      return Object.entries(foodsByCategory).map(([category, foods]) => ({
+        title: category,
         data: foods,
       }));
     }
 
-    // Otherwise return the categorized list
-    return foodCategories
-      .map(({ type, categories }) => {
-        const sectionItems: SectionData[] = categories.map((category) => {
-          const items = allFoods.filter(
-            (food) => food.type === type && food.category === category
-          );
-
-          return {
-            title: type,
-            subTitle: category,
-            data: items,
-          };
-        });
-
-        return sectionItems;
-      })
-      .flat();
+    // For the default view, group by category instead of type
+    return categoryGroups.map(({ category, items }) => ({
+      title: category,
+      data: items,
+    }));
   }, [allFoods, searchQuery, selectedType, availableFoodTypes]);
 
   const handleFoodPress = (foodName: string) => {
     navigation.navigate("FoodDetail", { foodName });
   };
 
-  const renderSectionHeader = ({ section }: { section: SectionData }) => (
-    <View style={styles.sectionHeader}>
-      <Text style={styles.sectionTitle}>{section.title}</Text>
-      {section.subTitle && (
-        <Text style={styles.sectionSubtitle}>{section.subTitle}</Text>
-      )}
-    </View>
-  );
-
-  const renderFoodItem = ({ item }: { item: FoodItem }) => (
-    <TouchableOpacity
-      style={styles.foodItem}
-      onPress={() => handleFoodPress(item.item)}
-    >
-      <View style={styles.foodRow}>
-        <FoodIcon category={item.category} size={24} />
-        <Text style={styles.foodName}>{item.item}</Text>
+  const renderSectionHeader = React.useCallback(
+    ({ section }: { section: SectionData }) => (
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionTitle}>{section.title}</Text>
+        {section.subTitle && (
+          <Text style={styles.sectionSubtitle}>{section.subTitle}</Text>
+        )}
       </View>
-    </TouchableOpacity>
+    ),
+    []
   );
 
-  const insets = useSafeAreaInsets();
+  const renderFoodItem = React.useCallback(
+    ({ item }: { item: FoodItem }) => (
+      <TouchableOpacity
+        style={styles.foodItem}
+        onPress={() => handleFoodPress(item.item)}
+      >
+        <View style={styles.foodRow}>
+          <FoodIcon category={item.category} itemKey={item.icon} size={28} />
+          <Text style={styles.foodName}>{getSimplifiedFoodName(item)}</Text>
+        </View>
+      </TouchableOpacity>
+    ),
+    []
+  );
+
+  const keyExtractor = React.useCallback(
+    (item: FoodItem, index: number) =>
+      `${item.type}-${item.category}-${item.item}-${index}`,
+    []
+  );
+
+  const getItemLayout = React.useCallback((data: any, index: number) => {
+    const ITEM_HEIGHT = 80; // Approximate height including margins
+    return {
+      length: ITEM_HEIGHT,
+      offset: ITEM_HEIGHT * index,
+      index,
+    };
+  }, []);
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
@@ -165,11 +190,17 @@ const FoodsScreen = () => {
         sections={sections}
         renderItem={renderFoodItem}
         renderSectionHeader={renderSectionHeader}
-        keyExtractor={(item, index) =>
-          `${item.type}-${item.category}-${item.item}-${index}`
-        }
+        keyExtractor={keyExtractor}
+        getItemLayout={getItemLayout}
         contentContainerStyle={styles.listContent}
         stickySectionHeadersEnabled
+        removeClippedSubviews={true}
+        maxToRenderPerBatch={8}
+        updateCellsBatchingPeriod={50}
+        initialNumToRender={8}
+        windowSize={8}
+        legacyImplementation={false}
+        disableVirtualization={false}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <TranslatedText

@@ -1,16 +1,13 @@
-// External dependencies
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-// Internal dependencies
 import { AnimalName, CompatibilityStatus } from "../types";
 import { RootStackParamList } from "../navigation/types";
 import { useFavorites } from "../hooks/useFavorites";
 import { colors, spacing, typography, shadow } from "../styles";
 
-// Components
 import AnimalIcon from "./AnimalIcon";
 import CompatibilityIndicator from "./CompatibilityIndicator";
 import FavoriteButton from "./FavoriteButton";
@@ -25,7 +22,7 @@ type NavigationProp = NativeStackNavigationProp<
   "FoodDetail"
 >;
 
-const AnimalCard = ({ animal, status }: AnimalCardProps) => {
+const AnimalCard = React.memo(({ animal, status }: AnimalCardProps) => {
   const navigation = useNavigation<NavigationProp>();
   const { isAnimalFavorite, toggleFavoriteAnimal } = useFavorites();
 
@@ -56,7 +53,7 @@ const AnimalCard = ({ animal, status }: AnimalCardProps) => {
       </View>
     </TouchableOpacity>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

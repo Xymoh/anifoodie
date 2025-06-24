@@ -15,12 +15,13 @@ export const parseCSVData = (): FoodItem[] => {
     }
 
     return result.data.map((row: any) => {
-      const { Type, 'Category/Source': Category, Item, ...animals } = row;
+      const { Type, 'Category/Source': Category, Item, Icon, ...animals } = row;
       
       return {
         type: Type,
         category: Category,
         item: Item,
+        icon: Icon,
         compatibility: animals,
       };
     });
@@ -33,9 +34,14 @@ export const parseCSVData = (): FoodItem[] => {
 export const getAllAnimals = (): AnimalName[] => {
   const data = parseCSVData();
   if (data.length === 0) return [];
-
+  
   const animalNames = Object.keys(data[0].compatibility) as AnimalName[];
   return animalNames;
+};
+
+export const getFoodItemByName = (foodName: string): FoodItem | null => {
+  const data = parseCSVData();
+  return data.find(item => item.item === foodName) || null;
 };
 
 export const getFoodCategories = (): { type: string; categories: string[] }[] => {
@@ -53,6 +59,35 @@ export const getFoodCategories = (): { type: string; categories: string[] }[] =>
     type,
     categories: Array.from(categoriesSet),
   }));
+};
+
+export const getFoodCategoriesGroupedByCategory = (): { category: string; type: string; items: FoodItem[] }[] => {
+  const data = parseCSVData();
+  const categoryGroups: Record<string, { type: string; items: FoodItem[] }> = {};
+  
+  data.forEach(item => {
+    if (!categoryGroups[item.category]) {
+      categoryGroups[item.category] = {
+        type: item.type,
+        items: []
+      };
+    }
+    categoryGroups[item.category].items.push(item);
+  });
+  
+  return Object.entries(categoryGroups).map(([category, { type, items }]) => ({
+    category,
+    type,
+    items
+  }));
+};
+
+export const getSimplifiedFoodName = (foodItem: FoodItem): string => {
+  return foodItem.item;
+};
+
+export const getDisplayCategory = (foodItem: FoodItem): string => {
+  return foodItem.category;
 };
 
 export const getFoodsForAnimal = (animalName: AnimalName): FilteredResults => {

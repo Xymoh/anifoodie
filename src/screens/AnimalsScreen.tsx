@@ -170,33 +170,53 @@ const AnimalsScreen = () => {
     navigation.navigate("AnimalDetail", { animalName });
   };
 
-  const renderAnimalItem = ({ item }: { item: AnimalName }) => (
-    <TouchableOpacity
-      style={styles.animalItem}
-      onPress={() => handleAnimalPress(item)}
-    >
-      <View style={styles.animalRow}>
-        <AnimalIcon animal={item} size={24} />
-        <Text style={styles.animalName}>{item}</Text>
-      </View>
-    </TouchableOpacity>
+  const renderAnimalItem = React.useCallback(
+    ({ item }: { item: AnimalName }) => (
+      <TouchableOpacity
+        style={styles.animalItem}
+        onPress={() => handleAnimalPress(item)}
+      >
+        <View style={styles.animalRow}>
+          <AnimalIcon animal={item} size={24} />
+          <Text style={styles.animalName}>{item}</Text>
+        </View>
+      </TouchableOpacity>
+    ),
+    []
   );
 
-  const renderSectionHeader = ({ section }: { section: AnimalSection }) => (
-    <View style={styles.sectionHeader}>
-      <TranslatedText
-        style={styles.sectionTitle}
-        translationKey={
-          section.title.toLowerCase() as
-            | "mammals"
-            | "birds"
-            | "reptiles"
-            | "amphibians"
-            | "fish"
-        }
-      />
-    </View>
+  const renderSectionHeader = React.useCallback(
+    ({ section }: { section: AnimalSection }) => (
+      <View style={styles.sectionHeader}>
+        <TranslatedText
+          style={styles.sectionTitle}
+          translationKey={
+            section.title.toLowerCase() as
+              | "mammals"
+              | "birds"
+              | "reptiles"
+              | "amphibians"
+              | "fish"
+          }
+        />
+      </View>
+    ),
+    []
   );
+
+  const keyExtractor = React.useCallback(
+    (item: AnimalName, index: number) => `${item}-${index}`,
+    []
+  );
+
+  const getItemLayout = React.useCallback((data: any, index: number) => {
+    const ITEM_HEIGHT = 80; // Approximate height including margins
+    return {
+      length: ITEM_HEIGHT,
+      offset: ITEM_HEIGHT * index,
+      index,
+    };
+  }, []);
 
   const insets = useSafeAreaInsets();
 
@@ -216,9 +236,17 @@ const AnimalsScreen = () => {
         sections={groupedAnimals}
         renderItem={renderAnimalItem}
         renderSectionHeader={renderSectionHeader}
-        keyExtractor={(item, index) => `${item}-${index}`}
+        keyExtractor={keyExtractor}
+        getItemLayout={getItemLayout}
         contentContainerStyle={styles.listContent}
         stickySectionHeadersEnabled
+        removeClippedSubviews={true}
+        maxToRenderPerBatch={8}
+        updateCellsBatchingPeriod={50}
+        initialNumToRender={8}
+        windowSize={8}
+        legacyImplementation={false}
+        disableVirtualization={false}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <TranslatedText
