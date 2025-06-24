@@ -131,29 +131,38 @@ const FoodsScreen = () => {
     navigation.navigate("FoodDetail", { foodName });
   };
 
-  const renderSectionHeader = React.useCallback(({ section }: { section: SectionData }) => (
-    <View style={styles.sectionHeader}>
-      <Text style={styles.sectionTitle}>{section.title}</Text>
-      {section.subTitle && (
-        <Text style={styles.sectionSubtitle}>{section.subTitle}</Text>
-      )}
-    </View>
-  ), []);
-
-  const renderFoodItem = React.useCallback(({ item }: { item: FoodItem }) => (
-    <TouchableOpacity
-      style={styles.foodItem}
-      onPress={() => handleFoodPress(item.item)}
-    >
-      <View style={styles.foodRow}>
-        <FoodIcon category={item.category} itemKey={item.icon} size={24} />
-        <Text style={styles.foodName}>{getSimplifiedFoodName(item)}</Text>
+  const renderSectionHeader = React.useCallback(
+    ({ section }: { section: SectionData }) => (
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionTitle}>{section.title}</Text>
+        {section.subTitle && (
+          <Text style={styles.sectionSubtitle}>{section.subTitle}</Text>
+        )}
       </View>
-    </TouchableOpacity>
-  ), []);
+    ),
+    []
+  );
 
-  const keyExtractor = React.useCallback((item: FoodItem, index: number) => 
-    `${item.type}-${item.category}-${item.item}-${index}`, []);
+  const renderFoodItem = React.useCallback(
+    ({ item }: { item: FoodItem }) => (
+      <TouchableOpacity
+        style={styles.foodItem}
+        onPress={() => handleFoodPress(item.item)}
+      >
+        <View style={styles.foodRow}>
+          <FoodIcon category={item.category} itemKey={item.icon} size={28} />
+          <Text style={styles.foodName}>{getSimplifiedFoodName(item)}</Text>
+        </View>
+      </TouchableOpacity>
+    ),
+    []
+  );
+
+  const keyExtractor = React.useCallback(
+    (item: FoodItem, index: number) =>
+      `${item.type}-${item.category}-${item.item}-${index}`,
+    []
+  );
 
   const getItemLayout = React.useCallback((data: any, index: number) => {
     const ITEM_HEIGHT = 80; // Approximate height including margins

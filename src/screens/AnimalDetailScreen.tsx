@@ -23,7 +23,6 @@ import FoodCard from "../components/FoodCard";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTranslations } from "../i18n/translations";
 import { useDynamicTranslations } from "../hooks/useDynamicTranslations";
-import TranslatedText from "../components/TranslatedText";
 
 type AnimalDetailScreenProps = {
   route: RouteProp<RootStackParamList, "AnimalDetail">;
@@ -57,16 +56,22 @@ const AnimalDetailScreen = ({ route }: AnimalDetailScreenProps) => {
     },
   ];
 
-  const renderSectionHeader = React.useCallback(({ section }: { section: SectionData }) => (
-    <View style={styles.sectionHeader}>
-      <Text style={styles.sectionTitle}>{section.title}</Text>
-      <CompatibilityIndicator status={section.status} />
-    </View>
-  ), []);
+  const renderSectionHeader = React.useCallback(
+    ({ section }: { section: SectionData }) => (
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionTitle}>{section.title}</Text>
+        <CompatibilityIndicator status={section.status} />
+      </View>
+    ),
+    []
+  );
 
-  const renderFoodItem = React.useCallback(({ item }: { item: FoodItem }) => (
-    <FoodCard food={item} animalName={animalName} />
-  ), [animalName]);
+  const renderFoodItem = React.useCallback(
+    ({ item }: { item: FoodItem }) => (
+      <FoodCard food={item} animalName={animalName} />
+    ),
+    [animalName]
+  );
 
   const keyExtractor = React.useCallback((item: FoodItem) => item.item, []);
 

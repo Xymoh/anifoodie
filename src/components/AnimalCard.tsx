@@ -38,7 +38,7 @@ const AnimalCard = React.memo(({ animal, status }: AnimalCardProps) => {
     <TouchableOpacity style={styles.container} onPress={handlePress}>
       <View style={styles.topRow}>
         <View style={styles.nameContainer}>
-          <AnimalIcon animal={animal} size={80} />
+          <AnimalIcon animal={animal} size={28} />
           <Text style={styles.animalName}>{animal}</Text>
         </View>
         <View style={styles.rightContainer}>

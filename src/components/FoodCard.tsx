@@ -39,7 +39,7 @@ const FoodCard = React.memo(({ food, animalName }: FoodCardProps) => {
     <TouchableOpacity style={styles.container} onPress={handlePress}>
       <View style={styles.topRow}>
         <View style={styles.nameContainer}>
-          <FoodIcon category={food.category} itemKey={food.icon} size={80} />
+          <FoodIcon category={food.category} itemKey={food.icon} size={28} />
           <View style={styles.textContainer}>
             <Text style={styles.foodName}>{getSimplifiedFoodName(food)}</Text>
             <Text style={styles.categoryName}>{getDisplayCategory(food)}</Text>

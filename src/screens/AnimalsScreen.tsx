@@ -170,35 +170,44 @@ const AnimalsScreen = () => {
     navigation.navigate("AnimalDetail", { animalName });
   };
 
-  const renderAnimalItem = React.useCallback(({ item }: { item: AnimalName }) => (
-    <TouchableOpacity
-      style={styles.animalItem}
-      onPress={() => handleAnimalPress(item)}
-    >
-      <View style={styles.animalRow}>
-        <AnimalIcon animal={item} size={24} />
-        <Text style={styles.animalName}>{item}</Text>
+  const renderAnimalItem = React.useCallback(
+    ({ item }: { item: AnimalName }) => (
+      <TouchableOpacity
+        style={styles.animalItem}
+        onPress={() => handleAnimalPress(item)}
+      >
+        <View style={styles.animalRow}>
+          <AnimalIcon animal={item} size={24} />
+          <Text style={styles.animalName}>{item}</Text>
+        </View>
+      </TouchableOpacity>
+    ),
+    []
+  );
+
+  const renderSectionHeader = React.useCallback(
+    ({ section }: { section: AnimalSection }) => (
+      <View style={styles.sectionHeader}>
+        <TranslatedText
+          style={styles.sectionTitle}
+          translationKey={
+            section.title.toLowerCase() as
+              | "mammals"
+              | "birds"
+              | "reptiles"
+              | "amphibians"
+              | "fish"
+          }
+        />
       </View>
-    </TouchableOpacity>
-  ), []);
+    ),
+    []
+  );
 
-  const renderSectionHeader = React.useCallback(({ section }: { section: AnimalSection }) => (
-    <View style={styles.sectionHeader}>
-      <TranslatedText
-        style={styles.sectionTitle}
-        translationKey={
-          section.title.toLowerCase() as
-            | "mammals"
-            | "birds"
-            | "reptiles"
-            | "amphibians"
-            | "fish"
-        }
-      />
-    </View>
-  ), []);
-
-  const keyExtractor = React.useCallback((item: AnimalName, index: number) => `${item}-${index}`, []);
+  const keyExtractor = React.useCallback(
+    (item: AnimalName, index: number) => `${item}-${index}`,
+    []
+  );
 
   const getItemLayout = React.useCallback((data: any, index: number) => {
     const ITEM_HEIGHT = 80; // Approximate height including margins

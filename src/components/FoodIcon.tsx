@@ -316,122 +316,126 @@ interface FoodIconProps {
   noBackground?: boolean;
 }
 
-const FoodIcon = React.memo(({
-  category,
-  itemKey,
-  size = 24,
-  tintColor,
-  noBackground = false,
-}: FoodIconProps) => {
-  const getBackgroundColor = (): string => {
-    const lowerCategory = category.toLowerCase();
+const FoodIcon = React.memo(
+  ({
+    category,
+    itemKey,
+    size = 24,
+    tintColor,
+    noBackground = false,
+  }: FoodIconProps) => {
+    const getBackgroundColor = (): string => {
+      const lowerCategory = category.toLowerCase();
 
-    if (
-      lowerCategory.includes("fruit") ||
-      lowerCategory.includes("berry") ||
-      lowerCategory.includes("citrus") ||
-      lowerCategory.includes("melon") ||
-      lowerCategory.includes("tropical")
-    ) {
-      return `${colors.primary}CC`;
-    }
-
-    if (
-      lowerCategory.includes("vegetable") ||
-      lowerCategory.includes("leafy green") ||
-      lowerCategory.includes("root") ||
-      lowerCategory.includes("cruciferous") ||
-      lowerCategory.includes("allium") ||
-      lowerCategory.includes("squash") ||
-      lowerCategory.includes("gourd")
-    ) {
-      return `${colors.parrotGreen}CC`;
-    }
-
-    if (
-      lowerCategory.includes("nut") ||
-      lowerCategory.includes("seed") ||
-      lowerCategory.includes("grain") ||
-      lowerCategory.includes("legume")
-    ) {
-      return `${colors.dogBrown}CC`;
-    }
-
-    if (lowerCategory.includes("dairy") || lowerCategory.includes("egg")) {
-      return `${colors.secondary}CC`;
-    }
-
-    if (lowerCategory.includes("meat") || lowerCategory.includes("fish")) {
-      return `${colors.rabbitPink}CC`;
-    }
-
-    return `${colors.gray500}CC`;
-  };
-
-  const getImageForFood = (): ImageSourcePropType | null => {
-    if (itemKey) {
-      // Check cache first
-      if (imageCache.has(itemKey)) {
-        return imageCache.get(itemKey);
+      if (
+        lowerCategory.includes("fruit") ||
+        lowerCategory.includes("berry") ||
+        lowerCategory.includes("citrus") ||
+        lowerCategory.includes("melon") ||
+        lowerCategory.includes("tropical")
+      ) {
+        return `${colors.primary}CC`;
       }
-      
-      const image = foodImages[itemKey] || null;
-      
-      // Cache the result
-      if (image) {
-        imageCache.set(itemKey, image);
+
+      if (
+        lowerCategory.includes("vegetable") ||
+        lowerCategory.includes("leafy green") ||
+        lowerCategory.includes("root") ||
+        lowerCategory.includes("cruciferous") ||
+        lowerCategory.includes("allium") ||
+        lowerCategory.includes("squash") ||
+        lowerCategory.includes("gourd")
+      ) {
+        return `${colors.parrotGreen}CC`;
       }
-      
-      return image;
-    }
-    return null;
-  };
 
-  const imageSource = getImageForFood();
+      if (
+        lowerCategory.includes("nut") ||
+        lowerCategory.includes("seed") ||
+        lowerCategory.includes("grain") ||
+        lowerCategory.includes("legume")
+      ) {
+        return `${colors.dogBrown}CC`;
+      }
 
-  // Calculate container and image dimensions
-  const containerSize = size + 24;
-  const imageSize = size * 1.6;
+      if (lowerCategory.includes("dairy") || lowerCategory.includes("egg")) {
+        return `${colors.secondary}CC`;
+      }
 
-  return (
-    <View
-      style={[
-        styles.container,
-        {
-          width: containerSize,
-          height: containerSize,
-          backgroundColor: noBackground ? "transparent" : getBackgroundColor(),
-          borderRadius: containerSize / 2,
-          borderWidth: noBackground ? 0 : 2,
-        },
-      ]}
-    >
-      {imageSource ? (
-        <Image
-          source={imageSource}
-          style={[
-            styles.icon,
-            {
-              width: imageSize,
-              height: imageSize,
-              tintColor: tintColor,
-            },
-          ]}
-          resizeMode="contain"
-        />
-      ) : (
-        <Text
-          style={[
-            styles.icon,
-            { fontSize: imageSize * 0.4, color: tintColor || "#666" },
-          ]}
-        >
-          {"<Alt>"}
-        </Text>
-      )}
-    </View>
-  );
-});
+      if (lowerCategory.includes("meat") || lowerCategory.includes("fish")) {
+        return `${colors.rabbitPink}CC`;
+      }
+
+      return `${colors.gray500}CC`;
+    };
+
+    const getImageForFood = (): ImageSourcePropType | null => {
+      if (itemKey) {
+        // Check cache first
+        if (imageCache.has(itemKey)) {
+          return imageCache.get(itemKey);
+        }
+
+        const image = foodImages[itemKey] || null;
+
+        // Cache the result
+        if (image) {
+          imageCache.set(itemKey, image);
+        }
+
+        return image;
+      }
+      return null;
+    };
+
+    const imageSource = getImageForFood();
+
+    // Calculate container and image dimensions
+    const containerSize = size + 24;
+    const imageSize = size * 1.6;
+
+    return (
+      <View
+        style={[
+          styles.container,
+          {
+            width: containerSize,
+            height: containerSize,
+            backgroundColor: noBackground
+              ? "transparent"
+              : getBackgroundColor(),
+            borderRadius: containerSize / 2,
+            borderWidth: noBackground ? 0 : 2,
+          },
+        ]}
+      >
+        {imageSource ? (
+          <Image
+            source={imageSource}
+            style={[
+              styles.icon,
+              {
+                width: imageSize,
+                height: imageSize,
+                tintColor: tintColor,
+              },
+            ]}
+            resizeMode="contain"
+          />
+        ) : (
+          <Text
+            style={[
+              styles.icon,
+              { fontSize: imageSize * 0.4, color: tintColor || "#666" },
+            ]}
+          >
+            {"<Alt>"}
+          </Text>
+        )}
+      </View>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   container: {

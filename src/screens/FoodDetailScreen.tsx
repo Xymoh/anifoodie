@@ -62,20 +62,22 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
     },
   ];
 
-  const renderSectionHeader = React.useCallback(({ section }: { section: SectionData }) => (
-    <View style={styles.sectionHeader}>
-      <Text style={styles.sectionTitle}>{section.title}</Text>
-      <CompatibilityIndicator status={section.status} />
-    </View>
-  ), []);
+  const renderSectionHeader = React.useCallback(
+    ({ section }: { section: SectionData }) => (
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionTitle}>{section.title}</Text>
+        <CompatibilityIndicator status={section.status} />
+      </View>
+    ),
+    []
+  );
 
-  const renderAnimalItem = React.useCallback(({
-    item,
-    section,
-  }: {
-    item: AnimalName;
-    section: SectionData;
-  }) => <AnimalCard animal={item} status={section.status} />, []);
+  const renderAnimalItem = React.useCallback(
+    ({ item, section }: { item: AnimalName; section: SectionData }) => (
+      <AnimalCard animal={item} status={section.status} />
+    ),
+    []
+  );
 
   const keyExtractor = React.useCallback((item: AnimalName) => item, []);
 
