@@ -57,16 +57,27 @@ const AnimalDetailScreen = ({ route }: AnimalDetailScreenProps) => {
     },
   ];
 
-  const renderSectionHeader = ({ section }: { section: SectionData }) => (
+  const renderSectionHeader = React.useCallback(({ section }: { section: SectionData }) => (
     <View style={styles.sectionHeader}>
       <Text style={styles.sectionTitle}>{section.title}</Text>
       <CompatibilityIndicator status={section.status} />
     </View>
-  );
+  ), []);
 
-  const renderFoodItem = ({ item }: { item: FoodItem }) => (
+  const renderFoodItem = React.useCallback(({ item }: { item: FoodItem }) => (
     <FoodCard food={item} animalName={animalName} />
-  );
+  ), [animalName]);
+
+  const keyExtractor = React.useCallback((item: FoodItem) => item.item, []);
+
+  const getItemLayout = React.useCallback((data: any, index: number) => {
+    const ITEM_HEIGHT = 120; // Approximate height of FoodCard including margins
+    return {
+      length: ITEM_HEIGHT,
+      offset: ITEM_HEIGHT * index,
+      index,
+    };
+  }, []);
 
   const insets = useSafeAreaInsets();
 
@@ -90,9 +101,15 @@ const AnimalDetailScreen = ({ route }: AnimalDetailScreenProps) => {
         sections={sections}
         renderItem={renderFoodItem}
         renderSectionHeader={renderSectionHeader}
-        keyExtractor={(item) => item.item}
+        keyExtractor={keyExtractor}
+        getItemLayout={getItemLayout}
         contentContainerStyle={styles.listContent}
         stickySectionHeadersEnabled
+        removeClippedSubviews={true}
+        maxToRenderPerBatch={8}
+        updateCellsBatchingPeriod={100}
+        initialNumToRender={8}
+        windowSize={8}
       />
     </SafeAreaView>
   );

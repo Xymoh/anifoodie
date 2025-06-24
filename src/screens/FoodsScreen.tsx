@@ -131,16 +131,16 @@ const FoodsScreen = () => {
     navigation.navigate("FoodDetail", { foodName });
   };
 
-  const renderSectionHeader = ({ section }: { section: SectionData }) => (
+  const renderSectionHeader = React.useCallback(({ section }: { section: SectionData }) => (
     <View style={styles.sectionHeader}>
       <Text style={styles.sectionTitle}>{section.title}</Text>
       {section.subTitle && (
         <Text style={styles.sectionSubtitle}>{section.subTitle}</Text>
       )}
     </View>
-  );
+  ), []);
 
-  const renderFoodItem = ({ item }: { item: FoodItem }) => (
+  const renderFoodItem = React.useCallback(({ item }: { item: FoodItem }) => (
     <TouchableOpacity
       style={styles.foodItem}
       onPress={() => handleFoodPress(item.item)}
@@ -150,7 +150,19 @@ const FoodsScreen = () => {
         <Text style={styles.foodName}>{getSimplifiedFoodName(item)}</Text>
       </View>
     </TouchableOpacity>
-  );
+  ), []);
+
+  const keyExtractor = React.useCallback((item: FoodItem, index: number) => 
+    `${item.type}-${item.category}-${item.item}-${index}`, []);
+
+  const getItemLayout = React.useCallback((data: any, index: number) => {
+    const ITEM_HEIGHT = 80; // Approximate height including margins
+    return {
+      length: ITEM_HEIGHT,
+      offset: ITEM_HEIGHT * index,
+      index,
+    };
+  }, []);
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
@@ -169,11 +181,17 @@ const FoodsScreen = () => {
         sections={sections}
         renderItem={renderFoodItem}
         renderSectionHeader={renderSectionHeader}
-        keyExtractor={(item, index) =>
-          `${item.type}-${item.category}-${item.item}-${index}`
-        }
+        keyExtractor={keyExtractor}
+        getItemLayout={getItemLayout}
         contentContainerStyle={styles.listContent}
         stickySectionHeadersEnabled
+        removeClippedSubviews={true}
+        maxToRenderPerBatch={8}
+        updateCellsBatchingPeriod={50}
+        initialNumToRender={8}
+        windowSize={8}
+        legacyImplementation={false}
+        disableVirtualization={false}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <TranslatedText

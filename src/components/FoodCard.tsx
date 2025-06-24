@@ -23,7 +23,7 @@ type NavigationProp = NativeStackNavigationProp<
   "AnimalDetail"
 >;
 
-const FoodCard = ({ food, animalName }: FoodCardProps) => {
+const FoodCard = React.memo(({ food, animalName }: FoodCardProps) => {
   const navigation = useNavigation<NavigationProp>();
   const { isFoodFavorite, toggleFavoriteFood } = useFavorites();
 
@@ -39,7 +39,7 @@ const FoodCard = ({ food, animalName }: FoodCardProps) => {
     <TouchableOpacity style={styles.container} onPress={handlePress}>
       <View style={styles.topRow}>
         <View style={styles.nameContainer}>
-          <FoodIcon category={food.category} itemKey={food.icon} size={48} />
+          <FoodIcon category={food.category} itemKey={food.icon} size={80} />
           <View style={styles.textContainer}>
             <Text style={styles.foodName}>{getSimplifiedFoodName(food)}</Text>
             <Text style={styles.categoryName}>{getDisplayCategory(food)}</Text>
@@ -57,7 +57,7 @@ const FoodCard = ({ food, animalName }: FoodCardProps) => {
       </View>
     </TouchableOpacity>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

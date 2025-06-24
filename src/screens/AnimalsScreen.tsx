@@ -170,7 +170,7 @@ const AnimalsScreen = () => {
     navigation.navigate("AnimalDetail", { animalName });
   };
 
-  const renderAnimalItem = ({ item }: { item: AnimalName }) => (
+  const renderAnimalItem = React.useCallback(({ item }: { item: AnimalName }) => (
     <TouchableOpacity
       style={styles.animalItem}
       onPress={() => handleAnimalPress(item)}
@@ -180,9 +180,9 @@ const AnimalsScreen = () => {
         <Text style={styles.animalName}>{item}</Text>
       </View>
     </TouchableOpacity>
-  );
+  ), []);
 
-  const renderSectionHeader = ({ section }: { section: AnimalSection }) => (
+  const renderSectionHeader = React.useCallback(({ section }: { section: AnimalSection }) => (
     <View style={styles.sectionHeader}>
       <TranslatedText
         style={styles.sectionTitle}
@@ -196,7 +196,18 @@ const AnimalsScreen = () => {
         }
       />
     </View>
-  );
+  ), []);
+
+  const keyExtractor = React.useCallback((item: AnimalName, index: number) => `${item}-${index}`, []);
+
+  const getItemLayout = React.useCallback((data: any, index: number) => {
+    const ITEM_HEIGHT = 80; // Approximate height including margins
+    return {
+      length: ITEM_HEIGHT,
+      offset: ITEM_HEIGHT * index,
+      index,
+    };
+  }, []);
 
   const insets = useSafeAreaInsets();
 
@@ -216,9 +227,17 @@ const AnimalsScreen = () => {
         sections={groupedAnimals}
         renderItem={renderAnimalItem}
         renderSectionHeader={renderSectionHeader}
-        keyExtractor={(item, index) => `${item}-${index}`}
+        keyExtractor={keyExtractor}
+        getItemLayout={getItemLayout}
         contentContainerStyle={styles.listContent}
         stickySectionHeadersEnabled
+        removeClippedSubviews={true}
+        maxToRenderPerBatch={8}
+        updateCellsBatchingPeriod={50}
+        initialNumToRender={8}
+        windowSize={8}
+        legacyImplementation={false}
+        disableVirtualization={false}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <TranslatedText

@@ -9,45 +9,63 @@ import {
 
 import { AnimalName } from "../types";
 import { spacing, colors } from "../styles";
+import { imageCache } from "../utils/imageCache";
 
 type AnimalImages = {
   [key: string]: ImageSourcePropType;
 };
 
-const animalImages: AnimalImages = {
-  dog: require("../../assets/animals/dog.png"),
-  cat: require("../../assets/animals/cat.png"),
-  rabbit: require("../../assets/animals/rabbit.png"),
-  guinea_pig: require("../../assets/animals/guinea_pig.png"),
-  hamster: require("../../assets/animals/hamster.png"),
-  gerbil: require("../../assets/animals/gerbil.png"),
-  ferret: require("../../assets/animals/ferret.png"),
-  mouse: require("../../assets/animals/mouse.png"),
-  rat: require("../../assets/animals/rat.png"),
-  chinchilla: require("../../assets/animals/chinchilla.png"),
-  hedgehog: require("../../assets/animals/hedgehog.png"),
-  sugar_glider: require("../../assets/animals/sugar_glider.png"),
-  parakeet: require("../../assets/animals/parakeet.png"),
-  cockatiel: require("../../assets/animals/cockatiel.png"),
-  parrot: require("../../assets/animals/parrot.png"),
-  lovebird: require("../../assets/animals/lovebird.png"),
-  canary: require("../../assets/animals/canary.png"),
-  finch: require("../../assets/animals/finch.png"),
-  dove: require("../../assets/animals/dove.png"),
-  turtle: require("../../assets/animals/turtle.png"),
-  tortoise: require("../../assets/animals/tortoise.png"),
-  bearded_dragon: require("../../assets/animals/bearded_dragon.png"),
-  leopard_gecko: require("../../assets/animals/leopard_gecko.png"),
-  iguana: require("../../assets/animals/iguana.png"),
-  snake: require("../../assets/animals/snake.png"),
-  frog: require("../../assets/animals/frog.png"),
-  toad: require("../../assets/animals/toad.png"),
-  axolotl: require("../../assets/animals/axolotl.png"),
-  newt: require("../../assets/animals/newt.png"),
-  salamander: require("../../assets/animals/salamander.png"),
-  goldfish: require("../../assets/animals/goldfish.png"),
-  betta_fish: require("../../assets/animals/betta_fish.png"),
-  angelfish: require("../../assets/animals/angelfish.png"),
+// Lazy load images only when needed with caching
+const getAnimalImage = (key: string): ImageSourcePropType | null => {
+  // Check cache first
+  if (imageCache.has(key)) {
+    return imageCache.get(key);
+  }
+  
+  const animalImages: AnimalImages = {
+    dog: require("../../assets/animals/dog.png"),
+    cat: require("../../assets/animals/cat.png"),
+    rabbit: require("../../assets/animals/rabbit.png"),
+    guinea_pig: require("../../assets/animals/guinea_pig.png"),
+    hamster: require("../../assets/animals/hamster.png"),
+    gerbil: require("../../assets/animals/gerbil.png"),
+    ferret: require("../../assets/animals/ferret.png"),
+    mouse: require("../../assets/animals/mouse.png"),
+    rat: require("../../assets/animals/rat.png"),
+    chinchilla: require("../../assets/animals/chinchilla.png"),
+    hedgehog: require("../../assets/animals/hedgehog.png"),
+    sugar_glider: require("../../assets/animals/sugar_glider.png"),
+    parakeet: require("../../assets/animals/parakeet.png"),
+    cockatiel: require("../../assets/animals/cockatiel.png"),
+    parrot: require("../../assets/animals/parrot.png"),
+    lovebird: require("../../assets/animals/lovebird.png"),
+    canary: require("../../assets/animals/canary.png"),
+    finch: require("../../assets/animals/finch.png"),
+    dove: require("../../assets/animals/dove.png"),
+    turtle: require("../../assets/animals/turtle.png"),
+    tortoise: require("../../assets/animals/tortoise.png"),
+    bearded_dragon: require("../../assets/animals/bearded_dragon.png"),
+    leopard_gecko: require("../../assets/animals/leopard_gecko.png"),
+    iguana: require("../../assets/animals/iguana.png"),
+    snake: require("../../assets/animals/snake.png"),
+    frog: require("../../assets/animals/frog.png"),
+    toad: require("../../assets/animals/toad.png"),
+    axolotl: require("../../assets/animals/axolotl.png"),
+    newt: require("../../assets/animals/newt.png"),
+    salamander: require("../../assets/animals/salamander.png"),
+    goldfish: require("../../assets/animals/goldfish.png"),
+    betta_fish: require("../../assets/animals/betta_fish.png"),
+    angelfish: require("../../assets/animals/angelfish.png"),
+  };
+  
+  const image = animalImages[key] || null;
+  
+  // Cache the result
+  if (image) {
+    imageCache.set(key, image);
+  }
+  
+  return image;
 };
 
 interface AnimalIconProps {
@@ -57,7 +75,7 @@ interface AnimalIconProps {
   noBackground?: boolean;
 }
 
-const AnimalIcon = ({
+const AnimalIcon = React.memo(({
   animal,
   size = 32,
   tintColor,
@@ -69,7 +87,7 @@ const AnimalIcon = ({
 
   const getImageForAnimal = (): ImageSourcePropType | null => {
     const imageKey = getImageKey(animal);
-    return animalImages[imageKey] || null;
+    return getAnimalImage(imageKey);
   };
 
   // Get background color based on animal category for the container
@@ -165,7 +183,7 @@ const AnimalIcon = ({
       )}
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   imageContainer: {

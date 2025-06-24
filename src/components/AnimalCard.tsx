@@ -22,7 +22,7 @@ type NavigationProp = NativeStackNavigationProp<
   "FoodDetail"
 >;
 
-const AnimalCard = ({ animal, status }: AnimalCardProps) => {
+const AnimalCard = React.memo(({ animal, status }: AnimalCardProps) => {
   const navigation = useNavigation<NavigationProp>();
   const { isAnimalFavorite, toggleFavoriteAnimal } = useFavorites();
 
@@ -53,7 +53,7 @@ const AnimalCard = ({ animal, status }: AnimalCardProps) => {
       </View>
     </TouchableOpacity>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

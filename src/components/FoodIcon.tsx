@@ -8,6 +8,7 @@ import {
 } from "react-native";
 
 import { colors, spacing } from "../styles";
+import { imageCache } from "../utils/imageCache";
 
 type FoodImages = {
   [key: string]: ImageSourcePropType;
@@ -315,7 +316,7 @@ interface FoodIconProps {
   noBackground?: boolean;
 }
 
-const FoodIcon = ({
+const FoodIcon = React.memo(({
   category,
   itemKey,
   size = 24,
@@ -368,8 +369,20 @@ const FoodIcon = ({
   };
 
   const getImageForFood = (): ImageSourcePropType | null => {
-    if (itemKey && foodImages[itemKey]) {
-      return foodImages[itemKey];
+    if (itemKey) {
+      // Check cache first
+      if (imageCache.has(itemKey)) {
+        return imageCache.get(itemKey);
+      }
+      
+      const image = foodImages[itemKey] || null;
+      
+      // Cache the result
+      if (image) {
+        imageCache.set(itemKey, image);
+      }
+      
+      return image;
     }
     return null;
   };
@@ -418,7 +431,7 @@ const FoodIcon = ({
       )}
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

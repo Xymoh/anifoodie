@@ -62,20 +62,31 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
     },
   ];
 
-  const renderSectionHeader = ({ section }: { section: SectionData }) => (
+  const renderSectionHeader = React.useCallback(({ section }: { section: SectionData }) => (
     <View style={styles.sectionHeader}>
       <Text style={styles.sectionTitle}>{section.title}</Text>
       <CompatibilityIndicator status={section.status} />
     </View>
-  );
+  ), []);
 
-  const renderAnimalItem = ({
+  const renderAnimalItem = React.useCallback(({
     item,
     section,
   }: {
     item: AnimalName;
     section: SectionData;
-  }) => <AnimalCard animal={item} status={section.status} />;
+  }) => <AnimalCard animal={item} status={section.status} />, []);
+
+  const keyExtractor = React.useCallback((item: AnimalName) => item, []);
+
+  const getItemLayout = React.useCallback((data: any, index: number) => {
+    const ITEM_HEIGHT = 120; // Approximate height of AnimalCard including margins
+    return {
+      length: ITEM_HEIGHT,
+      offset: ITEM_HEIGHT * index,
+      index,
+    };
+  }, []);
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
