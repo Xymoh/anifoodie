@@ -1,16 +1,14 @@
-// External dependencies
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-// Internal dependencies
 import { FoodItem } from "../types";
 import { RootStackParamList } from "../navigation/types";
 import { useFavorites } from "../hooks/useFavorites";
 import { colors, spacing, typography, shadow } from "../styles";
+import { getSimplifiedFoodName, getDisplayCategory } from "../data/data-utils";
 
-// Components
 import FoodIcon from "./FoodIcon";
 import CompatibilityIndicator from "./CompatibilityIndicator";
 import FavoriteButton from "./FavoriteButton";
@@ -41,10 +39,10 @@ const FoodCard = ({ food, animalName }: FoodCardProps) => {
     <TouchableOpacity style={styles.container} onPress={handlePress}>
       <View style={styles.topRow}>
         <View style={styles.nameContainer}>
-          <FoodIcon category={food.category} size={28} />
+          <FoodIcon category={food.category} itemKey={food.icon} size={28} />
           <View style={styles.textContainer}>
-            <Text style={styles.foodName}>{food.item}</Text>
-            <Text style={styles.categoryName}>{food.category}</Text>
+            <Text style={styles.foodName}>{getSimplifiedFoodName(food)}</Text>
+            <Text style={styles.categoryName}>{getDisplayCategory(food)}</Text>
           </View>
         </View>
         <View style={styles.rightContainer}>

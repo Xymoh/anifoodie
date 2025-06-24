@@ -2,6 +2,7 @@ export interface FoodItem {
   type: string;
   category: string;
   item: string;
+  icon: string;
   compatibility: Record<string, string>;
 }
 

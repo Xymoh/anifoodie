@@ -10,7 +10,7 @@ import { RouteProp, useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { RootStackParamList } from "../navigation/types";
-import { getAnimalsForFood } from "../data/data-utils";
+import { getAnimalsForFood, getFoodItemByName } from "../data/data-utils";
 import { AnimalName, CompatibilityStatus } from "../types";
 import { colors, spacing, typography, shadow } from "../styles";
 
@@ -36,6 +36,7 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
   const { foodName } = route.params;
   const navigation = useNavigation();
   const animalData = getAnimalsForFood(foodName);
+  const foodItem = getFoodItemByName(foodName);
   const { language } = useLanguage();
   const { t } = useTranslations(language);
   const { translateFood } = useDynamicTranslations();
@@ -86,7 +87,11 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
           <Text style={styles.backButtonText}>←</Text>
         </TouchableOpacity>
         <View style={styles.header}>
-          <FoodIcon category={foodName} size={36} />
+          <FoodIcon
+            category={foodItem?.category || foodName}
+            itemKey={foodItem?.icon}
+            size={36}
+          />
           <Text style={styles.title}>{translateFood(foodName)}</Text>
         </View>
       </View>

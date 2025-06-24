@@ -80,7 +80,11 @@ const FavoritesScreen = () => {
           style={styles.item}
           onPress={() => handleFoodPress(foodItem.item)}
         >
-          <FoodIcon category={foodItem.category} size={28} />
+          <FoodIcon
+            category={foodItem.category}
+            itemKey={foodItem.icon}
+            size={28}
+          />
           <View style={styles.foodTextContainer}>
             <Text style={styles.itemName}>{foodItem.item}</Text>
             <Text style={styles.categoryName}>{foodItem.category}</Text>

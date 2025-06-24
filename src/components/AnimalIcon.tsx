@@ -16,9 +16,38 @@ type AnimalImages = {
 
 const animalImages: AnimalImages = {
   dog: require("../../assets/animals/dog.png"),
-  chinchilla: require("../../assets/animals/chinchilla.png"),
+  cat: require("../../assets/animals/cat.png"),
+  rabbit: require("../../assets/animals/rabbit.png"),
   guinea_pig: require("../../assets/animals/guinea_pig.png"),
+  hamster: require("../../assets/animals/hamster.png"),
+  gerbil: require("../../assets/animals/gerbil.png"),
+  ferret: require("../../assets/animals/ferret.png"),
   mouse: require("../../assets/animals/mouse.png"),
+  rat: require("../../assets/animals/rat.png"),
+  chinchilla: require("../../assets/animals/chinchilla.png"),
+  hedgehog: require("../../assets/animals/hedgehog.png"),
+  sugar_glider: require("../../assets/animals/sugar_glider.png"),
+  parakeet: require("../../assets/animals/parakeet.png"),
+  cockatiel: require("../../assets/animals/cockatiel.png"),
+  parrot: require("../../assets/animals/parrot.png"),
+  lovebird: require("../../assets/animals/lovebird.png"),
+  canary: require("../../assets/animals/canary.png"),
+  finch: require("../../assets/animals/finch.png"),
+  dove: require("../../assets/animals/dove.png"),
+  turtle: require("../../assets/animals/turtle.png"),
+  tortoise: require("../../assets/animals/tortoise.png"),
+  bearded_dragon: require("../../assets/animals/bearded_dragon.png"),
+  leopard_gecko: require("../../assets/animals/leopard_gecko.png"),
+  iguana: require("../../assets/animals/iguana.png"),
+  snake: require("../../assets/animals/snake.png"),
+  frog: require("../../assets/animals/frog.png"),
+  toad: require("../../assets/animals/toad.png"),
+  axolotl: require("../../assets/animals/axolotl.png"),
+  newt: require("../../assets/animals/newt.png"),
+  salamander: require("../../assets/animals/salamander.png"),
+  goldfish: require("../../assets/animals/goldfish.png"),
+  betta_fish: require("../../assets/animals/betta_fish.png"),
+  angelfish: require("../../assets/animals/angelfish.png"),
 };
 
 interface AnimalIconProps {
@@ -92,23 +121,20 @@ const AnimalIcon = ({
   // Get the image source for the animal
   const imageSource = getImageForAnimal();
 
-  // If we have an image for this animal, render an Image component
-  if (imageSource) {
-    return (
-      <View
-        style={[
-          styles.imageContainer,
-          {
-            width: size + 24,
-            height: size + 24,
-            backgroundColor: noBackground
-              ? "transparent"
-              : getBackgroundColor(),
-            borderRadius: (size + 24) / 2,
-            borderWidth: noBackground ? 0 : 2,
-          },
-        ]}
-      >
+  return (
+    <View
+      style={[
+        styles.imageContainer,
+        {
+          width: size + 24,
+          height: size + 24,
+          backgroundColor: noBackground ? "transparent" : getBackgroundColor(),
+          borderRadius: (size + 24) / 2,
+          borderWidth: noBackground ? 0 : 2,
+        },
+      ]}
+    >
+      {imageSource ? (
         <Image
           source={imageSource}
           style={[
@@ -121,92 +147,16 @@ const AnimalIcon = ({
           ]}
           resizeMode="contain"
         />
-      </View>
-    );
-  }
-
-  // Otherwise, fall back to emojis for animals without images
-  const getFallbackEmoji = (): string => {
-    switch (animal) {
-      case "Cat":
-        return "🐈";
-      case "Rabbit":
-        return "🐇";
-      case "Hamster":
-        return "🐹";
-      case "Gerbil":
-        return "🐹";
-      case "Ferret":
-        return "🦡";
-      case "Rat":
-        return "🐀";
-      case "Hedgehog":
-        return "🦔";
-      case "Sugar Glider":
-        return "🦝";
-      case "Parakeet":
-        return "🦜";
-      case "Cockatiel":
-        return "🦜";
-      case "Parrot":
-        return "🦜";
-      case "Lovebird":
-        return "🦜";
-      case "Canary":
-        return "🐦";
-      case "Finch":
-        return "🐦";
-      case "Dove":
-        return "🕊️";
-      case "Turtle":
-        return "🐢";
-      case "Tortoise":
-        return "🐢";
-      case "Bearded Dragon":
-        return "🦎";
-      case "Leopard Gecko":
-        return "🦎";
-      case "Iguana":
-        return "🦎";
-      case "Snake":
-        return "🐍";
-      case "Frog":
-        return "🐸";
-      case "Toad":
-        return "🐸";
-      case "Axolotl":
-        return "🦎";
-      case "Newt":
-        return "🦎";
-      case "Salamander":
-        return "🦎";
-      case "Goldfish":
-        return "🐠";
-      case "Betta Fish":
-        return "🐟";
-      case "Angelfish":
-        return "🐠";
-      default:
-        return "🐾";
-    }
-  };
-
-  return (
-    <View
-      style={[
-        styles.emojiContainer,
-        {
-          width: size + 24,
-          height: size + 24,
-          backgroundColor: noBackground ? "transparent" : getBackgroundColor(),
-          borderRadius: (size + 24) / 2,
-          borderWidth: noBackground ? 0 : 2,
-        },
-      ]}
-    >
-      <Text style={[styles.emoji, { fontSize: size * 0.8 }]}>
-        {getFallbackEmoji()}
-      </Text>
+      ) : (
+        <Text
+          style={[
+            styles.icon,
+            { fontSize: size * 0.4, color: tintColor || "#666" },
+          ]}
+        >
+          {"<Alt>"}
+        </Text>
+      )}
     </View>
   );
 };
@@ -220,16 +170,6 @@ const styles = StyleSheet.create({
     borderColor: "rgba(255,255,255,0.15)",
   },
   icon: {
-    marginRight: 0,
-  },
-  emojiContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: spacing.xs,
-    borderWidth: 2,
-    borderColor: "rgba(255,255,255,0.15)",
-  },
-  emoji: {
     marginRight: 0,
   },
 });
