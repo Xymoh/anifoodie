@@ -332,7 +332,7 @@ const FoodIcon = ({
       lowerCategory.includes("melon") ||
       lowerCategory.includes("tropical")
     ) {
-      return `${colors.primary}44`;
+      return `${colors.primary}CC`;
     }
 
     if (
@@ -344,7 +344,7 @@ const FoodIcon = ({
       lowerCategory.includes("squash") ||
       lowerCategory.includes("gourd")
     ) {
-      return `${colors.parrotGreen}44`;
+      return `${colors.parrotGreen}CC`;
     }
 
     if (
@@ -353,18 +353,18 @@ const FoodIcon = ({
       lowerCategory.includes("grain") ||
       lowerCategory.includes("legume")
     ) {
-      return `${colors.dogBrown}44`;
+      return `${colors.dogBrown}CC`;
     }
 
     if (lowerCategory.includes("dairy") || lowerCategory.includes("egg")) {
-      return `${colors.secondary}44`;
+      return `${colors.secondary}CC`;
     }
 
     if (lowerCategory.includes("meat") || lowerCategory.includes("fish")) {
-      return `${colors.rabbitPink}44`;
+      return `${colors.rabbitPink}CC`;
     }
 
-    return `${colors.gray500}44`;
+    return `${colors.gray500}CC`;
   };
 
   const getImageForFood = (): ImageSourcePropType | null => {
@@ -376,15 +376,19 @@ const FoodIcon = ({
 
   const imageSource = getImageForFood();
 
+  // Calculate container and image dimensions
+  const containerSize = size + 24;
+  const imageSize = size * 1.6;
+
   return (
     <View
       style={[
         styles.container,
         {
-          width: size + 24,
-          height: size + 24,
+          width: containerSize,
+          height: containerSize,
           backgroundColor: noBackground ? "transparent" : getBackgroundColor(),
-          borderRadius: (size + 24) / 2,
+          borderRadius: containerSize / 2,
           borderWidth: noBackground ? 0 : 2,
         },
       ]}
@@ -395,8 +399,8 @@ const FoodIcon = ({
           style={[
             styles.icon,
             {
-              width: size,
-              height: size,
+              width: imageSize,
+              height: imageSize,
               tintColor: tintColor,
             },
           ]}
@@ -406,7 +410,7 @@ const FoodIcon = ({
         <Text
           style={[
             styles.icon,
-            { fontSize: size * 0.4, color: tintColor || "#666" },
+            { fontSize: imageSize * 0.4, color: tintColor || "#666" },
           ]}
         >
           {"<Alt>"}

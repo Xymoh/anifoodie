@@ -59,7 +59,7 @@ interface AnimalIconProps {
 
 const AnimalIcon = ({
   animal,
-  size = 24,
+  size = 32,
   tintColor,
   noBackground = false,
 }: AnimalIconProps) => {
@@ -76,9 +76,11 @@ const AnimalIcon = ({
   const getBackgroundColor = (): string => {
     switch (animal) {
       case "Dog":
-        return `${colors.dogBrown}44`;
+        return `${colors.dogBrown}CC`;
       case "Cat":
-        return `${colors.catOrange}44`;
+        return `${colors.catOrange}CC`;
+      case "Rabbit":
+        return `${colors.rabbitPink}CC`;
       case "Chinchilla":
       case "Guinea Pig":
       case "Hamster":
@@ -88,7 +90,7 @@ const AnimalIcon = ({
       case "Mouse":
       case "Hedgehog":
       case "Sugar Glider":
-        return `${colors.chinchillaGray}44`;
+        return `${colors.chinchillaGray}CC`;
       case "Parakeet":
       case "Cockatiel":
       case "Parrot":
@@ -96,7 +98,7 @@ const AnimalIcon = ({
       case "Canary":
       case "Finch":
       case "Dove":
-        return `${colors.parrotGreen}44`;
+        return `${colors.parrotGreen}CC`;
       case "Turtle":
       case "Tortoise":
       case "Bearded Dragon":
@@ -108,28 +110,32 @@ const AnimalIcon = ({
       case "Axolotl":
       case "Newt":
       case "Salamander":
-        return `${colors.turtleGreen}44`;
+        return `${colors.turtleGreen}CC`;
       case "Goldfish":
       case "Betta Fish":
       case "Angelfish":
-        return `${colors.primary}44`;
+        return `${colors.primary}CC`;
       default:
-        return "transparent";
+        return `${colors.gray400}CC`;
     }
   };
 
   // Get the image source for the animal
   const imageSource = getImageForAnimal();
 
+  // Calculate container and image dimensions
+  const containerSize = size + 24;
+  const imageSize = size * 1.6;
+
   return (
     <View
       style={[
         styles.imageContainer,
         {
-          width: size + 24,
-          height: size + 24,
+          width: containerSize,
+          height: containerSize,
           backgroundColor: noBackground ? "transparent" : getBackgroundColor(),
-          borderRadius: (size + 24) / 2,
+          borderRadius: containerSize / 2,
           borderWidth: noBackground ? 0 : 2,
         },
       ]}
@@ -140,8 +146,8 @@ const AnimalIcon = ({
           style={[
             styles.icon,
             {
-              width: size,
-              height: size,
+              width: imageSize,
+              height: imageSize,
               tintColor: tintColor,
             },
           ]}
@@ -151,7 +157,7 @@ const AnimalIcon = ({
         <Text
           style={[
             styles.icon,
-            { fontSize: size * 0.4, color: tintColor || "#666" },
+            { fontSize: imageSize * 0.4, color: tintColor || "#666" },
           ]}
         >
           {"<Alt>"}
@@ -166,8 +172,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginRight: spacing.xs,
-    borderWidth: 2,
-    borderColor: "rgba(255,255,255,0.15)",
+    borderColor: "rgba(255,255,255,0.5)",
   },
   icon: {
     marginRight: 0,
