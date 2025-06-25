@@ -35,6 +35,15 @@
         "projectId": "09d87d81-7f6f-43a8-93d6-b0dadab95560"
       }
     },
+    "plugins": [
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-5706076003529829~1455602146",
+          "iosAppId": "ca-app-pub-5706076003529829~7711402196"
+        }
+      ]
+    ],
     "owner": "cymoh"
   }
 }

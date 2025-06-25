@@ -9,6 +9,10 @@ dist/
 web-build/
 expo-env.d.ts
 
+# Native directories - IGNORE THESE  
+android/
+ios/
+
 # Native
 .kotlin/
 *.orig.*

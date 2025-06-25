@@ -16,7 +16,7 @@ import { colors, shadow, spacing, typography } from "../styles";
 import { useOnboarding } from "../hooks/useOnboarding";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTranslations } from "../i18n/translations";
-import AdBanner from "../components/AdBanner";
+import AdMobBanner from "../components/AdMobBanner";
 import { AdProvider, useAd } from "../context/AdContext";
 
 const AnimalsStack = createNativeStackNavigator<RootStackParamList>();
@@ -116,44 +116,7 @@ const SettingsStackScreen = () => (
 const TabNavigator = () => {
   const { language } = useLanguage();
   const { t } = useTranslations(language);
-  const { updateAdConfig, adConfig } = useAd();
   const insets = useSafeAreaInsets();
-
-  const ads = React.useMemo(
-    () => [
-      "🐾 Unlock Premium Features - Get Detailed Nutrition Info!",
-      "📊 Premium Analytics - Track Your Pet's Diet History!",
-      "🔔 Get Notifications for New Food Safety Updates!",
-      "💎 Remove Ads & Support AniFood Development!",
-      "🎯 Personalized Pet Recommendations Available!",
-      "🌟 Join 10,000+ Pet Parents Using AniFood Premium!",
-      "🏆 Rated #1 Pet Nutrition App - Upgrade Today!",
-      "💪 Advanced Diet Plans for Your Pet's Health!",
-    ],
-    []
-  );
-
-  React.useEffect(() => {
-    // Rotate ads every 30 seconds
-    let currentAdIndex = 0;
-
-    const updateAd = () => {
-      updateAdConfig({
-        text: ads[currentAdIndex],
-        showCloseButton: false, // Make ads non-closable like Google AdSense
-        onPress: () => {
-          console.log("Ad pressed! Navigate to premium features");
-          // Example: Linking.openURL("https://apps.apple.com/app/anifood-premium");
-        },
-      });
-      currentAdIndex = (currentAdIndex + 1) % ads.length;
-    };
-
-    updateAd();
-    const adInterval = setInterval(updateAd, 30000); // Change every 30 seconds
-
-    return () => clearInterval(adInterval);
-  }, [ads]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -224,21 +187,10 @@ const TabNavigator = () => {
         />
       </Tab.Navigator>
 
-      {/* Ad Banner positioned below the tab navigator */}
+      {/* AdMob Banner positioned below the tab navigator */}
       <View style={{ backgroundColor: colors.gray200 }}>
-        {/* Custom Ad Banner - Currently used for development */}
-        {adConfig.isVisible && (
-          <AdBanner
-            adText={adConfig.text}
-            onPress={adConfig.onPress}
-            backgroundColor={colors.primary}
-            textColor={colors.white}
-            height={adConfig.height}
-            isVisible={adConfig.isVisible}
-            showCloseButton={adConfig.showCloseButton}
-          />
-        )}
-        
+        <AdMobBanner height={60} backgroundColor={colors.gray200} />
+
         {/* Safe area padding at the bottom to prevent system UI overlap */}
         <View
           style={{ height: insets.bottom, backgroundColor: colors.gray200 }}

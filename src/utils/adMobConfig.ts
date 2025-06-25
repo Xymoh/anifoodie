@@ -46,15 +46,13 @@ export const initializeAdMob = async () => {
   }
 };
 
-// Ad Unit IDs - Replace these with actual ad unit IDs from Google AdMob console
+// Ad Unit IDs
 export const AD_UNIT_IDS = {
   ios: {
-    banner: "ca-app-pub-3940256099942544/2934735716", // Test banner ad unit ID
-    // Replace with: "ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY"
+    banner: "ca-app-pub-5706076003529829/7260810204",
   },
   android: {
-    banner: "ca-app-pub-3940256099942544/6300978111", // Test banner ad unit ID
-    // Replace with: "ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY"
+    banner: "ca-app-pub-5706076003529829/3536622969",
   },
 };
 

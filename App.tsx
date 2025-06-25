@@ -6,9 +6,15 @@ import AppNavigator from "./src/navigation/AppNavigator";
 import { LanguageProvider } from "./src/hooks/useLanguage";
 import SplashScreen from "./src/components/SplashScreen";
 import { useSplashScreen } from "./src/hooks/useSplashScreen";
+import { initializeAdMob } from "./src/utils/adMobConfig";
 
 export default function App() {
   const { isReady, showCustomSplash, hideCustomSplash } = useSplashScreen();
+
+  // Initialize AdMob when app starts
+  React.useEffect(() => {
+    initializeAdMob();
+  }, []);
 
   if (!isReady || showCustomSplash) {
     return <SplashScreen onFinish={hideCustomSplash} />;
