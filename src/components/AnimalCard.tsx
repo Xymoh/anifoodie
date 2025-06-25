@@ -5,7 +5,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { AnimalName, CompatibilityStatus } from "../types";
 import { RootStackParamList } from "../navigation/types";
-import { useFavorites } from "../hooks/useFavorites";
+import { useFavorites } from "../context/FavoritesContext";
 import { colors, spacing, typography, shadow } from "../styles";
 
 import AnimalIcon from "./AnimalIcon";
@@ -30,7 +30,7 @@ const AnimalCard = React.memo(({ animal, status }: AnimalCardProps) => {
     navigation.navigate("AnimalDetail", { animalName: animal });
   };
 
-  const handleToggleFavorite = () => {
+  const handleToggleFavorite = (e: boolean) => {
     toggleFavoriteAnimal(animal);
   };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   View,
   Text,
@@ -10,7 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { useFavorites } from "../hooks/useFavorites";
+import { useFavorites } from "../context/FavoritesContext";
 import { RootStackParamList } from "../navigation/types";
 import { parseCSVData } from "../data/data-utils";
 import { FoodItem, AnimalName } from "../types";
@@ -22,6 +22,7 @@ import AnimalIcon from "../components/AnimalIcon";
 import FoodIcon from "../components/FoodIcon";
 import LoadingIndicator from "../components/LoadingIndicator";
 import TranslatedText from "../components/TranslatedText";
+import FavoriteButton from "../components/FavoriteButton";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Main">;
 
@@ -33,20 +34,41 @@ interface Section {
 
 const FavoritesScreen = () => {
   const navigation = useNavigation<NavigationProp>();
-  const { favoriteAnimals, favoriteFoods, isLoading } = useFavorites();
+  const {
+    favoriteAnimals,
+    favoriteFoods,
+    isLoading,
+    toggleFavoriteAnimal,
+    toggleFavoriteFood,
+    isAnimalFavorite,
+    isFoodFavorite,
+  } = useFavorites();
   const allFoods = parseCSVData();
   const { language } = useLanguage();
   const { t } = useTranslations(language);
 
-  // Get full food objects for favorite foods
-  const favoriteFoodItems = allFoods.filter((food) =>
-    favoriteFoods.includes(food.item)
-  );
+  // Import functions to work with the composite IDs
+  const {
+    createFoodId,
+    getFoodNameFromId,
+    getCategoryFromId,
+  } = require("../context/FavoritesContext");
 
-  const sections: Section[] = [
-    { title: t("favoriteAnimals"), data: favoriteAnimals, type: "animal" },
-    { title: t("favoriteFoods"), data: favoriteFoodItems, type: "food" },
-  ];
+  // Get full food objects for favorite foods
+  const favoriteFoodItems = useMemo(() => {
+    return allFoods.filter((food) => {
+      const foodId = createFoodId(food.category, food.item);
+      return favoriteFoods.includes(foodId);
+    });
+  }, [allFoods, favoriteFoods]);
+
+  const sections: Section[] = useMemo(
+    () => [
+      { title: t("favoriteAnimals"), data: favoriteAnimals, type: "animal" },
+      { title: t("favoriteFoods"), data: favoriteFoodItems, type: "food" },
+    ],
+    [t, favoriteAnimals, favoriteFoodItems]
+  );
 
   const handleAnimalPress = (animalName: AnimalName) => {
     navigation.navigate("AnimalDetail", { animalName });
@@ -64,30 +86,58 @@ const FavoritesScreen = () => {
 
   const renderItem = ({ item, section }: { item: any; section: Section }) => {
     if (section.type === "animal") {
+      const handleToggleFavorite = () => {
+        toggleFavoriteAnimal(item);
+      };
+
       return (
         <TouchableOpacity
           style={styles.item}
           onPress={() => handleAnimalPress(item)}
         >
-          <AnimalIcon animal={item} size={28} />
-          <Text style={styles.itemName}>{item}</Text>
+          <View style={styles.contentContainer}>
+            <AnimalIcon animal={item} size={28} />
+            <View style={styles.animalTextContainer}>
+              <Text style={styles.itemName}>{item}</Text>
+            </View>
+          </View>
+          <View style={styles.favoriteContainer}>
+            <FavoriteButton
+              isFavorite={isAnimalFavorite(item)}
+              onToggle={handleToggleFavorite}
+              size={20}
+            />
+          </View>
         </TouchableOpacity>
       );
     } else {
       const foodItem = item as FoodItem;
+      const handleToggleFavorite = () => {
+        toggleFavoriteFood(foodItem);
+      };
+
       return (
         <TouchableOpacity
           style={styles.item}
           onPress={() => handleFoodPress(foodItem.item)}
         >
-          <FoodIcon
-            category={foodItem.category}
-            itemKey={foodItem.icon}
-            size={28}
-          />
-          <View style={styles.foodTextContainer}>
-            <Text style={styles.itemName}>{foodItem.item}</Text>
-            <Text style={styles.categoryName}>{foodItem.category}</Text>
+          <View style={styles.contentContainer}>
+            <FoodIcon
+              category={foodItem.category}
+              itemKey={foodItem.icon}
+              size={28}
+            />
+            <View style={styles.foodTextContainer}>
+              <Text style={styles.itemName}>{foodItem.item}</Text>
+              <Text style={styles.categoryName}>{foodItem.category}</Text>
+            </View>
+          </View>
+          <View style={styles.favoriteContainer}>
+            <FavoriteButton
+              isFavorite={isFoodFavorite(foodItem)}
+              onToggle={handleToggleFavorite}
+              size={20}
+            />
           </View>
         </TouchableOpacity>
       );
@@ -113,9 +163,13 @@ const FavoritesScreen = () => {
       ) : (
         <SectionList
           sections={sections}
-          keyExtractor={(item, index) =>
-            `${typeof item === "string" ? item : item.item}-${index}`
-          }
+          keyExtractor={(item, index) => {
+            if (typeof item === "string") {
+              return `animal-${item}-${index}`;
+            } else {
+              return `food-${item.category}-${item.item}-${index}`;
+            }
+          }}
           renderItem={renderItem}
           renderSectionHeader={renderSectionHeader}
           contentContainerStyle={styles.listContent}
@@ -157,6 +211,7 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     backgroundColor: colors.card,
     padding: spacing.md,
     borderRadius: spacing.radiusMedium,
@@ -164,11 +219,18 @@ const styles = StyleSheet.create({
     marginLeft: spacing.xs + 4,
     ...shadow.small,
   },
+  contentContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+  },
+  animalTextContainer: {
+    marginLeft: spacing.sm,
+  },
   itemName: {
     fontSize: typography.fontSize.large,
     fontWeight: typography.fontWeight.medium as "500",
     color: colors.textPrimary,
-    marginLeft: spacing.sm + 4,
   },
   foodTextContainer: {
     marginLeft: spacing.sm + 4,
@@ -177,6 +239,9 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSize.medium,
     color: colors.textSecondary,
     marginTop: spacing.tiny,
+  },
+  favoriteContainer: {
+    marginLeft: "auto",
   },
   emptyContainer: {
     flex: 1,

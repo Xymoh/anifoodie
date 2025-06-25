@@ -18,6 +18,7 @@ import { useLanguage } from "../hooks/useLanguage";
 import { useTranslations } from "../i18n/translations";
 import AdMobBanner from "../components/AdMobBanner";
 import { AdProvider } from "../context/AdContext";
+import { FavoritesProvider } from "../context/FavoritesContext";
 
 const AnimalsStack = createNativeStackNavigator<RootStackParamList>();
 const AnimalsStackScreen = () => (
@@ -237,22 +238,24 @@ const AppNavigator = () => {
 
   return (
     <AdProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName={hasViewedWelcomeScreen ? "Main" : "Welcome"}
-        >
-          <Stack.Screen
-            name="Welcome"
-            component={WelcomeScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Main"
-            component={TabNavigator}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <FavoritesProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName={hasViewedWelcomeScreen ? "Main" : "Welcome"}
+          >
+            <Stack.Screen
+              name="Welcome"
+              component={WelcomeScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Main"
+              component={TabNavigator}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FavoritesProvider>
     </AdProvider>
   );
 };

@@ -30,7 +30,12 @@ const FavoriteButton = ({
     }
   }, [externalIsFavorite]);
 
-  const handlePress = () => {
+  const handlePress = (event: any) => {
+    // Prevent the event from bubbling up to parent touchable
+    if (event && event.stopPropagation) {
+      event.stopPropagation();
+    }
+
     const newValue = !isFavorite;
 
     // Only update internal state if external state is not provided

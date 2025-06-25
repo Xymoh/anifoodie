@@ -19,13 +19,15 @@ import {
 } from "../data/data-utils";
 import { RootStackParamList } from "../navigation/types";
 import { FoodItem } from "../types";
-import SearchBar from "../components/SearchBar";
-import FoodIcon from "../components/FoodIcon";
-import FoodTypeFilter, { FoodType } from "../components/FoodTypeFilter";
+import { useFavorites } from "../context/FavoritesContext";
 import { colors, spacing, typography, shadow } from "../styles";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTranslations } from "../i18n/translations";
 import TranslatedText from "../components/TranslatedText";
+import SearchBar from "../components/SearchBar";
+import FoodIcon from "../components/FoodIcon";
+import FavoriteButton from "../components/FavoriteButton";
+import FoodTypeFilter, { FoodType } from "../components/FoodTypeFilter";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Main">;
 
@@ -42,6 +44,7 @@ const FoodsScreen = () => {
   const [selectedType, setSelectedType] = useState<FoodType>("All");
   const { language } = useLanguage();
   const { t } = useTranslations(language);
+  const { isFoodFavorite, toggleFavoriteFood } = useFavorites();
 
   // Get all available food types
   const availableFoodTypes = useMemo(() => {
@@ -144,23 +147,37 @@ const FoodsScreen = () => {
   );
 
   const renderFoodItem = React.useCallback(
-    ({ item }: { item: FoodItem }) => (
-      <TouchableOpacity
-        style={styles.foodItem}
-        onPress={() => handleFoodPress(item.item)}
-      >
-        <View style={styles.foodRow}>
-          <FoodIcon category={item.category} itemKey={item.icon} size={28} />
-          <Text style={styles.foodName}>{getSimplifiedFoodName(item)}</Text>
-        </View>
-      </TouchableOpacity>
-    ),
-    []
+    ({ item }: { item: FoodItem }) => {
+      const handleToggleFavorite = () => {
+        // prevent event propagation to not trigger navigation
+        toggleFavoriteFood(item);
+      };
+
+      return (
+        <TouchableOpacity
+          style={styles.foodItem}
+          onPress={() => handleFoodPress(item.item)}
+        >
+          <View style={styles.foodRow}>
+            <FoodIcon category={item.category} itemKey={item.icon} size={28} />
+            <Text style={styles.foodName}>{getSimplifiedFoodName(item)}</Text>
+            <View style={styles.favoriteContainer}>
+              <FavoriteButton
+                isFavorite={isFoodFavorite(item)}
+                onToggle={handleToggleFavorite}
+                size={20}
+              />
+            </View>
+          </View>
+        </TouchableOpacity>
+      );
+    },
+    [isFoodFavorite, toggleFavoriteFood]
   );
 
   const keyExtractor = React.useCallback(
     (item: FoodItem, index: number) =>
-      `${item.type}-${item.category}-${item.item}-${index}`,
+      `food-${item.category}-${item.item}-${index}`,
     []
   );
 
@@ -265,6 +282,9 @@ const styles = StyleSheet.create({
     fontWeight: typography.fontWeight.medium as "500",
     color: colors.textPrimary,
     marginLeft: spacing.sm + 4,
+  },
+  favoriteContainer: {
+    marginLeft: "auto",
   },
   emptyContainer: {
     padding: spacing.lg,

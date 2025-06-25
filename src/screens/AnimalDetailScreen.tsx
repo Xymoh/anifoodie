@@ -73,7 +73,10 @@ const AnimalDetailScreen = ({ route }: AnimalDetailScreenProps) => {
     [animalName]
   );
 
-  const keyExtractor = React.useCallback((item: FoodItem) => item.item, []);
+  const keyExtractor = React.useCallback(
+    (item: FoodItem, index: number) => `${item.category}:${item.item}:${index}`,
+    []
+  );
 
   const getItemLayout = React.useCallback((data: any, index: number) => {
     const ITEM_HEIGHT = 120; // Approximate height of FoodCard including margins

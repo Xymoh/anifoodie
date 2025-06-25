@@ -5,7 +5,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { FoodItem } from "../types";
 import { RootStackParamList } from "../navigation/types";
-import { useFavorites } from "../hooks/useFavorites";
+import { useFavorites } from "../context/FavoritesContext";
 import { colors, spacing, typography, shadow } from "../styles";
 import { getSimplifiedFoodName, getDisplayCategory } from "../data/data-utils";
 
@@ -31,8 +31,9 @@ const FoodCard = React.memo(({ food, animalName }: FoodCardProps) => {
     navigation.navigate("FoodDetail", { foodName: food.item });
   };
 
-  const handleToggleFavorite = () => {
-    toggleFavoriteFood(food.item);
+  const handleToggleFavorite = (e: boolean) => {
+    // Stop event propagation to prevent card navigation
+    toggleFavoriteFood(food);
   };
 
   return (
@@ -47,7 +48,7 @@ const FoodCard = React.memo(({ food, animalName }: FoodCardProps) => {
         </View>
         <View style={styles.rightContainer}>
           <FavoriteButton
-            isFavorite={isFoodFavorite(food.item)}
+            isFavorite={isFoodFavorite(food)}
             onToggle={handleToggleFavorite}
             size={20}
           />

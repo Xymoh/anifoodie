@@ -19,9 +19,11 @@ import { AnimalName } from "../types";
 import { colors, spacing, typography, shadow } from "../styles";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTranslations } from "../i18n/translations";
+import { useFavorites } from "../context/FavoritesContext";
 import TranslatedText from "../components/TranslatedText";
 import SearchBar from "../components/SearchBar";
 import AnimalIcon from "../components/AnimalIcon";
+import FavoriteButton from "../components/FavoriteButton";
 import AnimalCategoryFilter, {
   AnimalCategory,
 } from "../components/AnimalCategoryFilter";
@@ -41,6 +43,7 @@ const AnimalsScreen = () => {
     useState<AnimalCategory>("All");
   const { language } = useLanguage();
   const { t } = useTranslations(language);
+  const { isAnimalFavorite, toggleFavoriteAnimal } = useFavorites();
 
   const getAnimalCategory = (animal: AnimalName): AnimalCategory => {
     const mammals = [
@@ -171,18 +174,32 @@ const AnimalsScreen = () => {
   };
 
   const renderAnimalItem = React.useCallback(
-    ({ item }: { item: AnimalName }) => (
-      <TouchableOpacity
-        style={styles.animalItem}
-        onPress={() => handleAnimalPress(item)}
-      >
-        <View style={styles.animalRow}>
-          <AnimalIcon animal={item} size={24} />
-          <Text style={styles.animalName}>{item}</Text>
-        </View>
-      </TouchableOpacity>
-    ),
-    []
+    ({ item }: { item: AnimalName }) => {
+      const handleToggleFavorite = (e: boolean) => {
+        // prevent event propagation to not trigger navigation
+        toggleFavoriteAnimal(item);
+      };
+
+      return (
+        <TouchableOpacity
+          style={styles.animalItem}
+          onPress={() => handleAnimalPress(item)}
+        >
+          <View style={styles.animalRow}>
+            <AnimalIcon animal={item} size={24} />
+            <Text style={styles.animalName}>{item}</Text>
+            <View style={styles.favoriteContainer}>
+              <FavoriteButton
+                isFavorite={isAnimalFavorite(item)}
+                onToggle={handleToggleFavorite}
+                size={20}
+              />
+            </View>
+          </View>
+        </TouchableOpacity>
+      );
+    },
+    [isAnimalFavorite, toggleFavoriteAnimal]
   );
 
   const renderSectionHeader = React.useCallback(
@@ -313,6 +330,9 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.bold as "700",
     color: colors.textPrimary,
+  },
+  favoriteContainer: {
+    marginLeft: "auto",
   },
 });
 
