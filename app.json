@@ -1,31 +1,31 @@
 {
   "expo": {
-    "name": "anifoodie",
+    "name": "PetPlate",
     "slug": "anifoodie",
-    "version": "1.0.0",
+    "version": "0.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#121212"
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.cymoh.anifoodie",
+      "bundleIdentifier": "com.cymoh.petplate",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#121212"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.cymoh.anifoodie"
+      "package": "com.cymoh.petplate"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -35,6 +35,15 @@
         "projectId": "09d87d81-7f6f-43a8-93d6-b0dadab95560"
       }
     },
+    "plugins": [
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-5706076003529829~1455602146",
+          "iosAppId": "ca-app-pub-5706076003529829~7711402196"
+        }
+      ]
+    ],
     "owner": "cymoh"
   }
 }
