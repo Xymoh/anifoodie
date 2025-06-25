@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   StatusBar,
 } from "react-native";
+import Constants from "expo-constants";
 
 import { useLanguage, Language } from "../hooks/useLanguage";
 import { TranslationKey } from "../i18n/translations";
@@ -17,8 +18,9 @@ import TranslatedText from "../components/TranslatedText";
 const SettingsScreen = () => {
   const { language, setLanguage } = useLanguage();
 
-  // App version from package.json
-  const appVersion = "1.0.0";
+  // Get app version from Expo Constants
+  const appVersion =
+    Constants.expoConfig?.version || Constants.manifest?.version || "1.0.0";
 
   const handleLanguageChange = async (newLanguage: Language) => {
     await setLanguage(newLanguage);
@@ -31,6 +33,7 @@ const SettingsScreen = () => {
     { translationKey: "german", value: "de" },
     { translationKey: "italian", value: "it" },
     { translationKey: "russian", value: "ru" },
+    { translationKey: "polish", value: "pl" },
   ];
 
   return (

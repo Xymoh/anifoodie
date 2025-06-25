@@ -23,6 +23,7 @@ import { useFavorites } from "../context/FavoritesContext";
 import { colors, spacing, typography, shadow } from "../styles";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTranslations } from "../i18n/translations";
+import { useDynamicTranslations } from "../hooks/useDynamicTranslations";
 import TranslatedText from "../components/TranslatedText";
 import SearchBar from "../components/SearchBar";
 import FoodIcon from "../components/FoodIcon";
@@ -45,6 +46,7 @@ const FoodsScreen = () => {
   const { language } = useLanguage();
   const { t } = useTranslations(language);
   const { isFoodFavorite, toggleFavoriteFood } = useFavorites();
+  const { translateCategory, translateFood } = useDynamicTranslations();
 
   // Get all available food types
   const availableFoodTypes = useMemo(() => {
@@ -137,13 +139,15 @@ const FoodsScreen = () => {
   const renderSectionHeader = React.useCallback(
     ({ section }: { section: SectionData }) => (
       <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>{section.title}</Text>
+        <Text style={styles.sectionTitle}>
+          {translateCategory(section.title)}
+        </Text>
         {section.subTitle && (
           <Text style={styles.sectionSubtitle}>{section.subTitle}</Text>
         )}
       </View>
     ),
-    []
+    [translateCategory]
   );
 
   const renderFoodItem = React.useCallback(
@@ -160,7 +164,9 @@ const FoodsScreen = () => {
         >
           <View style={styles.foodRow}>
             <FoodIcon category={item.category} itemKey={item.icon} size={28} />
-            <Text style={styles.foodName}>{getSimplifiedFoodName(item)}</Text>
+            <Text style={styles.foodName}>
+              {translateFood(getSimplifiedFoodName(item))}
+            </Text>
             <View style={styles.favoriteContainer}>
               <FavoriteButton
                 isFavorite={isFoodFavorite(item)}
@@ -172,7 +178,7 @@ const FoodsScreen = () => {
         </TouchableOpacity>
       );
     },
-    [isFoodFavorite, toggleFavoriteFood]
+    [isFoodFavorite, toggleFavoriteFood, translateFood]
   );
 
   const keyExtractor = React.useCallback(

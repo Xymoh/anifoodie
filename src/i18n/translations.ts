@@ -16,6 +16,7 @@ export type TranslationKey =
   | 'german'
   | 'italian'
   | 'russian'
+  | 'polish'
   | 'darkTheme'
   | 'about'
   | 'version'
@@ -105,6 +106,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     german: 'German',
     italian: 'Italian',
     russian: 'Russian',
+    polish: 'Polish',
     darkTheme: 'Dark Theme',
     about: 'About',
     version: 'Version',
@@ -192,6 +194,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     german: 'Alemán',
     italian: 'Italiano',
     russian: 'Ruso',
+    polish: 'Polaco',
     darkTheme: 'Tema Oscuro',
     about: 'Acerca de',
     version: 'Versión',
@@ -279,6 +282,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     german: 'Allemand',
     italian: 'Italien',
     russian: 'Russe',
+    polish: 'Polonais',
     darkTheme: 'Thème Sombre',
     about: 'À propos',
     version: 'Version',
@@ -366,6 +370,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     german: 'Deutsch',
     italian: 'Italienisch',
     russian: 'Russisch',
+    polish: 'Polnisch',
     darkTheme: 'Dunkles Thema',
     about: 'Über',
     version: 'Version',
@@ -453,6 +458,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     german: 'Tedesco',
     italian: 'Italiano',
     russian: 'Russo',
+    polish: 'Polacco',
     darkTheme: 'Tema Scuro',
     about: 'Informazioni',
     version: 'Versione',
@@ -540,6 +546,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     german: 'Немецкий',
     italian: 'Итальянский',
     russian: 'Русский',
+    polish: 'Польский',
     darkTheme: 'Тёмная тема',
     about: 'О приложении',
     version: 'Версия',
@@ -610,6 +617,94 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     cancel: 'Отмена',
     search: 'Поиск',
     loading: 'Загрузка...'
+  },
+  pl: {
+    // Tab navigation
+    animals: 'Zwierzęta',
+    foods: 'Produkty',
+    favorites: 'Ulubione',
+    settings: 'Ustawienia',
+    
+    // Settings screen
+    settingsTitle: 'Ustawienia',
+    languagePreference: 'Język',
+    english: 'Angielski',
+    spanish: 'Hiszpański',
+    french: 'Francuski',
+    german: 'Niemiecki',
+    italian: 'Włoski',
+    russian: 'Rosyjski',
+    polish: 'Polski',
+    darkTheme: 'Ciemny motyw',
+    about: 'O aplikacji',
+    version: 'Wersja',
+    
+    // Welcome screen
+    welcomeTitle: 'Witaj w AniFoodie',
+    welcomeDescription: 'Odkryj, które produkty są bezpieczne dla Twoich zwierząt',
+    howItWorks: 'Jak to działa',
+    welcomeExplanation: 'AniFood pomaga Ci odkryć, które produkty są bezpieczne dla Twoich zwierząt, a które potencjalnie szkodliwe.',
+    searchByAnimal: 'Szukaj według zwierzęcia',
+    searchByAnimalDescription: 'Wybierz zwierzę, aby zobaczyć, jakie produkty może jeść, które powinno jeść z umiarem lub których powinno całkowicie unikać.',
+    searchByFood: 'Szukaj według produktu',
+    searchByFoodDescription: 'Wybierz produkt, aby odkryć, które zwierzęta mogą go bezpiecznie spożywać, a które powinny go unikać.',
+    colorKey: 'Oznaczenia kolorów',
+    safeToEat: 'Bezpieczne do jedzenia',
+    acceptableInSmallQuantities: 'Akceptowalne w małych ilościach',
+    notAllowedUnsafe: 'Niedozwolone - niebezpieczne',
+    disclaimer: 'Zastrzeżenie',
+    disclaimerText: 'Informacje zawarte w tej aplikacji służą wyłącznie ogólnym celom informacyjnym. Zawsze konsultuj się z weterynarzem przed wprowadzeniem nowych produktów do diety swojego zwierzęcia.',
+    iUnderstand: 'Rozumiem',
+    
+    // Animals Screen
+    allAnimals: 'Wszystkie zwierzęta',
+    searchAnimals: 'Szukaj zwierząt...',
+    selectAnAnimal: 'Wybierz zwierzę',
+    searchByAnimalOrCategory: 'Szukaj według nazwy zwierzęcia lub kategorii...',
+    noAnimalsFound: 'Nie znaleziono zwierząt',
+    mammals: 'Ssaki',
+    birds: 'Ptaki',
+    reptiles: 'Gady',
+    amphibians: 'Płazy',
+    fish: 'Ryby',
+    
+    // Foods Screen
+    allFoods: 'Wszystkie produkty',
+    searchFoods: 'Szukaj produktów...',
+    selectAFood: 'Wybierz produkt',
+    searchFoodsOrTypes: 'Szukaj produktów lub rodzajów produktów...',
+    noFoodsFound: 'Nie znaleziono produktów',
+    fruits: 'Owoce',
+    vegetables: 'Warzywa',
+    dairy: 'Nabiał',
+    grains: 'Zboża',
+    meat: 'Mięso',
+    nuts: 'Orzechy',
+    
+    // Favorites Screen
+    noFavorites: 'Brak ulubionych',
+    addFavorites: 'Dodaj elementy do ulubionych',
+    favoriteAnimals: 'Ulubione zwierzęta',
+    favoriteFoods: 'Ulubione produkty',
+    
+    // Animal Detail Screen
+    backButton: 'Wstecz',
+    allowedFoods: 'Dozwolone produkty',
+    acceptableFoods: 'Akceptowalne w małych ilościach',
+    notAllowedFoods: 'Niedozwolone',
+    noAnimalsInCategory: 'Brak zwierząt w tej kategorii',
+    boiled: 'Gotowane',
+    
+    // Food Detail Screen
+    animalsThatCanEat: 'Zwierzęta, które mogą jeść ten produkt',
+    animalsThatCanEatSmallQuantities: 'Zwierzęta, które mogą jeść ten produkt w małych ilościach',
+    animalsThatCannotEat: 'Zwierzęta, które nie mogą jeść tego produktu',
+    
+    // Common
+    save: 'Zapisz',
+    cancel: 'Anuluj',
+    search: 'Szukaj',
+    loading: 'Ładowanie...'
   }
 };
 

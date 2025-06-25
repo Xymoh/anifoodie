@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export type Language = 'en' | 'es' | 'fr' | 'de' | 'it' | 'ru';
+export type Language = 'en' | 'es' | 'fr' | 'de' | 'it' | 'ru' | 'pl';
 
 type LanguageContextType = {
   language: Language;
@@ -45,7 +45,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   }, []);
 
   const isValidLanguage = (lang: string): lang is Language => {
-    return ['en', 'es', 'fr', 'de', 'it', 'ru'].includes(lang);
+    return ['en', 'es', 'fr', 'de', 'it', 'ru', 'pl'].includes(lang);
   };
 
   const setLanguage = async (newLanguage: Language) => {
