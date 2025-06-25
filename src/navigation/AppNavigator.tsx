@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, View, Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -17,7 +17,7 @@ import { useOnboarding } from "../hooks/useOnboarding";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTranslations } from "../i18n/translations";
 import AdMobBanner from "../components/AdMobBanner";
-import { AdProvider, useAd } from "../context/AdContext";
+import { AdProvider } from "../context/AdContext";
 
 const AnimalsStack = createNativeStackNavigator<RootStackParamList>();
 const AnimalsStackScreen = () => (
@@ -128,7 +128,7 @@ const TabNavigator = () => {
             fontSize: typography.fontSize.small,
             fontWeight: "500",
             color: colors.gray800,
-            marginBottom: spacing.xs,
+            marginTop: spacing.sm,
           },
           tabBarStyle: {
             backgroundColor: colors.gray200,
@@ -150,8 +150,12 @@ const TabNavigator = () => {
           component={AnimalsStackScreen}
           options={{
             tabBarLabel: t("animals"),
-            tabBarIcon: ({ color, size }) => (
-              <Text style={{ color, fontSize: size }}>🐶</Text>
+            tabBarIcon: ({ size }) => (
+              <Image
+                source={require("../../assets/icons/pets.png")}
+                style={{ width: size * 2, height: size * 2 }}
+                resizeMode="contain"
+              />
             ),
           }}
         />
@@ -160,8 +164,12 @@ const TabNavigator = () => {
           component={FoodsStackScreen}
           options={{
             tabBarLabel: t("foods"),
-            tabBarIcon: ({ color, size }) => (
-              <Text style={{ color, fontSize: size }}>🍎</Text>
+            tabBarIcon: ({ size }) => (
+              <Image
+                source={require("../../assets/icons/foods.png")}
+                style={{ width: size * 2, height: size * 2 }}
+                resizeMode="contain"
+              />
             ),
           }}
         />
@@ -170,8 +178,12 @@ const TabNavigator = () => {
           component={FavoritesStackScreen}
           options={{
             tabBarLabel: t("favorites"),
-            tabBarIcon: ({ color, size }) => (
-              <Text style={{ color, fontSize: size }}>⭐</Text>
+            tabBarIcon: ({ size }) => (
+              <Image
+                source={require("../../assets/icons/favorite.png")}
+                style={{ width: size * 2, height: size * 2 }}
+                resizeMode="contain"
+              />
             ),
           }}
         />
@@ -180,8 +192,12 @@ const TabNavigator = () => {
           component={SettingsStackScreen}
           options={{
             tabBarLabel: t("settings"),
-            tabBarIcon: ({ color, size }) => (
-              <Text style={{ color, fontSize: size }}>⚙️</Text>
+            tabBarIcon: ({ size }) => (
+              <Image
+                source={require("../../assets/icons/settings.png")}
+                style={{ width: size * 2, height: size * 2 }}
+                resizeMode="contain"
+              />
             ),
           }}
         />
