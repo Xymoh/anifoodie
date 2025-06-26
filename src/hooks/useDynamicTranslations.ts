@@ -73,9 +73,6 @@ const foodTranslations: Record<Language, TranslationDictionary> = {
     'Carrot': 'Морковь',
   },
   pl: {
-    'Dog': 'Pies',
-    'Cat': 'Kot',
-    'Rabbit': 'Królik',
     'Apple': 'Jabłko',
     'Banana': 'Banan',
     'Carrot': 'Marchewka',
@@ -150,11 +147,12 @@ const foodTranslations: Record<Language, TranslationDictionary> = {
 
 const categoryTranslations: Record<Language, TranslationDictionary> = {
   en: {
+    // Animal categories
     'Mammals': 'Mammals',
     'Birds': 'Birds',
     'Reptiles': 'Reptiles',
     'Amphibians': 'Amphibians',
-    'Fish': 'Fish',
+    'Fish (Animal)': 'Fish',
     // Food categories
     'Leafy Greens': 'Leafy Greens',
     'Other': 'Other',
@@ -179,11 +177,12 @@ const categoryTranslations: Record<Language, TranslationDictionary> = {
     'Legumes': 'Legumes',
   },
   es: {
+    // Animal categories
     'Mammals': 'Mamíferos',
     'Birds': 'Aves',
     'Reptiles': 'Reptiles',
     'Amphibians': 'Anfibios',
-    'Fish': 'Peces',
+    'Fish (Animal)': 'Peces',
     // Food categories
     'Leafy Greens': 'Verduras de Hoja',
     'Other': 'Otros',
@@ -208,11 +207,12 @@ const categoryTranslations: Record<Language, TranslationDictionary> = {
     'Legumes': 'Legumbres',
   },
   fr: {
+    // Animal categories
     'Mammals': 'Mammifères',
     'Birds': 'Oiseaux',
     'Reptiles': 'Reptiles',
     'Amphibians': 'Amphibiens',
-    'Fish': 'Poissons',
+    'Fish (Animal)': 'Poissons',
     // Food categories
     'Leafy Greens': 'Légumes à Feuilles',
     'Other': 'Autres',
@@ -237,11 +237,12 @@ const categoryTranslations: Record<Language, TranslationDictionary> = {
     'Legumes': 'Légumineuses',
   },
   de: {
+    // Animal categories
     'Mammals': 'Säugetiere',
     'Birds': 'Vögel',
     'Reptiles': 'Reptilien',
     'Amphibians': 'Amphibien',
-    'Fish': 'Fische',
+    'Fish (Animal)': 'Fische',
     // Food categories
     'Leafy Greens': 'Blattgemüse',
     'Other': 'Andere',
@@ -266,11 +267,12 @@ const categoryTranslations: Record<Language, TranslationDictionary> = {
     'Legumes': 'Hülsenfrüchte',
   },
   it: {
+    // Animal categories
     'Mammals': 'Mammiferi',
     'Birds': 'Uccelli',
     'Reptiles': 'Rettili',
     'Amphibians': 'Anfibi',
-    'Fish': 'Pesci',
+    'Fish (Animal)': 'Pesci',
     // Food categories
     'Leafy Greens': 'Verdure a Foglia',
     'Other': 'Altro',
@@ -295,11 +297,12 @@ const categoryTranslations: Record<Language, TranslationDictionary> = {
     'Legumes': 'Legumi',
   },
   ru: {
+    // Animal categories
     'Mammals': 'Млекопитающие',
     'Birds': 'Птицы',
     'Reptiles': 'Рептилии',
     'Amphibians': 'Амфибии',
-    'Fish': 'Рыбы',
+    'Fish (Animal)': 'Рыбы',
     // Food categories
     'Leafy Greens': 'Листовая Зелень',
     'Other': 'Другое',
@@ -324,11 +327,12 @@ const categoryTranslations: Record<Language, TranslationDictionary> = {
     'Legumes': 'Бобовые',
   },
   pl: {
+    // Animal categories
     'Mammals': 'Ssaki',
     'Birds': 'Ptaki',
     'Reptiles': 'Gady',
     'Amphibians': 'Płazy',
-    'Fish': 'Ryby',
+    'Fish (Animal)': 'Ryby',
     // Food categories
     'Leafy Greens': 'Zielone Liściaste',
     'Other': 'Inne',
@@ -343,7 +347,7 @@ const categoryTranslations: Record<Language, TranslationDictionary> = {
     'Chicken': 'Kurczak',
     'Pork': 'Wieprzowina',
     'Turkey': 'Indyk',
-    'Fish': 'Ryby',
+    'Fish': 'Ryba',
     'Cereal Grains': 'Zboża',
     'Nuts': 'Orzechy',
     'Dairy Products': 'Nabiał',
