@@ -17,6 +17,11 @@ import { FoodItem, AnimalName } from "../types";
 import { colors, spacing, typography, shadow } from "../styles";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTranslations } from "../i18n/translations";
+import {
+  getAnimalTranslation,
+  getFoodTranslation,
+  getCategoryTranslation,
+} from "../i18n/food-translations";
 
 import AnimalIcon from "../components/AnimalIcon";
 import FoodIcon from "../components/FoodIcon";
@@ -98,7 +103,13 @@ const FavoritesScreen = () => {
           <View style={styles.contentContainer}>
             <AnimalIcon animal={item} size={28} />
             <View style={styles.animalTextContainer}>
-              <Text style={styles.itemName}>{item}</Text>
+              <Text
+                style={styles.itemName}
+                numberOfLines={2}
+                ellipsizeMode="tail"
+              >
+                {getAnimalTranslation(item, language)}
+              </Text>
             </View>
           </View>
           <View style={styles.favoriteContainer}>
@@ -128,8 +139,20 @@ const FavoritesScreen = () => {
               size={28}
             />
             <View style={styles.foodTextContainer}>
-              <Text style={styles.itemName}>{foodItem.item}</Text>
-              <Text style={styles.categoryName}>{foodItem.category}</Text>
+              <Text
+                style={styles.itemName}
+                numberOfLines={2}
+                ellipsizeMode="tail"
+              >
+                {getFoodTranslation(foodItem.item, language)}
+              </Text>
+              <Text
+                style={styles.categoryName}
+                numberOfLines={1}
+                ellipsizeMode="tail"
+              >
+                {getCategoryTranslation(foodItem.category, language)}
+              </Text>
             </View>
           </View>
           <View style={styles.favoriteContainer}>
@@ -223,9 +246,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     flex: 1,
+    marginRight: spacing.sm,
+    minWidth: 0,
   },
   animalTextContainer: {
     marginLeft: spacing.sm,
+    flex: 1,
+    minWidth: 0,
   },
   itemName: {
     fontSize: typography.fontSize.large,
@@ -234,6 +261,8 @@ const styles = StyleSheet.create({
   },
   foodTextContainer: {
     marginLeft: spacing.sm + 4,
+    flex: 1,
+    minWidth: 0,
   },
   categoryName: {
     fontSize: typography.fontSize.medium,
@@ -241,7 +270,9 @@ const styles = StyleSheet.create({
     marginTop: spacing.tiny,
   },
   favoriteContainer: {
-    marginLeft: "auto",
+    marginLeft: spacing.xs,
+    flexShrink: 0,
+    minWidth: 44,
   },
   emptyContainer: {
     flex: 1,

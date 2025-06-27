@@ -79,20 +79,6 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
     []
   );
 
-  const keyExtractor = React.useCallback(
-    (item: AnimalName, index: number) => `animal-${item}-${index}`,
-    []
-  );
-
-  const getItemLayout = React.useCallback((data: any, index: number) => {
-    const ITEM_HEIGHT = 120; // Approximate height of AnimalCard including margins
-    return {
-      length: ITEM_HEIGHT,
-      offset: ITEM_HEIGHT * index,
-      index,
-    };
-  }, []);
-
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
       <View style={styles.headerContainer}>
@@ -115,7 +101,6 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
         sections={sections}
         renderItem={renderAnimalItem}
         renderSectionHeader={renderSectionHeader}
-        keyExtractor={keyExtractor}
         contentContainerStyle={styles.listContent}
         stickySectionHeadersEnabled
         renderSectionFooter={({ section }) =>
@@ -159,6 +144,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginVertical: spacing.md + 4,
+    flex: 1,
+    paddingRight: spacing.xl + spacing.md,
   },
   title: {
     fontSize: typography.fontSize.title,
@@ -166,6 +153,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: colors.textPrimary,
     marginLeft: spacing.sm + 2,
+    flex: 1,
+    flexWrap: "wrap",
   },
   listContent: {
     padding: spacing.md,

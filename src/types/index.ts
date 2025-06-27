@@ -4,6 +4,11 @@ export interface FoodItem {
   item: string;
   icon: string;
   compatibility: Record<string, string>;
+  translatedItem?: string;
+  translatedCategory?: string;
+  translatedType?: string;
+  translatedCompatibility?: Record<string, string>;
+  translatedAnimalNames?: Record<string, string>;
 }
 
 export type AnimalName = 

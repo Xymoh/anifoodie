@@ -1,389 +1,63 @@
 import { useCallback } from 'react';
-import { useLanguage, Language } from './useLanguage';
 
-type TranslationDictionary = Record<string, string>;
-
-const animalTranslations: Record<Language, TranslationDictionary> = {
-  en: {
-    'Dog': 'Dog',
-    'Cat': 'Cat',
-    'Rabbit': 'Rabbit',
-  },
-  es: {
-    'Dog': 'Perro',
-    'Cat': 'Gato',
-    'Rabbit': 'Conejo',
-  },
-  fr: {
-    'Dog': 'Chien',
-    'Cat': 'Chat',
-    'Rabbit': 'Lapin',
-  },
-  de: {
-    'Dog': 'Hund',
-    'Cat': 'Katze',
-    'Rabbit': 'Kaninchen',
-  },
-  it: {
-    'Dog': 'Cane',
-    'Cat': 'Gatto',
-    'Rabbit': 'Coniglio',
-  },
-  ru: {
-    'Dog': 'Собака',
-    'Cat': 'Кошка',
-    'Rabbit': 'Кролик',
-  },
-  pl: {
-    'Dog': 'Pies',
-    'Cat': 'Kot',
-    'Rabbit': 'Królik',
-  },
-};
-
-const foodTranslations: Record<Language, TranslationDictionary> = {
-  en: {
-    'Apple': 'Apple',
-    'Banana': 'Banana',
-    'Carrot': 'Carrot',
-  },
-  es: {
-    'Apple': 'Manzana',
-    'Banana': 'Plátano',
-    'Carrot': 'Zanahoria',
-  },
-  fr: {
-    'Apple': 'Pomme',
-    'Banana': 'Banane',
-    'Carrot': 'Carotte',
-  },
-  de: {
-    'Apple': 'Apfel',
-    'Banana': 'Banane',
-    'Carrot': 'Karotte',
-  },
-  it: {
-    'Apple': 'Mela',
-    'Banana': 'Banana',
-    'Carrot': 'Carota',
-  },
-  ru: {
-    'Apple': 'Яблоко',
-    'Banana': 'Банан',
-    'Carrot': 'Морковь',
-  },
-  pl: {
-    'Apple': 'Jabłko',
-    'Banana': 'Banan',
-    'Carrot': 'Marchewka',
-    'Orange': 'Pomarańcza',
-    'Grape': 'Winogrono',
-    'Strawberry': 'Truskawka',
-    'Blueberry': 'Borówka',
-    'Raspberry': 'Malina',
-    'Blackberry': 'Jeżyna',
-    'Broccoli': 'Brokuł',
-    'Cabbage': 'Kapusta',
-    'Spinach': 'Szpinak',
-    'Kale': 'Jarmuż',
-    'Tomato': 'Pomidor',
-    'Potato': 'Ziemniak',
-    'Onion': 'Cebula',
-    'Garlic': 'Czosnek',
-    'Celery': 'Seler',
-    'Lettuce': 'Sałata',
-    'Bell Pepper': 'Papryka',
-    'Cucumber': 'Ogórek',
-    'Watermelon': 'Arbuz',
-    'Pineapple': 'Ananas',
-    'Mango': 'Mango',
-    'Corn': 'Kukurydza',
-    'Pear': 'Gruszka',
-    'Peach': 'Brzoskwinia',
-    'Plum': 'Śliwka',
-    'Cherry': 'Wiśnia',
-    'Chicken': 'Kurczak',
-    'Beef': 'Wołowina',
-    'Pork': 'Wieprzowina',
-    'Turkey': 'Indyk',
-    'Fish': 'Ryba',
-    'Sweet Potato': 'Batat',
-    'Avocado': 'Awokado',
-    'Pumpkin': 'Dynia',
-    'Zucchini': 'Cukinia',
-    'Green Beans': 'Fasolka Szparagowa',
-    'Peas': 'Groszek',
-    'Mushrooms': 'Grzyby',
-    'Cauliflower': 'Kalafior',
-    'Brussels Sprouts': 'Brukselka',
-    'Asparagus': 'Szparagi',
-    'Eggplant': 'Bakłażan',
-    'Leek': 'Por',
-    'Papaya': 'Papaja',
-    'Coconut': 'Kokos',
-    'Fig': 'Figa',
-    'Kiwi': 'Kiwi',
-    'Lemon': 'Cytryna',
-    'Lime': 'Limonka',
-    'Grapefruit': 'Grejpfrut',
-    'Leafy Greens': 'Zielone Liściaste',
-    'Root Vegetables': 'Warzywa Korzeniowe',
-    'Cruciferous': 'Krzyżowe',
-    'Berries': 'Jagody',
-    'Tropical': 'Tropikalne',
-    'Citrus': 'Cytrusowe',
-    'Nuts': 'Orzechy',
-    'Seeds': 'Nasiona',
-    'Almonds': 'Migdały',
-    'Walnuts': 'Orzechy Włoskie',
-    'Peanuts': 'Orzeszki Ziemne',
-    'Dairy': 'Nabiał',
-    'Cheese': 'Ser',
-    'Milk': 'Mleko',
-    'Yogurt': 'Jogurt',
-    'Eggs': 'Jajka',
-  },
-};
-
-const categoryTranslations: Record<Language, TranslationDictionary> = {
-  en: {
-    // Animal categories
-    'Mammals': 'Mammals',
-    'Birds': 'Birds',
-    'Reptiles': 'Reptiles',
-    'Amphibians': 'Amphibians',
-    'Fish (Animal)': 'Fish',
-    // Food categories
-    'Leafy Greens': 'Leafy Greens',
-    'Other': 'Other',
-    'Root Vegetables': 'Root Vegetables',
-    'Cruciferous': 'Cruciferous',
-    'Berries': 'Berries',
-    'Stone Fruits': 'Stone Fruits',
-    'Melons': 'Melons',
-    'Tropical': 'Tropical',
-    'Citrus': 'Citrus',
-    'Beef': 'Beef',
-    'Chicken': 'Chicken',
-    'Pork': 'Pork',
-    'Turkey': 'Turkey',
-    'Fish': 'Fish',
-    'Cereal Grains': 'Cereal Grains',
-    'Nuts': 'Nuts',
-    'Dairy Products': 'Dairy Products',
-    'Herbs': 'Herbs',
-    'Spices': 'Spices',
-    'Seafood': 'Seafood',
-    'Legumes': 'Legumes',
-  },
-  es: {
-    // Animal categories
-    'Mammals': 'Mamíferos',
-    'Birds': 'Aves',
-    'Reptiles': 'Reptiles',
-    'Amphibians': 'Anfibios',
-    'Fish (Animal)': 'Peces',
-    // Food categories
-    'Leafy Greens': 'Verduras de Hoja',
-    'Other': 'Otros',
-    'Root Vegetables': 'Vegetales de Raíz',
-    'Cruciferous': 'Crucíferas',
-    'Berries': 'Bayas',
-    'Stone Fruits': 'Frutas de Hueso',
-    'Melons': 'Melones',
-    'Tropical': 'Tropical',
-    'Citrus': 'Cítricos',
-    'Beef': 'Res',
-    'Chicken': 'Pollo',
-    'Pork': 'Cerdo',
-    'Turkey': 'Pavo',
-    'Fish': 'Pescado',
-    'Cereal Grains': 'Granos de Cereal',
-    'Nuts': 'Frutos Secos',
-    'Dairy Products': 'Productos Lácteos',
-    'Herbs': 'Hierbas',
-    'Spices': 'Especias',
-    'Seafood': 'Mariscos',
-    'Legumes': 'Legumbres',
-  },
-  fr: {
-    // Animal categories
-    'Mammals': 'Mammifères',
-    'Birds': 'Oiseaux',
-    'Reptiles': 'Reptiles',
-    'Amphibians': 'Amphibiens',
-    'Fish (Animal)': 'Poissons',
-    // Food categories
-    'Leafy Greens': 'Légumes à Feuilles',
-    'Other': 'Autres',
-    'Root Vegetables': 'Légumes Racines',
-    'Cruciferous': 'Crucifères',
-    'Berries': 'Baies',
-    'Stone Fruits': 'Fruits à Noyau',
-    'Melons': 'Melons',
-    'Tropical': 'Tropical',
-    'Citrus': 'Agrumes',
-    'Beef': 'Bœuf',
-    'Chicken': 'Poulet',
-    'Pork': 'Porc',
-    'Turkey': 'Dinde',
-    'Fish': 'Poisson',
-    'Cereal Grains': 'Céréales',
-    'Nuts': 'Noix',
-    'Dairy Products': 'Produits Laitiers',
-    'Herbs': 'Herbes',
-    'Spices': 'Épices',
-    'Seafood': 'Fruits de Mer',
-    'Legumes': 'Légumineuses',
-  },
-  de: {
-    // Animal categories
-    'Mammals': 'Säugetiere',
-    'Birds': 'Vögel',
-    'Reptiles': 'Reptilien',
-    'Amphibians': 'Amphibien',
-    'Fish (Animal)': 'Fische',
-    // Food categories
-    'Leafy Greens': 'Blattgemüse',
-    'Other': 'Andere',
-    'Root Vegetables': 'Wurzelgemüse',
-    'Cruciferous': 'Kreuzblütler',
-    'Berries': 'Beeren',
-    'Stone Fruits': 'Steinfrüchte',
-    'Melons': 'Melonen',
-    'Tropical': 'Tropisch',
-    'Citrus': 'Zitrusfrüchte',
-    'Beef': 'Rindfleisch',
-    'Chicken': 'Huhn',
-    'Pork': 'Schweinefleisch',
-    'Turkey': 'Truthahn',
-    'Fish': 'Fisch',
-    'Cereal Grains': 'Getreide',
-    'Nuts': 'Nüsse',
-    'Dairy Products': 'Milchprodukte',
-    'Herbs': 'Kräuter',
-    'Spices': 'Gewürze',
-    'Seafood': 'Meeresfrüchte',
-    'Legumes': 'Hülsenfrüchte',
-  },
-  it: {
-    // Animal categories
-    'Mammals': 'Mammiferi',
-    'Birds': 'Uccelli',
-    'Reptiles': 'Rettili',
-    'Amphibians': 'Anfibi',
-    'Fish (Animal)': 'Pesci',
-    // Food categories
-    'Leafy Greens': 'Verdure a Foglia',
-    'Other': 'Altro',
-    'Root Vegetables': 'Ortaggi a Radice',
-    'Cruciferous': 'Crucifere',
-    'Berries': 'Bacche',
-    'Stone Fruits': 'Frutti con Nocciolo',
-    'Melons': 'Meloni',
-    'Tropical': 'Tropicale',
-    'Citrus': 'Agrumi',
-    'Beef': 'Manzo',
-    'Chicken': 'Pollo',
-    'Pork': 'Maiale',
-    'Turkey': 'Tacchino',
-    'Fish': 'Pesce',
-    'Cereal Grains': 'Cereali',
-    'Nuts': 'Frutta Secca',
-    'Dairy Products': 'Latticini',
-    'Herbs': 'Erbe',
-    'Spices': 'Spezie',
-    'Seafood': 'Frutti di Mare',
-    'Legumes': 'Legumi',
-  },
-  ru: {
-    // Animal categories
-    'Mammals': 'Млекопитающие',
-    'Birds': 'Птицы',
-    'Reptiles': 'Рептилии',
-    'Amphibians': 'Амфибии',
-    'Fish (Animal)': 'Рыбы',
-    // Food categories
-    'Leafy Greens': 'Листовая Зелень',
-    'Other': 'Другое',
-    'Root Vegetables': 'Корнеплоды',
-    'Cruciferous': 'Крестоцветные',
-    'Berries': 'Ягоды',
-    'Stone Fruits': 'Косточковые Фрукты',
-    'Melons': 'Дыни',
-    'Tropical': 'Тропические',
-    'Citrus': 'Цитрусовые',
-    'Beef': 'Говядина',
-    'Chicken': 'Курица',
-    'Pork': 'Свинина',
-    'Turkey': 'Индейка',
-    'Fish': 'Рыба',
-    'Cereal Grains': 'Зерновые',
-    'Nuts': 'Орехи',
-    'Dairy Products': 'Молочные Продукты',
-    'Herbs': 'Травы',
-    'Spices': 'Специи',
-    'Seafood': 'Морепродукты',
-    'Legumes': 'Бобовые',
-  },
-  pl: {
-    // Animal categories
-    'Mammals': 'Ssaki',
-    'Birds': 'Ptaki',
-    'Reptiles': 'Gady',
-    'Amphibians': 'Płazy',
-    'Fish (Animal)': 'Ryby',
-    // Food categories
-    'Leafy Greens': 'Zielone Liściaste',
-    'Other': 'Inne',
-    'Root Vegetables': 'Warzywa Korzeniowe',
-    'Cruciferous': 'Krzyżowe',
-    'Berries': 'Jagody',
-    'Stone Fruits': 'Owoce Pestkowe',
-    'Melons': 'Melony',
-    'Tropical': 'Tropikalne',
-    'Citrus': 'Cytrusowe',
-    'Beef': 'Wołowina',
-    'Chicken': 'Kurczak',
-    'Pork': 'Wieprzowina',
-    'Turkey': 'Indyk',
-    'Fish': 'Ryba',
-    'Cereal Grains': 'Zboża',
-    'Nuts': 'Orzechy',
-    'Dairy Products': 'Nabiał',
-    'Herbs': 'Zioła',
-    'Spices': 'Przyprawy',
-    'Seafood': 'Owoce Morza',
-    'Legumes': 'Rośliny Strączkowe',
-  },
-};
+import { useLanguage } from './useLanguage';
+import { statusTranslations, animalTranslations } from '../i18n/food-translations';
+import { getTranslatedFoodItems } from '../data/data-utils';
 
 /**
- * Custom hook for translating dynamic content like animal names, food names, etc.
+ * Custom hook for translating dynamic content like animal names, food names, food categories, etc.
  * This is useful for content that comes from data sources and isn't part of UI components.
  */
 export const useDynamicTranslations = () => {
   const { language } = useLanguage();
+  const translatedItems = getTranslatedFoodItems(language);
   
+  /**
+   * Translates an animal name to the current language using the centralized translations from food-translations.ts
+   */
   const translateAnimal = useCallback((animalName: string): string => {
     const langTranslations = animalTranslations[language] || animalTranslations.en;
-    return langTranslations[animalName as keyof typeof langTranslations] || animalName;
+    return langTranslations[animalName] || animalName;
   }, [language]);
   
+  /**
+   * Translates a food name to the current language using the pre-processed translated items
+   */
   const translateFood = useCallback((foodName: string): string => {
-    const langTranslations = foodTranslations[language] || foodTranslations.en;
-    return langTranslations[foodName as keyof typeof langTranslations] || foodName;
+    const food = translatedItems.find(item => item.item === foodName);
+    return food?.translatedItem || foodName;
+  }, [translatedItems]);
+  
+  /**
+   * Translates a food category to the current language using the pre-processed translated items
+   */
+  const translateCategory = useCallback((categoryName: string): string => {
+    const item = translatedItems.find(item => item.category === categoryName);
+    return item?.translatedCategory || categoryName;
+  }, [translatedItems]);
+  
+  /**
+   * Translates a compatibility status to the current language
+   */
+  const translateStatus = useCallback((status: string): string => {
+    const langTranslations = statusTranslations[language] || statusTranslations.en;
+    return langTranslations[status] || status;
   }, [language]);
   
-  const translateCategory = useCallback((categoryName: string): string => {
-    const langTranslations = categoryTranslations[language] || categoryTranslations.en;
-    return langTranslations[categoryName as keyof typeof langTranslations] || categoryName;
-  }, [language]);
+  /**
+   * Translates a food type to the current language
+   */
+  const translateType = useCallback((type: string): string => {
+    const item = translatedItems.find(item => item.type === type);
+    return item?.translatedType || type;
+  }, [translatedItems]);
   
   return {
     translateAnimal,
     translateFood,
-    translateCategory
+    translateCategory,
+    translateStatus,
+    translateType
   };
 };
 

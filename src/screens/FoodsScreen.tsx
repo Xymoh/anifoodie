@@ -164,7 +164,11 @@ const FoodsScreen = () => {
         >
           <View style={styles.foodRow}>
             <FoodIcon category={item.category} itemKey={item.icon} size={28} />
-            <Text style={styles.foodName}>
+            <Text
+              style={styles.foodName}
+              numberOfLines={2}
+              ellipsizeMode="tail"
+            >
               {translateFood(getSimplifiedFoodName(item))}
             </Text>
             <View style={styles.favoriteContainer}>
@@ -282,15 +286,20 @@ const styles = StyleSheet.create({
   foodRow: {
     flexDirection: "row",
     alignItems: "center",
+    flex: 1,
   },
   foodName: {
     fontSize: typography.fontSize.large,
     fontWeight: typography.fontWeight.medium as "500",
     color: colors.textPrimary,
     marginLeft: spacing.sm + 4,
+    flex: 1,
+    marginRight: spacing.sm,
+    minWidth: 0,
   },
   favoriteContainer: {
-    marginLeft: "auto",
+    flexShrink: 0,
+    minWidth: 44,
   },
   emptyContainer: {
     padding: spacing.lg,

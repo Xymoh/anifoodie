@@ -8,10 +8,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { getAllAnimals } from "../data/data-utils";
 import { RootStackParamList } from "../navigation/types";
@@ -20,6 +17,7 @@ import { colors, spacing, typography, shadow } from "../styles";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTranslations } from "../i18n/translations";
 import { useFavorites } from "../context/FavoritesContext";
+import { useDynamicTranslations } from "../hooks/useDynamicTranslations";
 import TranslatedText from "../components/TranslatedText";
 import SearchBar from "../components/SearchBar";
 import AnimalIcon from "../components/AnimalIcon";
@@ -44,6 +42,7 @@ const AnimalsScreen = () => {
   const { language } = useLanguage();
   const { t } = useTranslations(language);
   const { isAnimalFavorite, toggleFavoriteAnimal } = useFavorites();
+  const { translateAnimal } = useDynamicTranslations();
 
   const getAnimalCategory = (animal: AnimalName): AnimalCategory => {
     const mammals = [
@@ -187,7 +186,7 @@ const AnimalsScreen = () => {
         >
           <View style={styles.animalRow}>
             <AnimalIcon animal={item} size={24} />
-            <Text style={styles.animalName}>{item}</Text>
+            <Text style={styles.animalName}>{translateAnimal(item)}</Text>
             <View style={styles.favoriteContainer}>
               <FavoriteButton
                 isFavorite={isAnimalFavorite(item)}
@@ -199,7 +198,7 @@ const AnimalsScreen = () => {
         </TouchableOpacity>
       );
     },
-    [isAnimalFavorite, toggleFavoriteAnimal]
+    [isAnimalFavorite, toggleFavoriteAnimal, translateAnimal]
   );
 
   const renderSectionHeader = React.useCallback(
@@ -234,8 +233,6 @@ const AnimalsScreen = () => {
       index,
     };
   }, []);
-
-  const insets = useSafeAreaInsets();
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
@@ -303,12 +300,16 @@ const styles = StyleSheet.create({
   animalRow: {
     flexDirection: "row",
     alignItems: "center",
+    flex: 1,
   },
   animalName: {
     fontSize: typography.fontSize.large,
     fontWeight: typography.fontWeight.medium as "500",
     color: colors.textPrimary,
     marginLeft: spacing.sm,
+    flex: 1,
+    marginRight: spacing.sm,
+    minWidth: 0,
   },
   emptyContainer: {
     padding: spacing.md + 4,
@@ -332,7 +333,8 @@ const styles = StyleSheet.create({
     color: colors.textPrimary,
   },
   favoriteContainer: {
-    marginLeft: "auto",
+    flexShrink: 0,
+    minWidth: 44,
   },
 });
 

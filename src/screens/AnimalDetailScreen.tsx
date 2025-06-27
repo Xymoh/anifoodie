@@ -7,10 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { RouteProp, useNavigation } from "@react-navigation/native";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { RootStackParamList } from "../navigation/types";
 import { getFoodsForAnimal } from "../data/data-utils";
@@ -86,8 +83,6 @@ const AnimalDetailScreen = ({ route }: AnimalDetailScreenProps) => {
       index,
     };
   }, []);
-
-  const insets = useSafeAreaInsets();
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>

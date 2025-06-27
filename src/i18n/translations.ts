@@ -33,6 +33,7 @@ export type TranslationKey =
   | 'colorKey'
   | 'safeToEat'
   | 'acceptableInSmallQuantities'
+  | 'smallQty'
   | 'notAllowedUnsafe'
   | 'disclaimer'
   | 'disclaimerText'
@@ -123,6 +124,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     colorKey: 'Color Key',
     safeToEat: 'Safe to eat',
     acceptableInSmallQuantities: 'Acceptable in small quantities',
+    smallQty: 'Small qty',
     notAllowedUnsafe: 'Not allowed - unsafe',
     disclaimer: 'Disclaimer',
     disclaimerText: 'The information provided in this app is for general informational purposes only. Always consult with a veterinarian before introducing new foods to your pet\'s diet.',
@@ -211,6 +213,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     colorKey: 'Código de Colores',
     safeToEat: 'Seguro para comer',
     acceptableInSmallQuantities: 'Aceptable en pequeñas cantidades',
+    smallQty: 'Peq. cant.',
     notAllowedUnsafe: 'No permitido - inseguro',
     disclaimer: 'Aviso Legal',
     disclaimerText: 'La información proporcionada en esta aplicación es solo para fines informativos generales. Siempre consulte con un veterinario antes de introducir nuevos alimentos en la dieta de su mascota.',
@@ -299,6 +302,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     colorKey: 'Code Couleur',
     safeToEat: 'Sans danger à manger',
     acceptableInSmallQuantities: 'Acceptable en petites quantités',
+    smallQty: 'Pet. qté',
     notAllowedUnsafe: 'Non autorisé - dangereux',
     disclaimer: 'Avertissement',
     disclaimerText: 'Les informations fournies dans cette application sont uniquement à titre informatif général. Consultez toujours un vétérinaire avant d\'introduire de nouveaux aliments dans le régime alimentaire de votre animal.',
@@ -387,6 +391,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     colorKey: 'Farbschlüssel',
     safeToEat: 'Sicher zu essen',
     acceptableInSmallQuantities: 'In kleinen Mengen akzeptabel',
+    smallQty: 'Kl. Menge',
     notAllowedUnsafe: 'Nicht erlaubt - unsicher',
     disclaimer: 'Haftungsausschluss',
     disclaimerText: 'Die in dieser App bereitgestellten Informationen dienen nur zu allgemeinen Informationszwecken. Konsultieren Sie immer einen Tierarzt, bevor Sie neue Lebensmittel in die Ernährung Ihres Haustieres einführen.',
@@ -475,6 +480,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     colorKey: 'Legenda Colori',
     safeToEat: 'Sicuro da mangiare',
     acceptableInSmallQuantities: 'Accettabile in piccole quantità',
+    smallQty: 'Pic. qtà',
     notAllowedUnsafe: 'Non consentito - non sicuro',
     disclaimer: 'Avvertenza',
     disclaimerText: 'Le informazioni fornite in questa app sono solo a scopo informativo generale. Consultare sempre un veterinario prima di introdurre nuovi alimenti nella dieta del vostro animale domestico.',
@@ -563,6 +569,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     colorKey: 'Обозначение цветов',
     safeToEat: 'Безопасно для употребления',
     acceptableInSmallQuantities: 'Приемлемо в малых количествах',
+    smallQty: 'Мал. кол.',
     notAllowedUnsafe: 'Не разрешено - небезопасно',
     disclaimer: 'Отказ от ответственности',
     disclaimerText: 'Информация, представленная в этом приложении, предназначена только для общих информационных целей. Всегда консультируйтесь с ветеринаром перед введением новых продуктов в рацион вашего питомца.',
@@ -651,6 +658,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     colorKey: 'Oznaczenia kolorów',
     safeToEat: 'Bezpieczne do jedzenia',
     acceptableInSmallQuantities: 'Akceptowalne w małych ilościach',
+    smallQty: 'Mała il.',
     notAllowedUnsafe: 'Niedozwolone - niebezpieczne',
     disclaimer: 'Zastrzeżenie',
     disclaimerText: 'Informacje zawarte w tej aplikacji służą wyłącznie ogólnym celom informacyjnym. Zawsze konsultuj się z weterynarzem przed wprowadzeniem nowych produktów do diety swojego zwierzęcia.',
