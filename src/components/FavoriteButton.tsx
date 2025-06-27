@@ -1,8 +1,6 @@
-// External dependencies
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity, Text } from "react-native";
 
-// Internal dependencies
 import { colors, spacing } from "../styles";
 
 interface FavoriteButtonProps {
