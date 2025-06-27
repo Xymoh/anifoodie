@@ -39,6 +39,12 @@ export type TranslationKey =
   | 'disclaimerText'
   | 'iUnderstand'
   
+  // Splash screen
+  | 'appName'
+  | 'appSubtitle'
+  | 'appTagline'
+  | 'poweredBy'
+  
   // Animals Screen
   | 'allAnimals'
   | 'searchAnimals'
@@ -178,7 +184,13 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     save: 'Save',
     cancel: 'Cancel',
     search: 'Search',
-    loading: 'Loading...'
+    loading: 'Loading...',
+    
+    // Splash screen
+    appName: 'PetPlate',
+    appSubtitle: 'Smart Pet Nutrition Guide',
+    appTagline: 'Keep your pets safe & healthy',
+    poweredBy: 'Powered by Pet Lovers'
   },
   es: {
     // Tab navigation
@@ -267,7 +279,13 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     save: 'Guardar',
     cancel: 'Cancelar',
     search: 'Buscar',
-    loading: 'Cargando...'
+    loading: 'Cargando...',
+    
+    // Splash screen
+    appName: 'PetPlate',
+    appSubtitle: 'Guía Inteligente de Nutrición para Mascotas',
+    appTagline: 'Mantén a tus mascotas seguras y saludables',
+    poweredBy: 'Impulsado por Amantes de Mascotas'
   },
   fr: {
     // Tab navigation
@@ -356,7 +374,13 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     save: 'Enregistrer',
     cancel: 'Annuler',
     search: 'Rechercher',
-    loading: 'Chargement...'
+    loading: 'Chargement...',
+    
+    // Splash screen
+    appName: 'PetPlate',
+    appSubtitle: 'Guide Intelligent de Nutrition pour Animaux',
+    appTagline: 'Gardez vos animaux en sécurité et en bonne santé',
+    poweredBy: 'Propulsé par des Amoureux des Animaux'
   },
   de: {
     // Tab navigation
@@ -445,7 +469,13 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     save: 'Speichern',
     cancel: 'Abbrechen',
     search: 'Suchen',
-    loading: 'Laden...'
+    loading: 'Laden...',
+    
+    // Splash screen
+    appName: 'PetPlate',
+    appSubtitle: 'Intelligenter Haustier-Ernährungsführer',
+    appTagline: 'Halten Sie Ihre Haustiere sicher & gesund',
+    poweredBy: 'Unterstützt von Tierliebhabern'
   },
   it: {
     // Tab navigation
@@ -534,7 +564,13 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     save: 'Salva',
     cancel: 'Annulla',
     search: 'Cerca',
-    loading: 'Caricamento...'
+    loading: 'Caricamento...',
+    
+    // Splash screen
+    appName: 'PetPlate',
+    appSubtitle: 'Guida Intelligente alla Nutrizione degli Animali',
+    appTagline: 'Mantieni i tuoi animali al sicuro e in salute',
+    poweredBy: 'Realizzato da Amanti degli Animali'
   },
   ru: {
     // Tab navigation
@@ -623,7 +659,13 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     save: 'Сохранить',
     cancel: 'Отмена',
     search: 'Поиск',
-    loading: 'Загрузка...'
+    loading: 'Загрузка...',
+    
+    // Splash screen
+    appName: 'PetPlate',
+    appSubtitle: 'Умный Гид по Питанию Питомцев',
+    appTagline: 'Держите ваших питомцев в безопасности и здоровье',
+    poweredBy: 'Разработано Любителями Животных'
   },
   pl: {
     // Tab navigation
@@ -712,7 +754,13 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     save: 'Zapisz',
     cancel: 'Anuluj',
     search: 'Szukaj',
-    loading: 'Ładowanie...'
+    loading: 'Ładowanie...',
+    
+    // Splash screen
+    appName: 'PetPlate',
+    appSubtitle: 'Inteligentny Przewodnik Żywienia Zwierząt',
+    appTagline: 'Dbaj o bezpieczeństwo i zdrowie swoich zwierząt',
+    poweredBy: 'Stworzone przez Miłośników Zwierząt'
   }
 };
 
