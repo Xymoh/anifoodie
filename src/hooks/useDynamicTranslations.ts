@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { useLanguage } from './useLanguage';
-import { statusTranslations, animalTranslations } from '../i18n/food-translations';
+import { statusTranslations, animalTranslations } from '../i18n/index';
 import { getTranslatedFoodItems } from '../data/data-utils';
 
 /**

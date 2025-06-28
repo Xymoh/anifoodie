@@ -18,7 +18,7 @@ import CompatibilityIndicator from "../components/CompatibilityIndicator";
 import FoodIcon from "../components/FoodIcon";
 import AnimalCard from "../components/AnimalCard";
 import { useLanguage } from "../hooks/useLanguage";
-import { useTranslations } from "../i18n/translations";
+import { useTranslations } from "../i18n/index";
 import { useDynamicTranslations } from "../hooks/useDynamicTranslations";
 import TranslatedText from "../components/TranslatedText";
 
@@ -44,7 +44,7 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
   const sections: SectionData[] = [
     {
       title: t("animalsThatCanEat"),
-      data: animalData["allowed"],
+      data: [...animalData["allowed"], ...animalData["allowed (boiled)"]],
       status: "allowed",
     },
     {
@@ -52,6 +52,8 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
       data: [
         ...animalData["acceptable in small quantities"],
         ...animalData["acceptable in small quantities (boiled)"],
+        ...animalData["acceptable in small quantities (ripe only)"],
+        ...animalData["acceptable in small quantities (cooked)"],
       ],
       status: "acceptable in small quantities",
     },

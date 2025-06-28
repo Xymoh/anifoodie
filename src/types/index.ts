@@ -48,9 +48,12 @@ export type AnimalName =
 
 export type CompatibilityStatus = 
   | 'allowed' 
+  | 'allowed (boiled)'
   | 'not allowed' 
   | 'acceptable in small quantities'
-  | 'acceptable in small quantities (boiled)';
+  | 'acceptable in small quantities (boiled)'
+  | 'acceptable in small quantities (ripe only)'
+  | 'acceptable in small quantities (cooked)';
 
 export interface FilteredResults {
   allowed: FoodItem[];

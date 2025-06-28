@@ -16,12 +16,12 @@ import { parseCSVData } from "../data/data-utils";
 import { FoodItem, AnimalName } from "../types";
 import { colors, spacing, typography, shadow } from "../styles";
 import { useLanguage } from "../hooks/useLanguage";
-import { useTranslations } from "../i18n/translations";
+import { useTranslations } from "../i18n/index";
 import {
   getAnimalTranslation,
   getFoodTranslation,
   getCategoryTranslation,
-} from "../i18n/food-translations";
+} from "../i18n/index";
 
 import AnimalIcon from "../components/AnimalIcon";
 import FoodIcon from "../components/FoodIcon";

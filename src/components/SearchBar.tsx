@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, View } from "react-native";
 
 import { colors, spacing, typography, shadow } from "../styles";
 import { useLanguage } from "../hooks/useLanguage";
-import { useTranslations, TranslationKey } from "../i18n/translations";
+import { useTranslations, TranslationKey } from "../i18n/index";
 
 interface SearchBarProps {
   value: string;

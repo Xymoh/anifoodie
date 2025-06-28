@@ -11,7 +11,7 @@ import {
 import Constants from "expo-constants";
 
 import { useLanguage, Language } from "../hooks/useLanguage";
-import { TranslationKey } from "../i18n/translations";
+import { TranslationKey } from "../i18n/index";
 import { colors, spacing, typography } from "../styles";
 import TranslatedText from "../components/TranslatedText";
 
@@ -19,8 +19,7 @@ const SettingsScreen = () => {
   const { language, setLanguage } = useLanguage();
 
   // Get app version from Expo Constants
-  const appVersion =
-    Constants.expoConfig?.version || Constants.manifest?.version || "1.0.0";
+  const appVersion = Constants.expoConfig?.version || "1.0.0";
 
   const handleLanguageChange = async (newLanguage: Language) => {
     await setLanguage(newLanguage);
