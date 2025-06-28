@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,13 +10,18 @@ import { RouteProp, useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { RootStackParamList } from "../navigation/types";
-import { getAnimalsForFood, getFoodItemByName } from "../data/data-utils";
+import {
+  getAnimalsForFood,
+  getFoodItemByName,
+  getTranslatedFoodItems,
+} from "../data/data-utils";
 import { AnimalName, CompatibilityStatus } from "../types";
 import { colors, spacing, typography, shadow } from "../styles";
 
 import CompatibilityIndicator from "../components/CompatibilityIndicator";
 import FoodIcon from "../components/FoodIcon";
 import AnimalCard from "../components/AnimalCard";
+import SearchBar from "../components/SearchBar";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTranslations } from "../i18n/index";
 import { useDynamicTranslations } from "../hooks/useDynamicTranslations";
@@ -35,34 +40,83 @@ interface SectionData {
 const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
   const { foodName } = route.params;
   const navigation = useNavigation();
+  const [searchQuery, setSearchQuery] = useState("");
   const animalData = getAnimalsForFood(foodName);
   const foodItem = getFoodItemByName(foodName);
   const { language } = useLanguage();
   const { t } = useTranslations(language);
   const { translateFood } = useDynamicTranslations();
 
-  const sections: SectionData[] = [
-    {
-      title: t("animalsThatCanEat"),
-      data: [...animalData["allowed"], ...animalData["allowed (boiled)"]],
-      status: "allowed",
-    },
-    {
-      title: t("animalsThatCanEatSmallQuantities"),
-      data: [
-        ...animalData["acceptable in small quantities"],
-        ...animalData["acceptable in small quantities (boiled)"],
-        ...animalData["acceptable in small quantities (ripe only)"],
-        ...animalData["acceptable in small quantities (cooked)"],
-      ],
-      status: "acceptable in small quantities",
-    },
-    {
-      title: t("animalsThatCannotEat"),
-      data: animalData["not allowed"],
-      status: "not allowed",
-    },
-  ];
+  // Cache translated foods outside of the search logic
+  const translatedFoods = useMemo(
+    () => getTranslatedFoodItems(language),
+    [language]
+  );
+
+  // Create animal translation map once
+  const animalTranslationMap = useMemo(() => {
+    const map = new Map<string, string>();
+    translatedFoods.forEach((food) => {
+      Object.entries(food.translatedAnimalNames || {}).forEach(
+        ([originalAnimal, translatedAnimal]) => {
+          if (translatedAnimal && translatedAnimal !== originalAnimal) {
+            map.set(originalAnimal, translatedAnimal);
+          }
+        }
+      );
+    });
+    return map;
+  }, [translatedFoods]);
+
+  const sections: SectionData[] = useMemo(() => {
+    let filteredAllowed = [
+      ...animalData["allowed"],
+      ...animalData["allowed (boiled)"],
+    ];
+    let filteredAcceptable = [
+      ...animalData["acceptable in small quantities"],
+      ...animalData["acceptable in small quantities (boiled)"],
+      ...animalData["acceptable in small quantities (ripe only)"],
+      ...animalData["acceptable in small quantities (cooked)"],
+    ];
+    let filteredNotAllowed = animalData["not allowed"];
+
+    // Apply search filter if query exists
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+
+      const filterAnimal = (animal: AnimalName) => {
+        const translatedName = animalTranslationMap.get(animal);
+
+        return (
+          animal.toLowerCase().includes(query) ||
+          (translatedName && translatedName.toLowerCase().includes(query))
+        );
+      };
+
+      filteredAllowed = filteredAllowed.filter(filterAnimal);
+      filteredAcceptable = filteredAcceptable.filter(filterAnimal);
+      filteredNotAllowed = filteredNotAllowed.filter(filterAnimal);
+    }
+
+    return [
+      {
+        title: t("animalsThatCanEat"),
+        data: filteredAllowed,
+        status: "allowed",
+      },
+      {
+        title: t("animalsThatCanEatSmallQuantities"),
+        data: filteredAcceptable,
+        status: "acceptable in small quantities",
+      },
+      {
+        title: t("animalsThatCannotEat"),
+        data: filteredNotAllowed,
+        status: "not allowed",
+      },
+    ];
+  }, [animalData, searchQuery, t, animalTranslationMap]);
 
   const renderSectionHeader = React.useCallback(
     ({ section }: { section: SectionData }) => (
@@ -91,14 +145,23 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
           <Text style={styles.backButtonText}>←</Text>
         </TouchableOpacity>
         <View style={styles.header}>
-          <FoodIcon
-            category={foodItem?.category || foodName}
-            itemKey={foodItem?.icon}
-            size={36}
-          />
-          <Text style={styles.title}>{translateFood(foodName)}</Text>
+          <View style={styles.headerContent}>
+            <FoodIcon
+              category={foodItem?.category || foodName}
+              itemKey={foodItem?.icon}
+              size={32}
+            />
+            <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
+              {translateFood(foodName)}
+            </Text>
+          </View>
         </View>
       </View>
+      <SearchBar
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+        placeholder={t("searchByAnimalOrCategory")}
+      />
       <SectionList
         sections={sections}
         renderItem={renderAnimalItem}
@@ -112,6 +175,13 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
                 style={styles.emptyText}
                 translationKey="noAnimalsInCategory"
               />
+            </View>
+          ) : null
+        }
+        ListEmptyComponent={
+          searchQuery.trim() ? (
+            <View style={styles.emptyContainer}>
+              <Text style={styles.emptyText}>{t("noAnimalsFound")}</Text>
             </View>
           ) : null
         }
@@ -142,20 +212,23 @@ const styles = StyleSheet.create({
     color: colors.textPrimary,
   },
   header: {
-    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     marginVertical: spacing.md + 4,
-    flex: 1,
+    paddingLeft: spacing.xl + spacing.md,
     paddingRight: spacing.xl + spacing.md,
+  },
+  headerContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: typography.fontSize.title,
     fontWeight: typography.fontWeight.bold as "700",
     textAlign: "center",
     color: colors.textPrimary,
-    marginLeft: spacing.sm + 2,
-    flex: 1,
+    marginLeft: spacing.sm,
     flexWrap: "wrap",
   },
   listContent: {
@@ -200,6 +273,11 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSize.regular,
     color: colors.textSecondary,
     fontStyle: "italic",
+  },
+  emptyContainer: {
+    padding: spacing.lg,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

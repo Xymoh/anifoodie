@@ -10,7 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { getAllAnimals } from "../data/data-utils";
+import { getAllAnimals, getTranslatedFoodItems } from "../data/data-utils";
 import { RootStackParamList } from "../navigation/types";
 import { AnimalName } from "../types";
 import { colors, spacing, typography, shadow } from "../styles";
@@ -43,6 +43,27 @@ const AnimalsScreen = () => {
   const { t } = useTranslations(language);
   const { isAnimalFavorite, toggleFavoriteAnimal } = useFavorites();
   const { translateAnimal } = useDynamicTranslations();
+
+  // Cache translated foods outside of the search logic
+  const translatedFoods = useMemo(
+    () => getTranslatedFoodItems(language),
+    [language]
+  );
+
+  // Create animal translation map once
+  const animalTranslationMap = useMemo(() => {
+    const map = new Map<string, string>();
+    translatedFoods.forEach((food) => {
+      Object.entries(food.translatedAnimalNames || {}).forEach(
+        ([originalAnimal, translatedAnimal]) => {
+          if (translatedAnimal && translatedAnimal !== originalAnimal) {
+            map.set(originalAnimal, translatedAnimal);
+          }
+        }
+      );
+    });
+    return map;
+  }, [translatedFoods]);
 
   const getAnimalCategory = (animal: AnimalName): AnimalCategory => {
     const mammals = [
@@ -126,13 +147,18 @@ const AnimalsScreen = () => {
         matchingCategories.includes(getAnimalCategory(animal))
       );
     } else if (searchQuery.trim()) {
-      filtered = filtered.filter(
-        (animal) =>
+      filtered = filtered.filter((animal) => {
+        const translatedName = animalTranslationMap.get(animal);
+
+        return (
           animal.toLowerCase().includes(searchQuery.toLowerCase()) ||
           getAnimalCategory(animal)
             .toLowerCase()
-            .includes(searchQuery.toLowerCase())
-      );
+            .includes(searchQuery.toLowerCase()) ||
+          (translatedName &&
+            translatedName.toLowerCase().includes(searchQuery.toLowerCase()))
+        );
+      });
     }
 
     // Apply category filter
@@ -143,7 +169,13 @@ const AnimalsScreen = () => {
     }
 
     return filtered;
-  }, [allAnimals, searchQuery, selectedCategory, animalCategories]);
+  }, [
+    allAnimals,
+    searchQuery,
+    selectedCategory,
+    animalCategories,
+    animalTranslationMap,
+  ]);
 
   const groupedAnimals = useMemo(() => {
     const animalsByCategory: Record<AnimalCategory, AnimalName[]> = {

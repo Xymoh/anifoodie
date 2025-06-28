@@ -16,6 +16,7 @@ import {
   getFoodCategoriesGroupedByCategory,
   getSimplifiedFoodName,
   getDisplayCategory,
+  getTranslatedFoodItems,
 } from "../data/data-utils";
 import { RootStackParamList } from "../navigation/types";
 import { FoodItem } from "../types";
@@ -47,6 +48,23 @@ const FoodsScreen = () => {
   const { t } = useTranslations(language);
   const { isFoodFavorite, toggleFavoriteFood } = useFavorites();
   const { translateCategory, translateFood } = useDynamicTranslations();
+
+  // Cache translated foods outside of the search logic
+  const translatedFoods = useMemo(
+    () => getTranslatedFoodItems(language),
+    [language]
+  );
+
+  // Create translation map once
+  const foodTranslationMap = useMemo(() => {
+    const map = new Map<string, string>();
+    translatedFoods.forEach((food) => {
+      if (food.translatedItem && food.translatedItem !== food.item) {
+        map.set(food.item, food.translatedItem);
+      }
+    });
+    return map;
+  }, [translatedFoods]);
 
   // Get all available food types
   const availableFoodTypes = useMemo(() => {
@@ -92,12 +110,17 @@ const FoodsScreen = () => {
     }
     // Otherwise apply normal item name search
     else if (searchQuery.trim()) {
-      filteredFoods = allFoods.filter(
-        (food) =>
+      filteredFoods = allFoods.filter((food) => {
+        const translatedName = foodTranslationMap.get(food.item);
+
+        return (
           food.item.toLowerCase().includes(searchQuery.toLowerCase()) ||
           food.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          food.category.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+          food.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          (translatedName &&
+            translatedName.toLowerCase().includes(searchQuery.toLowerCase()))
+        );
+      });
     }
 
     // Filter by food type if not "All"
@@ -130,7 +153,13 @@ const FoodsScreen = () => {
       title: category,
       data: items,
     }));
-  }, [allFoods, searchQuery, selectedType, availableFoodTypes]);
+  }, [
+    allFoods,
+    searchQuery,
+    selectedType,
+    availableFoodTypes,
+    foodTranslationMap,
+  ]);
 
   const handleFoodPress = (foodName: string) => {
     navigation.navigate("FoodDetail", { foodName });
