@@ -6,10 +6,12 @@ import {
   Pressable,
   Image,
   Text,
+  TouchableOpacity,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { RouteProp } from "@react-navigation/native";
 
 import { RootStackParamList } from "../navigation/types";
 import { colors, spacing, typography, shadow } from "../styles";
@@ -19,20 +21,40 @@ import { useTranslations } from "../i18n/index";
 import TranslatedText from "../components/TranslatedText";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Welcome">;
+type WelcomeScreenRouteProp = RouteProp<RootStackParamList, "Welcome">;
 
 const WelcomeScreen = () => {
   const navigation = useNavigation<NavigationProp>();
+  const route = useRoute<WelcomeScreenRouteProp>();
   const { setWelcomeScreenAsViewed } = useOnboarding();
   const { language } = useLanguage();
   const { t } = useTranslations(language);
 
+  // Check if this is the initial welcome screen or navigated from settings
+  const isFromSettings = route.params?.fromSettings;
+
   const handleUnderstand = () => {
-    setWelcomeScreenAsViewed();
-    navigation.navigate("Main");
+    if (isFromSettings) {
+      navigation.goBack();
+    } else {
+      setWelcomeScreenAsViewed();
+      navigation.navigate("Main");
+    }
+  };
+
+  const handleBackPress = () => {
+    navigation.goBack();
   };
 
   return (
     <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
+      {isFromSettings && (
+        <View style={styles.backButtonContainer}>
+          <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
+            <Text style={styles.backButtonText}>←</Text>
+          </TouchableOpacity>
+        </View>
+      )}
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <TranslatedText style={styles.title} translationKey="welcomeTitle" />
@@ -122,6 +144,31 @@ const WelcomeScreen = () => {
             <TranslatedText
               style={styles.colorKeyText}
               translationKey="notAllowedUnsafe"
+            />
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <TranslatedText
+            style={styles.sectionTitle}
+            translationKey="boiledIconTitle"
+          />
+          <View style={styles.boiledIconContainer}>
+            <View style={styles.boiledIconExample}>
+              <View style={styles.foodIconContainer}>
+                <Text style={styles.foodIconText}>🥔</Text>
+                <View style={styles.boilIconOverlay}>
+                  <Image
+                    source={require("../../assets/icons/boil.png")}
+                    style={styles.boilIcon}
+                    resizeMode="contain"
+                  />
+                </View>
+              </View>
+            </View>
+            <TranslatedText
+              style={styles.boiledIconText}
+              translationKey="boiledIconDescription"
             />
           </View>
         </View>
@@ -270,6 +317,73 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: typography.fontSize.large,
     fontWeight: typography.fontWeight.bold as "700",
+  },
+  boiledIconContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: colors.card,
+    padding: spacing.md,
+    borderRadius: spacing.radiusMedium,
+    borderLeftWidth: 4,
+    borderLeftColor: colors.warning,
+    ...shadow.small,
+  },
+  boiledIconExample: {
+    marginRight: spacing.md,
+    position: "relative",
+  },
+  foodIconContainer: {
+    width: 60,
+    height: 60,
+    backgroundColor: `${colors.parrotGreen}CC`,
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "rgba(255,255,255,0.15)",
+    position: "relative",
+  },
+  foodIconText: {
+    fontSize: 32,
+  },
+  boilIconOverlay: {
+    position: "absolute",
+    bottom: -4,
+    right: -4,
+    backgroundColor: colors.white,
+    borderRadius: spacing.radiusSmall,
+    padding: 2,
+    shadowColor: colors.black,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 3,
+  },
+  boilIcon: {
+    width: 16,
+    height: 16,
+  },
+  boiledIconText: {
+    fontSize: typography.fontSize.medium,
+    color: colors.textPrimary,
+    lineHeight: typography.lineHeight.normal * typography.fontSize.medium,
+    flex: 1,
+  },
+  backButtonContainer: {
+    position: "absolute",
+    top: spacing.xl + spacing.lg,
+    left: spacing.md,
+    zIndex: 10,
+  },
+  backButton: {
+    padding: spacing.sm,
+  },
+  backButtonText: {
+    fontSize: 24,
+    color: colors.textPrimary,
   },
 });
 

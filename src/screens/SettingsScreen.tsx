@@ -8,21 +8,31 @@ import {
   SafeAreaView,
   StatusBar,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import Constants from "expo-constants";
 
 import { useLanguage, Language } from "../hooks/useLanguage";
 import { TranslationKey } from "../i18n/index";
+import { TabParamList, RootStackParamList } from "../navigation/types";
 import { colors, spacing, typography } from "../styles";
 import TranslatedText from "../components/TranslatedText";
 
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
+
 const SettingsScreen = () => {
   const { language, setLanguage } = useLanguage();
+  const navigation = useNavigation<NavigationProp>();
 
   // Get app version from Expo Constants
   const appVersion = Constants.expoConfig?.version || "1.0.0";
 
   const handleLanguageChange = async (newLanguage: Language) => {
     await setLanguage(newLanguage);
+  };
+
+  const handleAboutAppPress = () => {
+    navigation.navigate("Welcome", { fromSettings: true });
   };
 
   const languages: { translationKey: TranslationKey; value: Language }[] = [
@@ -71,6 +81,22 @@ const SettingsScreen = () => {
               </TouchableOpacity>
             ))}
           </View>
+        </View>
+
+        <View style={styles.section}>
+          <TranslatedText
+            style={styles.sectionTitle}
+            translationKey="aboutTheApp"
+          />
+          <TouchableOpacity
+            style={styles.aboutAppButton}
+            onPress={handleAboutAppPress}
+          >
+            <TranslatedText
+              style={styles.aboutAppButtonText}
+              translationKey="howToUseApp"
+            />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.section}>
@@ -169,6 +195,18 @@ const styles = StyleSheet.create({
   versionText: {
     fontSize: typography.fontSize.medium,
     color: colors.textSecondary,
+  },
+  aboutAppButton: {
+    padding: spacing.md,
+    borderRadius: spacing.radiusRound,
+    borderWidth: 1,
+    borderColor: colors.primary,
+    backgroundColor: colors.primary,
+  },
+  aboutAppButtonText: {
+    color: colors.white,
+    fontSize: typography.fontSize.medium,
+    fontWeight: typography.fontWeight.bold as "700",
   },
 });
 

@@ -20,6 +20,8 @@ export type TranslationKey =
   | 'darkTheme'
   | 'about'
   | 'version'
+  | 'aboutTheApp'
+  | 'howToUseApp'
   
   // Welcome screen
   | 'welcomeTitle'
@@ -35,6 +37,8 @@ export type TranslationKey =
   | 'acceptableInSmallQuantities'
   | 'smallQty'
   | 'notAllowedUnsafe'
+  | 'boiledIconTitle'
+  | 'boiledIconDescription'
   | 'disclaimer'
   | 'disclaimerText'
   | 'iUnderstand'
@@ -113,6 +117,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     darkTheme: 'Dark Theme',
     about: 'About',
     version: 'Version',
+    aboutTheApp: 'About the App',
+    howToUseApp: 'How to Use the App',
     welcomeTitle: 'Welcome to AniFoodie',
     welcomeDescription: 'Discover what foods are safe for your pets',
     howItWorks: 'How it works',
@@ -126,6 +132,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     acceptableInSmallQuantities: 'Acceptable in small quantities',
     smallQty: 'Small qty',
     notAllowedUnsafe: 'Not allowed - unsafe',
+    boiledIconTitle: 'Boiled Icon',
+    boiledIconDescription: 'Some foods are only safe when boiled or cooked. Look for this icon on food items.',
     disclaimer: 'Disclaimer',
     disclaimerText: 'The information provided in this app is for general informational purposes only. Always consult with a veterinarian before introducing new foods to your pet\'s diet.',
     iUnderstand: 'I Understand',
@@ -189,6 +197,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     darkTheme: 'Tema Oscuro',
     about: 'Acerca de',
     version: 'Versión',
+    aboutTheApp: 'Acerca de la App',
+    howToUseApp: 'Cómo usar la App',
     welcomeTitle: 'Bienvenido a AniFoodie',
     welcomeDescription: 'Descubre qué alimentos son seguros para tus mascotas',
     howItWorks: 'Cómo funciona',
@@ -202,6 +212,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     acceptableInSmallQuantities: 'Aceptable en pequeñas cantidades',
     smallQty: 'Peq. cant.',
     notAllowedUnsafe: 'No permitido - inseguro',
+    boiledIconTitle: 'Icono de Hervido',
+    boiledIconDescription: 'Algunos alimentos solo son seguros cuando están hervidos o cocinados. Busca este icono en los alimentos.',
     disclaimer: 'Aviso Legal',
     disclaimerText: 'La información proporcionada en esta aplicación es solo para fines informativos generales. Siempre consulte con un veterinario antes de introducir nuevos alimentos en la dieta de su mascota.',
     iUnderstand: 'Entiendo',
@@ -265,6 +277,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     darkTheme: 'Thème Sombre',
     about: 'À propos',
     version: 'Version',
+    aboutTheApp: 'À propos de l\'application',
+    howToUseApp: 'Comment utiliser l\'application',
     welcomeTitle: 'Bienvenue sur AniFoodie',
     welcomeDescription: 'Découvrez quels aliments sont sûrs pour vos animaux',
     howItWorks: 'Comment ça marche',
@@ -278,6 +292,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     acceptableInSmallQuantities: 'Acceptable en petites quantités',
     smallQty: 'Pet. qté',
     notAllowedUnsafe: 'Non autorisé - dangereux',
+    boiledIconTitle: 'Icône de Bouilli',
+    boiledIconDescription: 'Certains aliments ne sont sûrs que lorsqu\'ils sont bouillis ou cuits. Cherchez cette icône sur les aliments.',
     disclaimer: 'Avertissement',
     disclaimerText: 'Les informations fournies dans cette application sont uniquement à titre informatif général. Consultez toujours un vétérinaire avant d\'introduire de nouveaux aliments dans le régime alimentaire de votre animal.',
     iUnderstand: 'Je Comprends',
@@ -341,6 +357,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     darkTheme: 'Dunkles Thema',
     about: 'Über',
     version: 'Version',
+    aboutTheApp: 'Über die App',
+    howToUseApp: 'Wie man die App benutzt',
     welcomeTitle: 'Willkommen bei AniFoodie',
     welcomeDescription: 'Entdecken Sie, welche Lebensmittel für Ihre Haustiere sicher sind',
     howItWorks: 'Wie es funktioniert',
@@ -352,8 +370,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     colorKey: 'Farbschlüssel',
     safeToEat: 'Sicher zu essen',
     acceptableInSmallQuantities: 'In kleinen Mengen akzeptabel',
-    smallQty: 'Kl. Menge',
+    smallQty: 'Kleine Menge',
     notAllowedUnsafe: 'Nicht erlaubt - unsicher',
+    boiledIconTitle: 'Gekochtes Symbol',
+    boiledIconDescription: 'Einige Lebensmittel sind nur sicher, wenn sie gekocht oder zubereitet werden. Achten Sie auf dieses Symbol bei Lebensmitteln.',
     disclaimer: 'Haftungsausschluss',
     disclaimerText: 'Die in dieser App bereitgestellten Informationen dienen nur zu allgemeinen Informationszwecken. Konsultieren Sie immer einen Tierarzt, bevor Sie neue Lebensmittel in die Ernährung Ihres Haustieres einführen.',
     iUnderstand: 'Ich verstehe',
@@ -417,6 +437,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     darkTheme: 'Tema Scuro',
     about: 'Informazioni',
     version: 'Versione',
+    aboutTheApp: 'Informazioni sull\'app',
+    howToUseApp: 'Come usare l\'app',
     welcomeTitle: 'Benvenuto in AniFoodie',
     welcomeDescription: 'Scopri quali cibi sono sicuri per i tuoi animali domestici',
     howItWorks: 'Come funziona',
@@ -425,12 +447,14 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     searchByAnimalDescription: 'Seleziona un animale per vedere quali cibi possono mangiare, quali dovrebbero mangiare con moderazione o quali dovrebbero evitare completamente.',
     searchByFood: 'Cerca per Cibo',
     searchByFoodDescription: 'Seleziona un alimento per scoprire quali animali possono consumarlo in sicurezza e quali dovrebbero evitarlo.',
-    colorKey: 'Legenda Colori',
+    colorKey: 'Codice Colori',
     safeToEat: 'Sicuro da mangiare',
     acceptableInSmallQuantities: 'Accettabile in piccole quantità',
-    smallQty: 'Pic. qtà',
-    notAllowedUnsafe: 'Non consentito - non sicuro',
-    disclaimer: 'Avvertenza',
+    smallQty: 'Pic. q.tà',
+    notAllowedUnsafe: 'Non consentito - pericoloso',
+    boiledIconTitle: 'Icona Bollito',
+    boiledIconDescription: 'Alcuni alimenti sono sicuri solo quando sono bolliti o cotti. Cerca questa icona sugli alimenti.',
+    disclaimer: 'Disclaimer',
     disclaimerText: 'Le informazioni fornite in questa app sono solo a scopo informativo generale. Consultare sempre un veterinario prima di introdurre nuovi alimenti nella dieta del vostro animale domestico.',
     iUnderstand: 'Ho Capito',
     appName: 'PetPlate',
@@ -493,6 +517,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     darkTheme: 'Тёмная тема',
     about: 'О приложении',
     version: 'Версия',
+    aboutTheApp: 'О приложении',
+    howToUseApp: 'Как пользоваться приложением',
     welcomeTitle: 'Добро пожаловать в AniFoodie',
     welcomeDescription: 'Узнайте, какие продукты безопасны для ваших питомцев',
     howItWorks: 'Как это работает',
@@ -501,11 +527,13 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     searchByAnimalDescription: 'Выберите животное, чтобы узнать, какие продукты они могут есть, какие следует есть умеренно или каких следует избегать полностью.',
     searchByFood: 'Поиск по продукту',
     searchByFoodDescription: 'Выберите продукт, чтобы узнать, какие животные могут безопасно его употреблять, а каким следует его избегать.',
-    colorKey: 'Обозначение цветов',
+    colorKey: 'Цветовая схема',
     safeToEat: 'Безопасно для употребления',
     acceptableInSmallQuantities: 'Приемлемо в малых количествах',
     smallQty: 'Мал. кол.',
-    notAllowedUnsafe: 'Не разрешено - небезопасно',
+    notAllowedUnsafe: 'Запрещено - небезопасно',
+    boiledIconTitle: 'Значок варёного',
+    boiledIconDescription: 'Некоторые продукты безопасны только в варёном или приготовленном виде. Ищите этот значок на продуктах.',
     disclaimer: 'Отказ от ответственности',
     disclaimerText: 'Информация, представленная в этом приложении, предназначена только для общих информационных целей. Всегда консультируйтесь с ветеринаром перед введением новых продуктов в рацион вашего питомца.',
     iUnderstand: 'Я понимаю',
@@ -569,6 +597,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     darkTheme: 'Ciemny motyw',
     about: 'O aplikacji',
     version: 'Wersja',
+    aboutTheApp: 'Informacje o aplikacji',
+    howToUseApp: 'Jak korzystać z aplikacji',
     welcomeTitle: 'Witaj w AniFoodie',
     welcomeDescription: 'Odkryj, które produkty są bezpieczne dla Twoich zwierząt',
     howItWorks: 'Jak to działa',
@@ -582,6 +612,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     acceptableInSmallQuantities: 'Akceptowalne w małych ilościach',
     smallQty: 'Mała il.',
     notAllowedUnsafe: 'Niedozwolone - niebezpieczne',
+    boiledIconTitle: 'Ikona Gotowanego',
+    boiledIconDescription: 'Niektóre produkty są bezpieczne tylko wtedy, gdy są gotowane lub przygotowane. Szukaj tej ikony na produktach spożywczych.',
     disclaimer: 'Zastrzeżenie',
     disclaimerText: 'Informacje zawarte w tej aplikacji służą wyłącznie ogólnym celom informacyjnym. Zawsze konsultuj się z weterynarzem przed wprowadzeniem nowych produktów do diety swojego zwierzęcia.',
     iUnderstand: 'Rozumiem',
