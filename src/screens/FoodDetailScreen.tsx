@@ -167,7 +167,7 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
         renderItem={renderAnimalItem}
         renderSectionHeader={renderSectionHeader}
         contentContainerStyle={styles.listContent}
-        stickySectionHeadersEnabled
+        stickySectionHeadersEnabled={false}
         renderSectionFooter={({ section }) =>
           section.data.length === 0 ? (
             <View style={styles.emptySection}>

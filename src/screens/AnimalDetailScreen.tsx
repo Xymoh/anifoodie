@@ -120,15 +120,6 @@ const AnimalDetailScreen = ({ route }: AnimalDetailScreenProps) => {
     []
   );
 
-  const getItemLayout = React.useCallback((data: any, index: number) => {
-    const ITEM_HEIGHT = 120; // Approximate height of FoodCard including margins
-    return {
-      length: ITEM_HEIGHT,
-      offset: ITEM_HEIGHT * index,
-      index,
-    };
-  }, []);
-
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
       <View style={styles.headerContainer}>
@@ -157,14 +148,15 @@ const AnimalDetailScreen = ({ route }: AnimalDetailScreenProps) => {
         renderItem={renderFoodItem}
         renderSectionHeader={renderSectionHeader}
         keyExtractor={keyExtractor}
-        getItemLayout={getItemLayout}
         contentContainerStyle={styles.listContent}
-        stickySectionHeadersEnabled
-        removeClippedSubviews={true}
-        maxToRenderPerBatch={8}
-        updateCellsBatchingPeriod={100}
-        initialNumToRender={8}
-        windowSize={8}
+        stickySectionHeadersEnabled={true}
+        removeClippedSubviews={false}
+        maxToRenderPerBatch={10}
+        updateCellsBatchingPeriod={50}
+        initialNumToRender={15}
+        windowSize={10}
+        legacyImplementation={false}
+        disableVirtualization={true}
         ListEmptyComponent={
           searchQuery.trim() ? (
             <View style={styles.emptyContainer}>
@@ -225,6 +217,8 @@ const styles = StyleSheet.create({
     padding: spacing.sm + 2,
     borderRadius: spacing.radiusMedium,
     marginBottom: spacing.xs + 4,
+    height: 50,
+    justifyContent: "center",
   },
   sectionTitle: {
     fontSize: typography.fontSize.xl,

@@ -252,19 +252,41 @@ const AnimalsScreen = () => {
     []
   );
 
+  const renderSectionFooter = React.useCallback(() => null, []);
+
   const keyExtractor = React.useCallback(
     (item: AnimalName, index: number) => `${item}-${index}`,
     []
   );
 
-  const getItemLayout = React.useCallback((data: any, index: number) => {
-    const ITEM_HEIGHT = 80; // Approximate height including margins
-    return {
-      length: ITEM_HEIGHT,
-      offset: ITEM_HEIGHT * index,
-      index,
-    };
-  }, []);
+  const getItemLayout = React.useCallback(
+    (data: any, index: number) => {
+      const ITEM_HEIGHT = 80; // Approximate height including margins
+      const HEADER_HEIGHT = 50; // Fixed header height
+
+      // Calculate the offset based on the section structure
+      let offset = 0;
+      let currentIndex = 0;
+
+      for (const section of groupedAnimals) {
+        if (currentIndex + section.data.length > index) {
+          // Item is in this section
+          offset += HEADER_HEIGHT; // Add header height
+          offset += (index - currentIndex) * ITEM_HEIGHT;
+          break;
+        }
+        offset += HEADER_HEIGHT + section.data.length * ITEM_HEIGHT;
+        currentIndex += section.data.length;
+      }
+
+      return {
+        length: ITEM_HEIGHT,
+        offset,
+        index,
+      };
+    },
+    [groupedAnimals]
+  );
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
@@ -282,17 +304,21 @@ const AnimalsScreen = () => {
         sections={groupedAnimals}
         renderItem={renderAnimalItem}
         renderSectionHeader={renderSectionHeader}
+        renderSectionFooter={renderSectionFooter}
         keyExtractor={keyExtractor}
         getItemLayout={getItemLayout}
         contentContainerStyle={styles.listContent}
-        stickySectionHeadersEnabled
+        stickySectionHeadersEnabled={true}
         removeClippedSubviews={true}
-        maxToRenderPerBatch={8}
+        maxToRenderPerBatch={15}
         updateCellsBatchingPeriod={50}
-        initialNumToRender={8}
-        windowSize={8}
+        initialNumToRender={20}
+        windowSize={15}
         legacyImplementation={false}
         disableVirtualization={false}
+        onScrollBeginDrag={() => {}}
+        onScrollEndDrag={() => {}}
+        scrollEventThrottle={16}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <TranslatedText
@@ -358,6 +384,8 @@ const styles = StyleSheet.create({
     padding: spacing.sm + 2,
     borderRadius: spacing.radiusMedium,
     marginBottom: spacing.sm,
+    height: 50, // Fixed height to prevent jumping
+    justifyContent: "center",
   },
   sectionTitle: {
     fontSize: typography.fontSize.xl,
