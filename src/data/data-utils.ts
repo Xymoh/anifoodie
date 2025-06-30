@@ -2,6 +2,13 @@ import { parse } from 'papaparse';
 
 import { csvData } from './csv-data';
 import { AnimalName, CompatibilityStatus, FoodItem, FilteredResults } from '../types';
+import { Language } from '../hooks/useLanguage';
+import { 
+  foodTranslations, 
+  categoryTranslations, 
+  statusTranslations,
+  animalTranslations
+} from '../i18n/index';
 
 export const parseCSVData = (): FoodItem[] => {
   try {
@@ -17,18 +24,57 @@ export const parseCSVData = (): FoodItem[] => {
     return result.data.map((row: any) => {
       const { Type, 'Category/Source': Category, Item, Icon, ...animals } = row;
       
+      // Only trim status values, not animal names
+      const trimmedAnimals: Record<string, string> = {};
+      Object.entries(animals).forEach(([animal, status]) => {
+        trimmedAnimals[animal] = (status as string).trim();
+      });
+      
       return {
-        type: Type,
-        category: Category,
-        item: Item,
-        icon: Icon,
-        compatibility: animals,
+        type: Type?.trim() || '',
+        category: Category?.trim() || '',
+        item: Item?.trim() || '',
+        icon: Icon?.trim() || '',
+        compatibility: trimmedAnimals,
       };
     });
   } catch (error) {
     console.error('Failed to parse CSV data:', error);
     return [];
   }
+};
+
+export const getTranslatedFoodItems = (language: Language): FoodItem[] => {
+  const foodItems = parseCSVData();
+  const langFoodTranslations = foodTranslations[language] || foodTranslations.en;
+  const langCategoryTranslations = categoryTranslations[language] || categoryTranslations.en;
+  const langStatusTranslations = statusTranslations[language] || statusTranslations.en;
+  const langAnimalTranslations = animalTranslations[language] || animalTranslations.en;
+  
+  return foodItems.map(item => {
+    const translatedName = langFoodTranslations[item.item] || item.item;
+    const translatedCategory = langCategoryTranslations[item.category] || item.category;
+    const translatedType = langCategoryTranslations[item.type] || item.type;
+    
+    const translatedCompatibility: Record<string, string> = {};
+    const translatedAnimalNames: Record<string, string> = {};
+    
+    Object.entries(item.compatibility).forEach(([animal, status]) => {
+      const translatedAnimal = langAnimalTranslations[animal] || animal;
+      translatedAnimalNames[animal] = translatedAnimal;
+      
+      translatedCompatibility[animal] = langStatusTranslations[status as string] || status;
+    });
+    
+    return {
+      ...item,
+      translatedItem: translatedName,
+      translatedCategory: translatedCategory,
+      translatedType: translatedType,
+      translatedCompatibility: translatedCompatibility,
+      translatedAnimalNames: translatedAnimalNames
+    };
+  });
 };
 
 export const getAllAnimals = (): AnimalName[] => {
@@ -99,13 +145,14 @@ export const getFoodsForAnimal = (animalName: AnimalName): FilteredResults => {
   };
   
   data.forEach(item => {
-    const status = item.compatibility[animalName] as CompatibilityStatus;
+    const status = item.compatibility[animalName] as string;
+    const trimmedStatus = status.trim();
     
-    if (status === 'allowed') {
+    if (trimmedStatus === 'allowed' || trimmedStatus === 'allowed (boiled)') {
       filtered.allowed.push(item);
-    } else if (status === 'not allowed') {
+    } else if (trimmedStatus === 'not allowed') {
       filtered.notAllowed.push(item);
-    } else if (status.includes('acceptable')) {
+    } else if (trimmedStatus.includes('acceptable')) {
       filtered.acceptable.push(item);
     }
   });
@@ -117,23 +164,33 @@ export const getAnimalsForFood = (foodItem: string): Record<CompatibilityStatus,
   const data = parseCSVData();
   const result: Record<CompatibilityStatus, AnimalName[]> = {
     'allowed': [],
+    'allowed (boiled)': [],
     'not allowed': [],
     'acceptable in small quantities': [],
     'acceptable in small quantities (boiled)': [],
+    'acceptable in small quantities (ripe only)': [],
+    'acceptable in small quantities (cooked)': [],
   };
   
   const foodData = data.find(item => item.item === foodItem);
   if (!foodData) return result;
   
   Object.entries(foodData.compatibility).forEach(([animal, status]) => {
-    if (status === 'allowed') {
+    const trimmedStatus = status.trim();
+    if (trimmedStatus === 'allowed') {
       result['allowed'].push(animal as AnimalName);
-    } else if (status === 'not allowed') {
+    } else if (trimmedStatus === 'allowed (boiled)') {
+      result['allowed (boiled)'].push(animal as AnimalName);
+    } else if (trimmedStatus === 'not allowed') {
       result['not allowed'].push(animal as AnimalName);
-    } else if (status === 'acceptable in small quantities') {
+    } else if (trimmedStatus === 'acceptable in small quantities') {
       result['acceptable in small quantities'].push(animal as AnimalName);
-    } else if (status === 'acceptable in small quantities (boiled)') {
+    } else if (trimmedStatus === 'acceptable in small quantities (boiled)') {
       result['acceptable in small quantities (boiled)'].push(animal as AnimalName);
+    } else if (trimmedStatus === 'acceptable in small quantities (ripe only)') {
+      result['acceptable in small quantities (ripe only)'].push(animal as AnimalName);
+    } else if (trimmedStatus === 'acceptable in small quantities (cooked)') {
+      result['acceptable in small quantities (cooked)'].push(animal as AnimalName);
     }
   });
   

@@ -5,10 +5,3 @@ import typography from './typography';
 import shadow from './shadow';
 
 export { colors, spacing, typography, shadow };
-
-export default {
-  colors,
-  spacing,
-  typography,
-  shadow,
-};

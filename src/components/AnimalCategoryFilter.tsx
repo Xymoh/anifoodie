@@ -2,8 +2,6 @@ import React from "react";
 import { StyleSheet, TouchableOpacity, View, ScrollView } from "react-native";
 
 import { colors, spacing, typography } from "../styles";
-import { useLanguage } from "../hooks/useLanguage";
-import { useTranslations } from "../i18n/translations";
 import TranslatedText from "./TranslatedText";
 
 export type AnimalCategory =
@@ -31,9 +29,6 @@ const AnimalCategoryFilter = ({
     "Amphibians",
     "Fish",
   ];
-
-  const { language } = useLanguage();
-  const { t } = useTranslations(language);
 
   // Map category to translation key
   const getCategoryTranslationKey = (category: AnimalCategory) => {

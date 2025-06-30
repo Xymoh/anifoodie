@@ -8,20 +8,20 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { getAllAnimals } from "../data/data-utils";
+import { getAllAnimals, getTranslatedFoodItems } from "../data/data-utils";
 import { RootStackParamList } from "../navigation/types";
 import { AnimalName } from "../types";
 import { colors, spacing, typography, shadow } from "../styles";
 import { useLanguage } from "../hooks/useLanguage";
-import { useTranslations } from "../i18n/translations";
+import { useTranslations } from "../i18n/index";
+import { useFavorites } from "../context/FavoritesContext";
+import { useDynamicTranslations } from "../hooks/useDynamicTranslations";
 import TranslatedText from "../components/TranslatedText";
 import SearchBar from "../components/SearchBar";
 import AnimalIcon from "../components/AnimalIcon";
+import FavoriteButton from "../components/FavoriteButton";
 import AnimalCategoryFilter, {
   AnimalCategory,
 } from "../components/AnimalCategoryFilter";
@@ -41,6 +41,29 @@ const AnimalsScreen = () => {
     useState<AnimalCategory>("All");
   const { language } = useLanguage();
   const { t } = useTranslations(language);
+  const { isAnimalFavorite, toggleFavoriteAnimal } = useFavorites();
+  const { translateAnimal } = useDynamicTranslations();
+
+  // Cache translated foods outside of the search logic
+  const translatedFoods = useMemo(
+    () => getTranslatedFoodItems(language),
+    [language]
+  );
+
+  // Create animal translation map once
+  const animalTranslationMap = useMemo(() => {
+    const map = new Map<string, string>();
+    translatedFoods.forEach((food) => {
+      Object.entries(food.translatedAnimalNames || {}).forEach(
+        ([originalAnimal, translatedAnimal]) => {
+          if (translatedAnimal && translatedAnimal !== originalAnimal) {
+            map.set(originalAnimal, translatedAnimal);
+          }
+        }
+      );
+    });
+    return map;
+  }, [translatedFoods]);
 
   const getAnimalCategory = (animal: AnimalName): AnimalCategory => {
     const mammals = [
@@ -124,13 +147,18 @@ const AnimalsScreen = () => {
         matchingCategories.includes(getAnimalCategory(animal))
       );
     } else if (searchQuery.trim()) {
-      filtered = filtered.filter(
-        (animal) =>
+      filtered = filtered.filter((animal) => {
+        const translatedName = animalTranslationMap.get(animal);
+
+        return (
           animal.toLowerCase().includes(searchQuery.toLowerCase()) ||
           getAnimalCategory(animal)
             .toLowerCase()
-            .includes(searchQuery.toLowerCase())
-      );
+            .includes(searchQuery.toLowerCase()) ||
+          (translatedName &&
+            translatedName.toLowerCase().includes(searchQuery.toLowerCase()))
+        );
+      });
     }
 
     // Apply category filter
@@ -141,7 +169,13 @@ const AnimalsScreen = () => {
     }
 
     return filtered;
-  }, [allAnimals, searchQuery, selectedCategory, animalCategories]);
+  }, [
+    allAnimals,
+    searchQuery,
+    selectedCategory,
+    animalCategories,
+    animalTranslationMap,
+  ]);
 
   const groupedAnimals = useMemo(() => {
     const animalsByCategory: Record<AnimalCategory, AnimalName[]> = {
@@ -171,18 +205,32 @@ const AnimalsScreen = () => {
   };
 
   const renderAnimalItem = React.useCallback(
-    ({ item }: { item: AnimalName }) => (
-      <TouchableOpacity
-        style={styles.animalItem}
-        onPress={() => handleAnimalPress(item)}
-      >
-        <View style={styles.animalRow}>
-          <AnimalIcon animal={item} size={24} />
-          <Text style={styles.animalName}>{item}</Text>
-        </View>
-      </TouchableOpacity>
-    ),
-    []
+    ({ item }: { item: AnimalName }) => {
+      const handleToggleFavorite = (e: boolean) => {
+        // prevent event propagation to not trigger navigation
+        toggleFavoriteAnimal(item);
+      };
+
+      return (
+        <TouchableOpacity
+          style={styles.animalItem}
+          onPress={() => handleAnimalPress(item)}
+        >
+          <View style={styles.animalRow}>
+            <AnimalIcon animal={item} size={24} />
+            <Text style={styles.animalName}>{translateAnimal(item)}</Text>
+            <View style={styles.favoriteContainer}>
+              <FavoriteButton
+                isFavorite={isAnimalFavorite(item)}
+                onToggle={handleToggleFavorite}
+                size={20}
+              />
+            </View>
+          </View>
+        </TouchableOpacity>
+      );
+    },
+    [isAnimalFavorite, toggleFavoriteAnimal, translateAnimal]
   );
 
   const renderSectionHeader = React.useCallback(
@@ -204,21 +252,41 @@ const AnimalsScreen = () => {
     []
   );
 
+  const renderSectionFooter = React.useCallback(() => null, []);
+
   const keyExtractor = React.useCallback(
     (item: AnimalName, index: number) => `${item}-${index}`,
     []
   );
 
-  const getItemLayout = React.useCallback((data: any, index: number) => {
-    const ITEM_HEIGHT = 80; // Approximate height including margins
-    return {
-      length: ITEM_HEIGHT,
-      offset: ITEM_HEIGHT * index,
-      index,
-    };
-  }, []);
+  const getItemLayout = React.useCallback(
+    (data: any, index: number) => {
+      const ITEM_HEIGHT = 80; // Approximate height including margins
+      const HEADER_HEIGHT = 50; // Fixed header height
 
-  const insets = useSafeAreaInsets();
+      // Calculate the offset based on the section structure
+      let offset = 0;
+      let currentIndex = 0;
+
+      for (const section of groupedAnimals) {
+        if (currentIndex + section.data.length > index) {
+          // Item is in this section
+          offset += HEADER_HEIGHT; // Add header height
+          offset += (index - currentIndex) * ITEM_HEIGHT;
+          break;
+        }
+        offset += HEADER_HEIGHT + section.data.length * ITEM_HEIGHT;
+        currentIndex += section.data.length;
+      }
+
+      return {
+        length: ITEM_HEIGHT,
+        offset,
+        index,
+      };
+    },
+    [groupedAnimals]
+  );
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
@@ -236,17 +304,21 @@ const AnimalsScreen = () => {
         sections={groupedAnimals}
         renderItem={renderAnimalItem}
         renderSectionHeader={renderSectionHeader}
+        renderSectionFooter={renderSectionFooter}
         keyExtractor={keyExtractor}
         getItemLayout={getItemLayout}
         contentContainerStyle={styles.listContent}
-        stickySectionHeadersEnabled
+        stickySectionHeadersEnabled={true}
         removeClippedSubviews={true}
-        maxToRenderPerBatch={8}
+        maxToRenderPerBatch={15}
         updateCellsBatchingPeriod={50}
-        initialNumToRender={8}
-        windowSize={8}
+        initialNumToRender={20}
+        windowSize={15}
         legacyImplementation={false}
         disableVirtualization={false}
+        onScrollBeginDrag={() => {}}
+        onScrollEndDrag={() => {}}
+        scrollEventThrottle={16}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <TranslatedText
@@ -286,12 +358,16 @@ const styles = StyleSheet.create({
   animalRow: {
     flexDirection: "row",
     alignItems: "center",
+    flex: 1,
   },
   animalName: {
     fontSize: typography.fontSize.large,
     fontWeight: typography.fontWeight.medium as "500",
     color: colors.textPrimary,
     marginLeft: spacing.sm,
+    flex: 1,
+    marginRight: spacing.sm,
+    minWidth: 0,
   },
   emptyContainer: {
     padding: spacing.md + 4,
@@ -308,11 +384,17 @@ const styles = StyleSheet.create({
     padding: spacing.sm + 2,
     borderRadius: spacing.radiusMedium,
     marginBottom: spacing.sm,
+    height: 50, // Fixed height to prevent jumping
+    justifyContent: "center",
   },
   sectionTitle: {
     fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.bold as "700",
     color: colors.textPrimary,
+  },
+  favoriteContainer: {
+    flexShrink: 0,
+    minWidth: 44,
   },
 });
 

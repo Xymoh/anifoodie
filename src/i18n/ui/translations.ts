@@ -1,4 +1,4 @@
-import { Language } from '../hooks/useLanguage';
+import { Language } from '../../hooks/useLanguage';
 
 export type TranslationKey = 
   // Tab navigation
@@ -16,9 +16,12 @@ export type TranslationKey =
   | 'german'
   | 'italian'
   | 'russian'
+  | 'polish'
   | 'darkTheme'
   | 'about'
   | 'version'
+  | 'aboutTheApp'
+  | 'howToUseApp'
   
   // Welcome screen
   | 'welcomeTitle'
@@ -32,10 +35,19 @@ export type TranslationKey =
   | 'colorKey'
   | 'safeToEat'
   | 'acceptableInSmallQuantities'
+  | 'smallQty'
   | 'notAllowedUnsafe'
+  | 'boiledIconTitle'
+  | 'boiledIconDescription'
   | 'disclaimer'
   | 'disclaimerText'
   | 'iUnderstand'
+  
+  // Splash screen
+  | 'appName'
+  | 'appSubtitle'
+  | 'appTagline'
+  | 'poweredBy'
   
   // Animals Screen
   | 'allAnimals'
@@ -87,16 +99,12 @@ export type TranslationKey =
   | 'search'
   | 'loading';
 
-// Translation dictionaries
 const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
-    // Tab navigation
     animals: 'Animals',
     foods: 'Foods',
     favorites: 'Favorites',
     settings: 'Settings',
-    
-    // Settings screen
     settingsTitle: 'Settings',
     languagePreference: 'Language',
     english: 'English',
@@ -105,11 +113,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     german: 'German',
     italian: 'Italian',
     russian: 'Russian',
+    polish: 'Polish',
     darkTheme: 'Dark Theme',
     about: 'About',
     version: 'Version',
-    
-    // Welcome screen
+    aboutTheApp: 'About the App',
+    howToUseApp: 'How to Use the App',
     welcomeTitle: 'Welcome to AniFoodie',
     welcomeDescription: 'Discover what foods are safe for your pets',
     howItWorks: 'How it works',
@@ -121,12 +130,17 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     colorKey: 'Color Key',
     safeToEat: 'Safe to eat',
     acceptableInSmallQuantities: 'Acceptable in small quantities',
+    smallQty: 'Small qty',
     notAllowedUnsafe: 'Not allowed - unsafe',
+    boiledIconTitle: 'Boiled Icon',
+    boiledIconDescription: 'Some foods are only safe when boiled or cooked. Look for this icon on food items.',
     disclaimer: 'Disclaimer',
     disclaimerText: 'The information provided in this app is for general informational purposes only. Always consult with a veterinarian before introducing new foods to your pet\'s diet.',
     iUnderstand: 'I Understand',
-    
-    // Animals Screen
+    appName: 'PetPlate',
+    appSubtitle: 'Smart Pet Nutrition Guide',
+    appTagline: 'Keep your pets safe & healthy',
+    poweredBy: 'Powered by Pet Lovers',
     allAnimals: 'All Animals',
     searchAnimals: 'Search animals...',
     selectAnAnimal: 'Select an Animal',
@@ -137,8 +151,6 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     reptiles: 'Reptiles',
     amphibians: 'Amphibians',
     fish: 'Fish',
-    
-    // Foods Screen
     allFoods: 'All Foods',
     searchFoods: 'Search foods...',
     selectAFood: 'Select a Food',
@@ -150,40 +162,29 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     grains: 'Grains',
     meat: 'Meat',
     nuts: 'Nuts',
-    
-    // Favorites Screen
     noFavorites: 'No favorites yet',
     addFavorites: 'Add items to your favorites',
     favoriteAnimals: 'Favorite Animals',
     favoriteFoods: 'Favorite Foods',
-    
-    // Animal Detail Screen
     backButton: 'Back',
     allowedFoods: 'Allowed Foods',
     acceptableFoods: 'Acceptable in Small Quantities',
     notAllowedFoods: 'Not Allowed',
     noAnimalsInCategory: 'No animals in this category',
     boiled: 'Boiled',
-    
-    // Food Detail Screen
     animalsThatCanEat: 'Animals that can eat this food',
     animalsThatCanEatSmallQuantities: 'Animals that can eat this food in small quantities',
     animalsThatCannotEat: 'Animals that cannot eat this food',
-    
-    // Common
     save: 'Save',
     cancel: 'Cancel',
     search: 'Search',
     loading: 'Loading...'
   },
   es: {
-    // Tab navigation
     animals: 'Animales',
     foods: 'Alimentos',
     favorites: 'Favoritos',
     settings: 'Ajustes',
-    
-    // Settings screen
     settingsTitle: 'Ajustes',
     languagePreference: 'Idioma',
     english: 'Inglés',
@@ -192,11 +193,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     german: 'Alemán',
     italian: 'Italiano',
     russian: 'Ruso',
+    polish: 'Polaco',
     darkTheme: 'Tema Oscuro',
     about: 'Acerca de',
     version: 'Versión',
-    
-    // Welcome screen
+    aboutTheApp: 'Acerca de la App',
+    howToUseApp: 'Cómo usar la App',
     welcomeTitle: 'Bienvenido a AniFoodie',
     welcomeDescription: 'Descubre qué alimentos son seguros para tus mascotas',
     howItWorks: 'Cómo funciona',
@@ -208,12 +210,17 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     colorKey: 'Código de Colores',
     safeToEat: 'Seguro para comer',
     acceptableInSmallQuantities: 'Aceptable en pequeñas cantidades',
+    smallQty: 'Peq. cant.',
     notAllowedUnsafe: 'No permitido - inseguro',
+    boiledIconTitle: 'Icono de Hervido',
+    boiledIconDescription: 'Algunos alimentos solo son seguros cuando están hervidos o cocinados. Busca este icono en los alimentos.',
     disclaimer: 'Aviso Legal',
     disclaimerText: 'La información proporcionada en esta aplicación es solo para fines informativos generales. Siempre consulte con un veterinario antes de introducir nuevos alimentos en la dieta de su mascota.',
     iUnderstand: 'Entiendo',
-    
-    // Animals Screen
+    appName: 'PetPlate',
+    appSubtitle: 'Guía Inteligente de Nutrición para Mascotas',
+    appTagline: 'Mantén a tus mascotas seguras y saludables',
+    poweredBy: 'Impulsado por Amantes de Mascotas',
     allAnimals: 'Todos los Animales',
     searchAnimals: 'Buscar animales...',
     selectAnAnimal: 'Seleccionar un Animal',
@@ -224,8 +231,6 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     reptiles: 'Reptiles',
     amphibians: 'Anfibios',
     fish: 'Peces',
-    
-    // Foods Screen
     allFoods: 'Todos los Alimentos',
     searchFoods: 'Buscar alimentos...',
     selectAFood: 'Seleccionar un Alimento',
@@ -237,40 +242,29 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     grains: 'Granos',
     meat: 'Carne',
     nuts: 'Frutos secos',
-    
-    // Favorites Screen
     noFavorites: 'Aún no hay favoritos',
     addFavorites: 'Agregar elementos a tus favoritos',
     favoriteAnimals: 'Animales Favoritos',
     favoriteFoods: 'Alimentos Favoritos',
-    
-    // Animal Detail Screen
     backButton: 'Atrás',
     allowedFoods: 'Alimentos Permitidos',
     acceptableFoods: 'Aceptables en Pequeñas Cantidades',
     notAllowedFoods: 'No Permitidos',
     noAnimalsInCategory: 'No hay animales en esta categoría',
     boiled: 'Hervido',
-    
-    // Food Detail Screen
     animalsThatCanEat: 'Animales que pueden comer este alimento',
     animalsThatCanEatSmallQuantities: 'Animales que pueden comer este alimento en pequeñas cantidades',
     animalsThatCannotEat: 'Animales que no pueden comer este alimento',
-    
-    // Common
     save: 'Guardar',
     cancel: 'Cancelar',
     search: 'Buscar',
     loading: 'Cargando...'
   },
   fr: {
-    // Tab navigation
     animals: 'Animaux',
     foods: 'Aliments',
     favorites: 'Favoris',
     settings: 'Paramètres',
-    
-    // Settings screen
     settingsTitle: 'Paramètres',
     languagePreference: 'Langue',
     english: 'Anglais',
@@ -279,11 +273,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     german: 'Allemand',
     italian: 'Italien',
     russian: 'Russe',
+    polish: 'Polonais',
     darkTheme: 'Thème Sombre',
     about: 'À propos',
     version: 'Version',
-    
-    // Welcome screen
+    aboutTheApp: 'À propos de l\'application',
+    howToUseApp: 'Comment utiliser l\'application',
     welcomeTitle: 'Bienvenue sur AniFoodie',
     welcomeDescription: 'Découvrez quels aliments sont sûrs pour vos animaux',
     howItWorks: 'Comment ça marche',
@@ -295,12 +290,17 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     colorKey: 'Code Couleur',
     safeToEat: 'Sans danger à manger',
     acceptableInSmallQuantities: 'Acceptable en petites quantités',
+    smallQty: 'Pet. qté',
     notAllowedUnsafe: 'Non autorisé - dangereux',
+    boiledIconTitle: 'Icône de Bouilli',
+    boiledIconDescription: 'Certains aliments ne sont sûrs que lorsqu\'ils sont bouillis ou cuits. Cherchez cette icône sur les aliments.',
     disclaimer: 'Avertissement',
     disclaimerText: 'Les informations fournies dans cette application sont uniquement à titre informatif général. Consultez toujours un vétérinaire avant d\'introduire de nouveaux aliments dans le régime alimentaire de votre animal.',
     iUnderstand: 'Je Comprends',
-    
-    // Animals Screen
+    appName: 'PetPlate',
+    appSubtitle: 'Guide Intelligent de Nutrition pour Animaux',
+    appTagline: 'Gardez vos animaux en sécurité et en bonne santé',
+    poweredBy: 'Propulsé par des Amoureux des Animaux',
     allAnimals: 'Tous les Animaux',
     searchAnimals: 'Rechercher des animaux...',
     selectAnAnimal: 'Sélectionner un Animal',
@@ -311,8 +311,6 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     reptiles: 'Reptiles',
     amphibians: 'Amphibiens',
     fish: 'Poissons',
-    
-    // Foods Screen
     allFoods: 'Tous les Aliments',
     searchFoods: 'Rechercher des aliments...',
     selectAFood: 'Sélectionner un Aliment',
@@ -324,40 +322,29 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     grains: 'Céréales',
     meat: 'Viande',
     nuts: 'Noix',
-    
-    // Favorites Screen
     noFavorites: 'Pas encore de favoris',
     addFavorites: 'Ajouter des éléments à vos favoris',
     favoriteAnimals: 'Animaux Favoris',
     favoriteFoods: 'Aliments Favoris',
-    
-    // Animal Detail Screen
     backButton: 'Retour',
     allowedFoods: 'Aliments Autorisés',
     acceptableFoods: 'Acceptables en Petites Quantités',
     notAllowedFoods: 'Non Autorisés',
     noAnimalsInCategory: 'Aucun animal dans cette catégorie',
     boiled: 'Bouilli',
-    
-    // Food Detail Screen
     animalsThatCanEat: 'Animaux qui peuvent manger cet aliment',
     animalsThatCanEatSmallQuantities: 'Animaux qui peuvent manger cet aliment en petites quantités',
     animalsThatCannotEat: 'Animaux qui ne peuvent pas manger cet aliment',
-    
-    // Common
     save: 'Enregistrer',
     cancel: 'Annuler',
     search: 'Rechercher',
     loading: 'Chargement...'
   },
   de: {
-    // Tab navigation
     animals: 'Tiere',
     foods: 'Lebensmittel',
     favorites: 'Favoriten',
     settings: 'Einstellungen',
-    
-    // Settings screen
     settingsTitle: 'Einstellungen',
     languagePreference: 'Sprache',
     english: 'Englisch',
@@ -366,11 +353,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     german: 'Deutsch',
     italian: 'Italienisch',
     russian: 'Russisch',
+    polish: 'Polnisch',
     darkTheme: 'Dunkles Thema',
     about: 'Über',
     version: 'Version',
-    
-    // Welcome screen
+    aboutTheApp: 'Über die App',
+    howToUseApp: 'Wie man die App benutzt',
     welcomeTitle: 'Willkommen bei AniFoodie',
     welcomeDescription: 'Entdecken Sie, welche Lebensmittel für Ihre Haustiere sicher sind',
     howItWorks: 'Wie es funktioniert',
@@ -382,12 +370,17 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     colorKey: 'Farbschlüssel',
     safeToEat: 'Sicher zu essen',
     acceptableInSmallQuantities: 'In kleinen Mengen akzeptabel',
+    smallQty: 'Kleine Menge',
     notAllowedUnsafe: 'Nicht erlaubt - unsicher',
+    boiledIconTitle: 'Gekochtes Symbol',
+    boiledIconDescription: 'Einige Lebensmittel sind nur sicher, wenn sie gekocht oder zubereitet werden. Achten Sie auf dieses Symbol bei Lebensmitteln.',
     disclaimer: 'Haftungsausschluss',
     disclaimerText: 'Die in dieser App bereitgestellten Informationen dienen nur zu allgemeinen Informationszwecken. Konsultieren Sie immer einen Tierarzt, bevor Sie neue Lebensmittel in die Ernährung Ihres Haustieres einführen.',
     iUnderstand: 'Ich verstehe',
-    
-    // Animals Screen
+    appName: 'PetPlate',
+    appSubtitle: 'Intelligenter Haustier-Ernährungsführer',
+    appTagline: 'Halten Sie Ihre Haustiere sicher & gesund',
+    poweredBy: 'Unterstützt von Tierliebhabern',
     allAnimals: 'Alle Tiere',
     searchAnimals: 'Tiere suchen...',
     selectAnAnimal: 'Ein Tier auswählen',
@@ -398,8 +391,6 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     reptiles: 'Reptilien',
     amphibians: 'Amphibien',
     fish: 'Fische',
-    
-    // Foods Screen
     allFoods: 'Alle Lebensmittel',
     searchFoods: 'Lebensmittel suchen...',
     selectAFood: 'Lebensmittel auswählen',
@@ -411,40 +402,29 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     grains: 'Getreide',
     meat: 'Fleisch',
     nuts: 'Nüsse',
-    
-    // Favorites Screen
     noFavorites: 'Noch keine Favoriten',
     addFavorites: 'Fügen Sie Elemente zu Ihren Favoriten hinzu',
     favoriteAnimals: 'Lieblingstiere',
     favoriteFoods: 'Lieblingslebensmittel',
-    
-    // Animal Detail Screen
     backButton: 'Zurück',
     allowedFoods: 'Erlaubte Lebensmittel',
     acceptableFoods: 'In Kleinen Mengen Akzeptabel',
     notAllowedFoods: 'Nicht Erlaubt',
     noAnimalsInCategory: 'Keine Tiere in dieser Kategorie',
     boiled: 'Gekocht',
-    
-    // Food Detail Screen
     animalsThatCanEat: 'Tiere, die dieses Lebensmittel essen können',
     animalsThatCanEatSmallQuantities: 'Tiere, die dieses Lebensmittel in kleinen Mengen essen können',
     animalsThatCannotEat: 'Tiere, die dieses Lebensmittel nicht essen können',
-    
-    // Common
     save: 'Speichern',
     cancel: 'Abbrechen',
     search: 'Suchen',
     loading: 'Laden...'
   },
   it: {
-    // Tab navigation
     animals: 'Animali',
     foods: 'Cibi',
     favorites: 'Preferiti',
     settings: 'Impostazioni',
-    
-    // Settings screen
     settingsTitle: 'Impostazioni',
     languagePreference: 'Lingua',
     english: 'Inglese',
@@ -453,11 +433,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     german: 'Tedesco',
     italian: 'Italiano',
     russian: 'Russo',
+    polish: 'Polacco',
     darkTheme: 'Tema Scuro',
     about: 'Informazioni',
     version: 'Versione',
-    
-    // Welcome screen
+    aboutTheApp: 'Informazioni sull\'app',
+    howToUseApp: 'Come usare l\'app',
     welcomeTitle: 'Benvenuto in AniFoodie',
     welcomeDescription: 'Scopri quali cibi sono sicuri per i tuoi animali domestici',
     howItWorks: 'Come funziona',
@@ -466,15 +447,20 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     searchByAnimalDescription: 'Seleziona un animale per vedere quali cibi possono mangiare, quali dovrebbero mangiare con moderazione o quali dovrebbero evitare completamente.',
     searchByFood: 'Cerca per Cibo',
     searchByFoodDescription: 'Seleziona un alimento per scoprire quali animali possono consumarlo in sicurezza e quali dovrebbero evitarlo.',
-    colorKey: 'Legenda Colori',
+    colorKey: 'Codice Colori',
     safeToEat: 'Sicuro da mangiare',
     acceptableInSmallQuantities: 'Accettabile in piccole quantità',
-    notAllowedUnsafe: 'Non consentito - non sicuro',
-    disclaimer: 'Avvertenza',
+    smallQty: 'Pic. q.tà',
+    notAllowedUnsafe: 'Non consentito - pericoloso',
+    boiledIconTitle: 'Icona Bollito',
+    boiledIconDescription: 'Alcuni alimenti sono sicuri solo quando sono bolliti o cotti. Cerca questa icona sugli alimenti.',
+    disclaimer: 'Disclaimer',
     disclaimerText: 'Le informazioni fornite in questa app sono solo a scopo informativo generale. Consultare sempre un veterinario prima di introdurre nuovi alimenti nella dieta del vostro animale domestico.',
     iUnderstand: 'Ho Capito',
-    
-    // Animals Screen
+    appName: 'PetPlate',
+    appSubtitle: 'Guida Intelligente alla Nutrizione degli Animali',
+    appTagline: 'Mantieni i tuoi animali al sicuro e in salute',
+    poweredBy: 'Realizzato da Amanti degli Animali',
     allAnimals: 'Tutti gli Animali',
     searchAnimals: 'Cerca animali...',
     selectAnAnimal: 'Seleziona un Animale',
@@ -485,8 +471,6 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     reptiles: 'Rettili',
     amphibians: 'Anfibi',
     fish: 'Pesci',
-    
-    // Foods Screen
     allFoods: 'Tutti i Cibi',
     searchFoods: 'Cerca cibi...',
     selectAFood: 'Seleziona un Cibo',
@@ -498,40 +482,29 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     grains: 'Cereali',
     meat: 'Carne',
     nuts: 'Frutta secca',
-    
-    // Favorites Screen
     noFavorites: 'Ancora nessun preferito',
     addFavorites: 'Aggiungi elementi ai tuoi preferiti',
     favoriteAnimals: 'Animali Preferiti',
     favoriteFoods: 'Cibi Preferiti',
-    
-    // Animal Detail Screen
     backButton: 'Indietro',
     allowedFoods: 'Cibi Permessi',
     acceptableFoods: 'Accettabili in Piccole Quantità',
     notAllowedFoods: 'Non Permessi',
     noAnimalsInCategory: 'Nessun animale in questa categoria',
     boiled: 'Bollito',
-    
-    // Food Detail Screen
     animalsThatCanEat: 'Animali che possono mangiare questo cibo',
     animalsThatCanEatSmallQuantities: 'Animali che possono mangiare questo cibo in piccole quantità',
     animalsThatCannotEat: 'Animali che non possono mangiare questo cibo',
-    
-    // Common
     save: 'Salva',
     cancel: 'Annulla',
     search: 'Cerca',
     loading: 'Caricamento...'
   },
   ru: {
-    // Tab navigation
     animals: 'Животные',
     foods: 'Продукты',
     favorites: 'Избранное',
     settings: 'Настройки',
-    
-    // Settings screen
     settingsTitle: 'Настройки',
     languagePreference: 'Язык',
     english: 'Английский',
@@ -540,11 +513,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     german: 'Немецкий',
     italian: 'Итальянский',
     russian: 'Русский',
+    polish: 'Польский',
     darkTheme: 'Тёмная тема',
     about: 'О приложении',
     version: 'Версия',
-    
-    // Welcome screen
+    aboutTheApp: 'О приложении',
+    howToUseApp: 'Как пользоваться приложением',
     welcomeTitle: 'Добро пожаловать в AniFoodie',
     welcomeDescription: 'Узнайте, какие продукты безопасны для ваших питомцев',
     howItWorks: 'Как это работает',
@@ -553,15 +527,20 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     searchByAnimalDescription: 'Выберите животное, чтобы узнать, какие продукты они могут есть, какие следует есть умеренно или каких следует избегать полностью.',
     searchByFood: 'Поиск по продукту',
     searchByFoodDescription: 'Выберите продукт, чтобы узнать, какие животные могут безопасно его употреблять, а каким следует его избегать.',
-    colorKey: 'Обозначение цветов',
+    colorKey: 'Цветовая схема',
     safeToEat: 'Безопасно для употребления',
     acceptableInSmallQuantities: 'Приемлемо в малых количествах',
-    notAllowedUnsafe: 'Не разрешено - небезопасно',
+    smallQty: 'Мал. кол.',
+    notAllowedUnsafe: 'Запрещено - небезопасно',
+    boiledIconTitle: 'Значок варёного',
+    boiledIconDescription: 'Некоторые продукты безопасны только в варёном или приготовленном виде. Ищите этот значок на продуктах.',
     disclaimer: 'Отказ от ответственности',
     disclaimerText: 'Информация, представленная в этом приложении, предназначена только для общих информационных целей. Всегда консультируйтесь с ветеринаром перед введением новых продуктов в рацион вашего питомца.',
     iUnderstand: 'Я понимаю',
-    
-    // Animals Screen
+    appName: 'PetPlate',
+    appSubtitle: 'Умный Гид по Питанию Питомцев',
+    appTagline: 'Держите ваших питомцев в безопасности и здоровье',
+    poweredBy: 'Разработано Любителями Животных',
     allAnimals: 'Все животные',
     searchAnimals: 'Поиск животных...',
     selectAnAnimal: 'Выберите животное',
@@ -572,8 +551,6 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     reptiles: 'Рептилии',
     amphibians: 'Амфибии',
     fish: 'Рыбы',
-    
-    // Foods Screen
     allFoods: 'Все продукты',
     searchFoods: 'Поиск продуктов...',
     selectAFood: 'Выберите продукт',
@@ -585,31 +562,103 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     grains: 'Зерновые',
     meat: 'Мясо',
     nuts: 'Орехи',
-    
-    // Favorites Screen
     noFavorites: 'Пока нет избранного',
     addFavorites: 'Добавить элементы в избранное',
     favoriteAnimals: 'Избранные животные',
     favoriteFoods: 'Избранные продукты',
-    
-    // Animal Detail Screen
     backButton: 'Назад',
     allowedFoods: 'Разрешённые продукты',
     acceptableFoods: 'Приемлемо в малых количествах',
     notAllowedFoods: 'Запрещённые продукты',
     noAnimalsInCategory: 'В этой категории нет животных',
     boiled: 'Варёный',
-    
-    // Food Detail Screen
     animalsThatCanEat: 'Животные, которые могут есть этот продукт',
     animalsThatCanEatSmallQuantities: 'Животные, которые могут есть этот продукт в малых количествах',
     animalsThatCannotEat: 'Животные, которые не могут есть этот продукт',
-    
-    // Common
     save: 'Сохранить',
     cancel: 'Отмена',
     search: 'Поиск',
     loading: 'Загрузка...'
+  },
+  pl: {
+    animals: 'Zwierzęta',
+    foods: 'Produkty',
+    favorites: 'Ulubione',
+    settings: 'Ustawienia',
+    settingsTitle: 'Ustawienia',
+    languagePreference: 'Język',
+    english: 'Angielski',
+    spanish: 'Hiszpański',
+    french: 'Francuski',
+    german: 'Niemiecki',
+    italian: 'Włoski',
+    russian: 'Rosyjski',
+    polish: 'Polski',
+    darkTheme: 'Ciemny motyw',
+    about: 'O aplikacji',
+    version: 'Wersja',
+    aboutTheApp: 'Informacje o aplikacji',
+    howToUseApp: 'Jak korzystać z aplikacji',
+    welcomeTitle: 'Witaj w AniFoodie',
+    welcomeDescription: 'Odkryj, które produkty są bezpieczne dla Twoich zwierząt',
+    howItWorks: 'Jak to działa',
+    welcomeExplanation: 'AniFood pomaga Ci odkryć, które produkty są bezpieczne dla Twoich zwierząt, a które potencjalnie szkodliwe.',
+    searchByAnimal: 'Szukaj według zwierzęcia',
+    searchByAnimalDescription: 'Wybierz zwierzę, aby zobaczyć, jakie produkty może jeść, które powinno jeść z umiarem lub których powinno całkowicie unikać.',
+    searchByFood: 'Szukaj według produktu',
+    searchByFoodDescription: 'Wybierz produkt, aby odkryć, które zwierzęta mogą go bezpiecznie spożywać, a które powinny go unikać.',
+    colorKey: 'Oznaczenia kolorów',
+    safeToEat: 'Bezpieczne do jedzenia',
+    acceptableInSmallQuantities: 'Akceptowalne w małych ilościach',
+    smallQty: 'Mała il.',
+    notAllowedUnsafe: 'Niedozwolone - niebezpieczne',
+    boiledIconTitle: 'Ikona Gotowanego',
+    boiledIconDescription: 'Niektóre produkty są bezpieczne tylko wtedy, gdy są gotowane lub przygotowane. Szukaj tej ikony na produktach spożywczych.',
+    disclaimer: 'Zastrzeżenie',
+    disclaimerText: 'Informacje zawarte w tej aplikacji służą wyłącznie ogólnym celom informacyjnym. Zawsze konsultuj się z weterynarzem przed wprowadzeniem nowych produktów do diety swojego zwierzęcia.',
+    iUnderstand: 'Rozumiem',
+    appName: 'PetPlate',
+    appSubtitle: 'Inteligentny Przewodnik Żywienia Zwierząt',
+    appTagline: 'Dbaj o bezpieczeństwo i zdrowie swoich zwierząt',
+    poweredBy: 'Stworzone przez Miłośników Zwierząt',
+    allAnimals: 'Wszystkie zwierzęta',
+    searchAnimals: 'Szukaj zwierząt...',
+    selectAnAnimal: 'Wybierz zwierzę',
+    searchByAnimalOrCategory: 'Szukaj według nazwy zwierzęcia lub kategorii...',
+    noAnimalsFound: 'Nie znaleziono zwierząt',
+    mammals: 'Ssaki',
+    birds: 'Ptaki',
+    reptiles: 'Gady',
+    amphibians: 'Płazy',
+    fish: 'Ryby',
+    allFoods: 'Wszystkie produkty',
+    searchFoods: 'Szukaj produktów...',
+    selectAFood: 'Wybierz produkt',
+    searchFoodsOrTypes: 'Szukaj produktów lub rodzajów produktów...',
+    noFoodsFound: 'Nie znaleziono produktów',
+    fruits: 'Owoce',
+    vegetables: 'Warzywa',
+    dairy: 'Nabiał',
+    grains: 'Zboża',
+    meat: 'Mięso',
+    nuts: 'Orzechy',
+    noFavorites: 'Brak ulubionych',
+    addFavorites: 'Dodaj elementy do ulubionych',
+    favoriteAnimals: 'Ulubione zwierzęta',
+    favoriteFoods: 'Ulubione produkty',
+    backButton: 'Wstecz',
+    allowedFoods: 'Dozwolone produkty',
+    acceptableFoods: 'Akceptowalne w małych ilościach',
+    notAllowedFoods: 'Niedozwolone',
+    noAnimalsInCategory: 'Brak zwierząt w tej kategorii',
+    boiled: 'Gotowane',
+    animalsThatCanEat: 'Zwierzęta, które mogą jeść ten produkt',
+    animalsThatCanEatSmallQuantities: 'Zwierzęta, które mogą jeść ten produkt w małych ilościach',
+    animalsThatCannotEat: 'Zwierzęta, które nie mogą jeść tego produktu',
+    save: 'Zapisz',
+    cancel: 'Anuluj',
+    search: 'Szukaj',
+    loading: 'Ładowanie...'
   }
 };
 
@@ -621,4 +670,4 @@ export const useTranslations = (language: Language) => {
   return {
     t: (key: TranslationKey) => getTranslation(key, language)
   };
-};
+}; 

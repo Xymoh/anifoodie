@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, View, ScrollView } from "react-native";
 
 import { colors, spacing, typography } from "../styles";
 import { useLanguage } from "../hooks/useLanguage";
-import { useTranslations } from "../i18n/translations";
+import { useTranslations } from "../i18n/index";
 import TranslatedText from "./TranslatedText";
 
 export type FoodType =

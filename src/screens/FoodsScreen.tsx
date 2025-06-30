@@ -16,16 +16,20 @@ import {
   getFoodCategoriesGroupedByCategory,
   getSimplifiedFoodName,
   getDisplayCategory,
+  getTranslatedFoodItems,
 } from "../data/data-utils";
 import { RootStackParamList } from "../navigation/types";
 import { FoodItem } from "../types";
-import SearchBar from "../components/SearchBar";
-import FoodIcon from "../components/FoodIcon";
-import FoodTypeFilter, { FoodType } from "../components/FoodTypeFilter";
+import { useFavorites } from "../context/FavoritesContext";
 import { colors, spacing, typography, shadow } from "../styles";
 import { useLanguage } from "../hooks/useLanguage";
-import { useTranslations } from "../i18n/translations";
+import { useTranslations } from "../i18n/index";
+import { useDynamicTranslations } from "../hooks/useDynamicTranslations";
 import TranslatedText from "../components/TranslatedText";
+import SearchBar from "../components/SearchBar";
+import FoodIcon from "../components/FoodIcon";
+import FavoriteButton from "../components/FavoriteButton";
+import FoodTypeFilter, { FoodType } from "../components/FoodTypeFilter";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Main">;
 
@@ -35,13 +39,37 @@ interface SectionData {
   data: FoodItem[];
 }
 
-const FoodsScreen = () => {
+const FoodsScreen = React.memo(() => {
   const navigation = useNavigation<NavigationProp>();
-  const allFoods = parseCSVData();
+  const allFoods = useMemo(() => parseCSVData(), []);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState<FoodType>("All");
   const { language } = useLanguage();
   const { t } = useTranslations(language);
+  const { isFoodFavorite, toggleFavoriteFood } = useFavorites();
+  const { translateCategory, translateFood } = useDynamicTranslations();
+
+  // Debounce search query to reduce re-renders
+  const debouncedSearchQuery = useMemo(() => {
+    return searchQuery.trim();
+  }, [searchQuery]);
+
+  // Cache translated foods outside of the search logic
+  const translatedFoods = useMemo(
+    () => getTranslatedFoodItems(language),
+    [language]
+  );
+
+  // Create translation map once
+  const foodTranslationMap = useMemo(() => {
+    const map = new Map<string, string>();
+    translatedFoods.forEach((food) => {
+      if (food.translatedItem && food.translatedItem !== food.item) {
+        map.set(food.item, food.translatedItem);
+      }
+    });
+    return map;
+  }, [translatedFoods]);
 
   // Get all available food types
   const availableFoodTypes = useMemo(() => {
@@ -55,9 +83,9 @@ const FoodsScreen = () => {
     const categoryGroups = getFoodCategoriesGroupedByCategory();
 
     // First check if the search query matches a food type (case insensitive)
-    const isSearchingForType = searchQuery.trim()
+    const isSearchingForType = debouncedSearchQuery
       ? availableFoodTypes.some(
-          (type) => type.toLowerCase() === searchQuery.toLowerCase()
+          (type) => type.toLowerCase() === debouncedSearchQuery.toLowerCase()
         )
       : false;
 
@@ -66,7 +94,7 @@ const FoodsScreen = () => {
     // If searching for a type like "Meat", group by categories within that type
     if (isSearchingForType) {
       const searchedType = availableFoodTypes.find(
-        (type) => type.toLowerCase() === searchQuery.toLowerCase()
+        (type) => type.toLowerCase() === debouncedSearchQuery.toLowerCase()
       );
       filteredFoods = allFoods.filter((food) => food.type === searchedType);
 
@@ -86,13 +114,18 @@ const FoodsScreen = () => {
       }));
     }
     // Otherwise apply normal item name search
-    else if (searchQuery.trim()) {
-      filteredFoods = allFoods.filter(
-        (food) =>
-          food.item.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          food.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          food.category.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+    else if (debouncedSearchQuery) {
+      const query = debouncedSearchQuery.toLowerCase();
+      filteredFoods = allFoods.filter((food) => {
+        const translatedName = foodTranslationMap.get(food.item);
+
+        return (
+          food.item.toLowerCase().includes(query) ||
+          food.type.toLowerCase().includes(query) ||
+          food.category.toLowerCase().includes(query) ||
+          (translatedName && translatedName.toLowerCase().includes(query))
+        );
+      });
     }
 
     // Filter by food type if not "All"
@@ -102,7 +135,7 @@ const FoodsScreen = () => {
         : filteredFoods;
 
     // If we're searching or filtering by type, organize by food category
-    if (searchQuery.trim() || selectedType !== "All") {
+    if (debouncedSearchQuery || selectedType !== "All") {
       // Group the filtered foods by their display category
       const foodsByCategory: Record<string, FoodItem[]> = {};
       typedFoods.forEach((food) => {
@@ -125,53 +158,84 @@ const FoodsScreen = () => {
       title: category,
       data: items,
     }));
-  }, [allFoods, searchQuery, selectedType, availableFoodTypes]);
+  }, [
+    allFoods,
+    debouncedSearchQuery,
+    selectedType,
+    availableFoodTypes,
+    foodTranslationMap,
+  ]);
 
-  const handleFoodPress = (foodName: string) => {
-    navigation.navigate("FoodDetail", { foodName });
-  };
+  const handleFoodPress = React.useCallback(
+    (foodName: string) => {
+      navigation.navigate("FoodDetail", { foodName });
+    },
+    [navigation]
+  );
 
   const renderSectionHeader = React.useCallback(
     ({ section }: { section: SectionData }) => (
       <View style={styles.sectionHeader}>
-        <Text style={styles.sectionTitle}>{section.title}</Text>
+        <Text style={styles.sectionTitle}>
+          {translateCategory(section.title)}
+        </Text>
         {section.subTitle && (
           <Text style={styles.sectionSubtitle}>{section.subTitle}</Text>
         )}
       </View>
     ),
-    []
+    [translateCategory]
   );
 
+  const renderSectionFooter = React.useCallback(() => null, []);
+
   const renderFoodItem = React.useCallback(
-    ({ item }: { item: FoodItem }) => (
-      <TouchableOpacity
-        style={styles.foodItem}
-        onPress={() => handleFoodPress(item.item)}
-      >
-        <View style={styles.foodRow}>
-          <FoodIcon category={item.category} itemKey={item.icon} size={28} />
-          <Text style={styles.foodName}>{getSimplifiedFoodName(item)}</Text>
-        </View>
-      </TouchableOpacity>
-    ),
-    []
+    ({ item }: { item: FoodItem }) => {
+      const handleToggleFavorite = React.useCallback(() => {
+        toggleFavoriteFood(item);
+      }, [item, toggleFavoriteFood]);
+
+      const handlePress = React.useCallback(() => {
+        handleFoodPress(item.item);
+      }, [item.item, handleFoodPress]);
+
+      const isFavorite = isFoodFavorite(item);
+      const translatedName = translateFood(getSimplifiedFoodName(item));
+
+      return (
+        <TouchableOpacity
+          style={styles.foodItem}
+          onPress={handlePress}
+          activeOpacity={0.7}
+        >
+          <View style={styles.foodRow}>
+            <FoodIcon category={item.category} itemKey={item.icon} size={28} />
+            <Text
+              style={styles.foodName}
+              numberOfLines={2}
+              ellipsizeMode="tail"
+            >
+              {translatedName}
+            </Text>
+            <View style={styles.favoriteContainer}>
+              <FavoriteButton
+                isFavorite={isFavorite}
+                onToggle={handleToggleFavorite}
+                size={20}
+              />
+            </View>
+          </View>
+        </TouchableOpacity>
+      );
+    },
+    [isFoodFavorite, toggleFavoriteFood, translateFood, handleFoodPress]
   );
 
   const keyExtractor = React.useCallback(
     (item: FoodItem, index: number) =>
-      `${item.type}-${item.category}-${item.item}-${index}`,
+      `food-${item.category}-${item.item}-${index}`,
     []
   );
-
-  const getItemLayout = React.useCallback((data: any, index: number) => {
-    const ITEM_HEIGHT = 80; // Approximate height including margins
-    return {
-      length: ITEM_HEIGHT,
-      offset: ITEM_HEIGHT * index,
-      index,
-    };
-  }, []);
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
@@ -190,17 +254,18 @@ const FoodsScreen = () => {
         sections={sections}
         renderItem={renderFoodItem}
         renderSectionHeader={renderSectionHeader}
+        renderSectionFooter={renderSectionFooter}
         keyExtractor={keyExtractor}
-        getItemLayout={getItemLayout}
         contentContainerStyle={styles.listContent}
-        stickySectionHeadersEnabled
-        removeClippedSubviews={true}
-        maxToRenderPerBatch={8}
+        stickySectionHeadersEnabled={true}
+        removeClippedSubviews={false}
+        maxToRenderPerBatch={10}
         updateCellsBatchingPeriod={50}
-        initialNumToRender={8}
-        windowSize={8}
+        initialNumToRender={15}
+        windowSize={10}
         legacyImplementation={false}
-        disableVirtualization={false}
+        disableVirtualization={true}
+        showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             <TranslatedText
@@ -212,7 +277,7 @@ const FoodsScreen = () => {
       />
     </SafeAreaView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -237,6 +302,8 @@ const styles = StyleSheet.create({
     padding: spacing.sm + 2,
     borderRadius: spacing.radiusMedium,
     marginBottom: spacing.sm,
+    height: 50,
+    justifyContent: "center",
   },
   sectionTitle: {
     fontSize: typography.fontSize.xl,
@@ -259,12 +326,20 @@ const styles = StyleSheet.create({
   foodRow: {
     flexDirection: "row",
     alignItems: "center",
+    flex: 1,
   },
   foodName: {
     fontSize: typography.fontSize.large,
     fontWeight: typography.fontWeight.medium as "500",
     color: colors.textPrimary,
     marginLeft: spacing.sm + 4,
+    flex: 1,
+    marginRight: spacing.sm,
+    minWidth: 0,
+  },
+  favoriteContainer: {
+    flexShrink: 0,
+    minWidth: 44,
   },
   emptyContainer: {
     padding: spacing.lg,

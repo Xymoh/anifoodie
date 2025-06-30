@@ -2,7 +2,7 @@ import React from "react";
 import { Text, TextProps } from "react-native";
 
 import { useLanguage } from "../hooks/useLanguage";
-import { useTranslations, TranslationKey } from "../i18n/translations";
+import { useTranslations, TranslationKey } from "../i18n/index";
 
 interface TranslatedTextProps extends TextProps {
   translationKey: TranslationKey;

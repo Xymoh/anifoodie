@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import { View, Text, StyleSheet, Animated, Image } from "react-native";
+import { View, StyleSheet, Animated, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { colors, spacing, typography } from "../styles";
+import TranslatedText from "./TranslatedText";
 
 interface SplashScreenProps {
   onFinish?: () => void;
@@ -108,7 +109,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
             },
           ]}
         >
-          <Text style={styles.appName}>PetPlate</Text>
+          <TranslatedText style={styles.appName} translationKey="appName" />
         </Animated.View>
 
         {/* Subtitle */}
@@ -121,8 +122,11 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
             },
           ]}
         >
-          <Text style={styles.subtitle}>Smart Pet Nutrition Guide</Text>
-          <Text style={styles.tagline}>Keep your pets safe & healthy</Text>
+          <TranslatedText
+            style={styles.subtitle}
+            translationKey="appSubtitle"
+          />
+          <TranslatedText style={styles.tagline} translationKey="appTagline" />
         </Animated.View>
 
         {/* Loading Animation */}
@@ -151,7 +155,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({
           },
         ]}
       >
-        <Text style={styles.footerText}>Powered by Pet Lovers</Text>
+        <TranslatedText style={styles.footerText} translationKey="poweredBy" />
       </Animated.View>
     </SafeAreaView>
   );

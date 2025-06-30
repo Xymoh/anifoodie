@@ -33,8 +33,7 @@ const foodImages: FoodImages = {
   radish: require("../../assets/products/radish.png"),
   parsnip: require("../../assets/products/parsnip.png"),
   sweet_potato: require("../../assets/products/sweet_potato.png"),
-  potato_raw: require("../../assets/products/potato_raw.png"),
-  potato_cooked: require("../../assets/products/potato_cooked.png"),
+  potato: require("../../assets/products/potato.png"),
 
   // Vegetables - Cruciferous
   broccoli: require("../../assets/products/broccoli.png"),
@@ -106,7 +105,7 @@ const foodImages: FoodImages = {
   raspberry: require("../../assets/products/raspberry.png"),
   blackberry: require("../../assets/products/blackberry.png"),
   cranberry: require("../../assets/products/cranberry.png"),
-  elderberry_raw: require("../../assets/products/elderberry_raw.png"),
+  elderberry: require("../../assets/products/elderberry.png"),
   elderberry_cooked: require("../../assets/products/elderberry_cooked.png"),
 
   // Fruits - Stone Fruits
@@ -287,7 +286,7 @@ const foodImages: FoodImages = {
 
   // Grains
   rice_cooked: require("../../assets/products/rice_cooked.png"),
-  rice_raw: require("../../assets/products/rice_raw.png"),
+  rice: require("../../assets/products/rice.png"),
   oats: require("../../assets/products/oats.png"),
   barley: require("../../assets/products/barley.png"),
   wheat: require("../../assets/products/wheat.png"),
@@ -306,6 +305,9 @@ const foodImages: FoodImages = {
   hazelnuts: require("../../assets/products/hazelnuts.png"),
   peanuts_unsalted: require("../../assets/products/peanuts_unsalted.png"),
   peanut_butter_unsweetened: require("../../assets/products/peanut_butter_unsweetened.png"),
+
+  // Special icons
+  boil: require("../../assets/icons/boil.png"),
 };
 
 interface FoodIconProps {
@@ -314,6 +316,7 @@ interface FoodIconProps {
   size?: number;
   tintColor?: string;
   noBackground?: boolean;
+  status?: string;
 }
 
 const FoodIcon = React.memo(
@@ -323,6 +326,7 @@ const FoodIcon = React.memo(
     size = 24,
     tintColor,
     noBackground = false,
+    status,
   }: FoodIconProps) => {
     const getBackgroundColor = (): string => {
       const lowerCategory = category.toLowerCase();
@@ -371,28 +375,37 @@ const FoodIcon = React.memo(
 
     const getImageForFood = (): ImageSourcePropType | null => {
       if (itemKey) {
-        // Check cache first
-        if (imageCache.has(itemKey)) {
-          return imageCache.get(itemKey);
-        }
-
-        const image = foodImages[itemKey] || null;
-
-        // Cache the result
-        if (image) {
-          imageCache.set(itemKey, image);
-        }
-
-        return image;
+        return getFoodIcon(itemKey);
       }
       return null;
     };
 
+    const getFoodIcon = (iconName: string): ImageSourcePropType | null => {
+      if (imageCache.has(`food_${iconName}`)) {
+        return imageCache.get(`food_${iconName}`);
+      }
+
+      const image = foodImages[iconName] || null;
+
+      if (image) {
+        imageCache.set(`food_${iconName}`, image);
+      } else {
+        console.warn(`Missing icon for: ${iconName}`);
+      }
+
+      return image;
+    };
+
     const imageSource = getImageForFood();
+
+    // Check if the item requires boiling
+    const requiresBoiling =
+      status && (status.includes("boiled") || status.includes("(boiled)"));
 
     // Calculate container and image dimensions
     const containerSize = size + 24;
     const imageSize = size * 1.6;
+    const boilIconSize = size * 0.6;
 
     return (
       <View
@@ -432,6 +445,19 @@ const FoodIcon = React.memo(
             {"<Alt>"}
           </Text>
         )}
+
+        {requiresBoiling && (
+          <View style={styles.boilIconContainer}>
+            <Image
+              source={foodImages.boil}
+              style={{
+                width: boilIconSize,
+                height: boilIconSize,
+              }}
+              resizeMode="contain"
+            />
+          </View>
+        )}
       </View>
     );
   }
@@ -445,6 +471,22 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 0,
+  },
+  boilIconContainer: {
+    position: "absolute",
+    bottom: -2,
+    right: -2,
+    backgroundColor: colors.white,
+    borderRadius: spacing.radiusSmall,
+    padding: 2,
+    shadowColor: colors.black,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 3,
   },
 });
 

@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     width: "100%",
-    maxWidth: 400, // Prevent text from being too wide on large screens
+    maxWidth: 400,
   },
   adLabel: {
     backgroundColor: "rgba(255,255,255,0.2)",

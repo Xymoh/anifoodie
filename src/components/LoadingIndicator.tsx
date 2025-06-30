@@ -1,4 +1,3 @@
-// External dependencies
 import React from "react";
 import {
   ActivityIndicator,
@@ -8,7 +7,6 @@ import {
   ViewStyle,
 } from "react-native";
 
-// Internal dependencies
 import { colors, spacing, typography } from "../styles";
 
 interface LoadingIndicatorProps {

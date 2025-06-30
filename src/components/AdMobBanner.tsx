@@ -7,13 +7,11 @@ import { getBannerAdUnitId } from "../utils/adMobConfig";
 // Conditionally import AdMob components
 let BannerAd: any = null;
 let BannerAdSize: any = null;
-let TestIds: any = null;
 
 try {
   const adMobModule = require("react-native-google-mobile-ads");
   BannerAd = adMobModule.BannerAd;
   BannerAdSize = adMobModule.BannerAdSize;
-  TestIds = adMobModule.TestIds;
 } catch (error) {
   console.log("Google Mobile Ads not available");
 }
@@ -22,7 +20,7 @@ interface AdMobBannerProps {
   height?: number;
   backgroundColor?: string;
   adUnitId?: string;
-  size?: any; // Using any since BannerAdSize might not be available
+  size?: any;
 }
 
 const AdMobBanner: React.FC<AdMobBannerProps> = ({
@@ -33,7 +31,6 @@ const AdMobBanner: React.FC<AdMobBannerProps> = ({
 }) => {
   const screenWidth = Dimensions.get("window").width;
 
-  // Use test ad unit IDs for development
   const getAdUnitId = () => {
     if (adUnitId) return adUnitId;
     return getBannerAdUnitId();
