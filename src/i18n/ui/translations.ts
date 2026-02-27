@@ -22,6 +22,34 @@ export type TranslationKey =
   | "version"
   | "aboutTheApp"
   | "howToUseApp"
+  | "supportPetPlate"
+  | "supportMessage"
+  | "supportBenefits"
+  | "restorePurchases"
+  | "alreadyPurchased"
+  | "premiumActive"
+  | "premium"
+  | "supportDeveloper"
+  | "premiumThankYou"
+
+  // Paywall screen
+  | "paywallTitle"
+  | "paywallSubtitle"
+  | "paywallMessage"
+  | "adFreeExperience"
+  | "adFreeDescription"
+  | "supportDevelopment"
+  | "supportDevelopmentDescription"
+  | "futureApps"
+  | "futureAppsDescription"
+  | "bestValue"
+  | "oneTimePayment"
+  | "perMonth"
+  | "noOffersAvailable"
+  | "restorePurchasesButton"
+  | "subscriptionAutoRenews"
+  | "cancelAnytime"
+  | "paymentCharged"
 
   // Welcome screen
   | "welcomeTitle"
@@ -149,6 +177,35 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     version: "Version",
     aboutTheApp: "About the App",
     howToUseApp: "How to Use the App",
+    supportPetPlate: "💚 Support PetPlate",
+    supportMessage:
+      "Please consider supporting me — it will help me develop this app further and many more to come",
+    supportBenefits: "✨ Remove ads • Support development • Future features",
+    restorePurchases: "Restore Purchases",
+    alreadyPurchased: "Already purchased? Restore Purchases",
+    premiumActive: "✨ Premium Active",
+    premium: "Premium",
+    supportDeveloper: "Support the Developer",
+    premiumThankYou:
+      "Thank you for your amazing support! You're helping make PetPlate and future projects possible. 💚",
+    paywallTitle: "Support PetPlate 💚",
+    paywallSubtitle: "Help me develop this app further and many more to come",
+    paywallMessage:
+      "PetPlate is a passion project created to help pet owners make informed decisions about their pets' nutrition. Your support means the world and helps me continue improving this app and creating new ones! 🙏",
+    adFreeExperience: "Ad-Free Experience",
+    adFreeDescription: "Browse without banner ads",
+    supportDevelopment: "Support Development",
+    supportDevelopmentDescription: "Help create more amazing features",
+    futureApps: "Future Apps",
+    futureAppsDescription: "Enable development of new pet care tools",
+    bestValue: "BEST VALUE",
+    oneTimePayment: "One-time payment",
+    perMonth: "per month",
+    noOffersAvailable: "No purchase options available at the moment.",
+    restorePurchasesButton: "Restore Purchases",
+    subscriptionAutoRenews: "• Subscription auto-renews unless cancelled",
+    cancelAnytime: "• Cancel anytime from your device settings",
+    paymentCharged: "• Payment charged to your App Store account",
     welcomeTitle: "Welcome to AniFoodie",
     welcomeDescription: "Discover what foods are safe for your pets",
     howItWorks: "How it works",
@@ -275,6 +332,39 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     version: "Versión",
     aboutTheApp: "Acerca de la App",
     howToUseApp: "Cómo usar la App",
+    supportPetPlate: "💚 Apoyar PetPlate",
+    supportMessage:
+      "Por favor considera apoyarme — me ayudará a desarrollar esta app más allá y muchas más por venir",
+    supportBenefits: "✨ Sin anuncios • Apoyar desarrollo • Nuevas funciones",
+    restorePurchases: "Restaurar Compras",
+    alreadyPurchased: "¿Ya compraste? Restaurar Compras",
+    premiumActive: "✨ Premium Activo",
+    premium: "Premium",
+    supportDeveloper: "Apoyar al Desarrollador",
+    premiumThankYou:
+      "¡Gracias por tu increíble apoyo! Estás ayudando a hacer posible PetPlate y proyectos futuros. 💚",
+    paywallTitle: "Apoyar PetPlate 💚",
+    paywallSubtitle:
+      "Ayúdame a desarrollar esta app más allá y muchas más por venir",
+    paywallMessage:
+      "PetPlate es un proyecto de pasión creado para ayudar a los dueños de mascotas a tomar decisiones informadas sobre la nutrición de sus mascotas. ¡Tu apoyo significa mucho y me ayuda a continuar mejorando esta app y creando nuevas! 🙏",
+    adFreeExperience: "Experiencia Sin Anuncios",
+    adFreeDescription: "Navega sin banners publicitarios",
+    supportDevelopment: "Apoyar Desarrollo",
+    supportDevelopmentDescription: "Ayuda a crear más funciones increíbles",
+    futureApps: "Apps Futuras",
+    futureAppsDescription:
+      "Habilita el desarrollo de nuevas herramientas para mascotas",
+    bestValue: "MEJOR VALOR",
+    oneTimePayment: "Pago único",
+    perMonth: "por mes",
+    noOffersAvailable: "No hay opciones de compra disponibles en este momento.",
+    restorePurchasesButton: "Restaurar Compras",
+    subscriptionAutoRenews:
+      "• La suscripción se renueva automáticamente a menos que se cancele",
+    cancelAnytime:
+      "• Cancela en cualquier momento desde la configuración de tu dispositivo",
+    paymentCharged: "• El pago se carga a tu cuenta de App Store",
     welcomeTitle: "Bienvenido a AniFoodie",
     welcomeDescription: "Descubre qué alimentos son seguros para tus mascotas",
     howItWorks: "Cómo funciona",
@@ -401,6 +491,41 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     version: "Version",
     aboutTheApp: "À propos de l'application",
     howToUseApp: "Comment utiliser l'application",
+    supportPetPlate: "💚 Soutenir PetPlate",
+    supportMessage:
+      "Veuillez envisager de me soutenir — cela m'aidera à développer cette application davantage et bien d'autres à venir",
+    supportBenefits:
+      "✨ Sans publicités • Soutenir le développement • Nouvelles fonctionnalités",
+    restorePurchases: "Restaurer les Achats",
+    alreadyPurchased: "Déjà acheté? Restaurer les Achats",
+    premiumActive: "✨ Premium Actif",
+    premium: "Premium",
+    supportDeveloper: "Soutenir le Développeur",
+    premiumThankYou:
+      "Merci pour votre soutien incroyable! Vous aidez à rendre PetPlate et les projets futurs possibles. 💚",
+    paywallTitle: "Soutenir PetPlate 💚",
+    paywallSubtitle:
+      "Aidez-moi à développer cette application davantage et bien d'autres à venir",
+    paywallMessage:
+      "PetPlate est un projet de passion créé pour aider les propriétaires d'animaux à prendre des décisions éclairées sur la nutrition de leurs animaux. Votre soutien signifie beaucoup et m'aide à continuer à améliorer cette application et à en créer de nouvelles! 🙏",
+    adFreeExperience: "Expérience Sans Publicités",
+    adFreeDescription: "Naviguez sans bannières publicitaires",
+    supportDevelopment: "Soutenir le Développement",
+    supportDevelopmentDescription:
+      "Aidez à créer des fonctionnalités plus incroyables",
+    futureApps: "Applications Futures",
+    futureAppsDescription:
+      "Permettez le développement de nouveaux outils pour animaux",
+    bestValue: "MEILLEUR RAPPORT",
+    oneTimePayment: "Paiement unique",
+    perMonth: "par mois",
+    noOffersAvailable: "Aucune option d'achat disponible pour le moment.",
+    restorePurchasesButton: "Restaurer les Achats",
+    subscriptionAutoRenews:
+      "• L'abonnement se renouvelle automatiquement sauf annulation",
+    cancelAnytime:
+      "• Annulez à tout moment depuis les paramètres de votre appareil",
+    paymentCharged: "• Paiement débité sur votre compte App Store",
     welcomeTitle: "Bienvenue sur AniFoodie",
     welcomeDescription: "Découvrez quels aliments sont sûrs pour vos animaux",
     howItWorks: "Comment ça marche",
@@ -527,6 +652,40 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     version: "Version",
     aboutTheApp: "Über die App",
     howToUseApp: "Wie man die App benutzt",
+    supportPetPlate: "💚 PetPlate Unterstützen",
+    supportMessage:
+      "Bitte erwägen Sie mich zu unterstützen — es wird mir helfen, diese App weiterzuentwickeln und viele weitere zu erstellen",
+    supportBenefits:
+      "✨ Werbefrei • Entwicklung unterstützen • Neue Funktionen",
+    restorePurchases: "Käufe Wiederherstellen",
+    alreadyPurchased: "Bereits gekauft? Käufe Wiederherstellen",
+    premiumActive: "✨ Premium Aktiv",
+    premium: "Premium",
+    supportDeveloper: "Entwickler Unterstützen",
+    premiumThankYou:
+      "Vielen Dank für Ihre großartige Unterstützung! Sie helfen, PetPlate und zukünftige Projekte möglich zu machen. 💚",
+    paywallTitle: "PetPlate Unterstützen 💚",
+    paywallSubtitle:
+      "Helfen Sie mir, diese App weiterzuentwickeln und viele weitere zu erstellen",
+    paywallMessage:
+      "PetPlate ist ein Leidenschaftsprojekt, das entwickelt wurde, um Tierbesitzern zu helfen, fundierte Entscheidungen über die Ernährung ihrer Haustiere zu treffen. Ihre Unterstützung bedeutet mir sehr viel und hilft mir, diese App weiter zu verbessern und neue zu erstellen! 🙏",
+    adFreeExperience: "Werbefreies Erlebnis",
+    adFreeDescription: "Ohne Werbebanner durchsuchen",
+    supportDevelopment: "Entwicklung Unterstützen",
+    supportDevelopmentDescription:
+      "Helfen Sie, weitere erstaunliche Funktionen zu erstellen",
+    futureApps: "Zukünftige Apps",
+    futureAppsDescription:
+      "Ermöglichen Sie die Entwicklung neuer Tierpflege-Tools",
+    bestValue: "BESTER WERT",
+    oneTimePayment: "Einmalige Zahlung",
+    perMonth: "pro Monat",
+    noOffersAvailable: "Derzeit sind keine Kaufoptionen verfügbar.",
+    restorePurchasesButton: "Käufe Wiederherstellen",
+    subscriptionAutoRenews:
+      "• Abonnement verlängert sich automatisch, sofern nicht gekündigt",
+    cancelAnytime: "• Jederzeit in den Geräteeinstellungen kündbar",
+    paymentCharged: "• Zahlung wird Ihrem App Store-Konto belastet",
     welcomeTitle: "Willkommen bei AniFoodie",
     welcomeDescription:
       "Entdecken Sie, welche Lebensmittel für Ihre Haustiere sicher sind",
@@ -654,6 +813,41 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     version: "Versione",
     aboutTheApp: "Informazioni sull'app",
     howToUseApp: "Come usare l'app",
+    supportPetPlate: "💚 Sostieni PetPlate",
+    supportMessage:
+      "Per favore considera di supportarmi — mi aiuterà a sviluppare questa app ulteriormente e molte altre in arrivo",
+    supportBenefits:
+      "✨ Senza pubblicità • Sostieni lo sviluppo • Nuove funzionalità",
+    restorePurchases: "Ripristina Acquisti",
+    alreadyPurchased: "Già acquistato? Ripristina Acquisti",
+    premiumActive: "✨ Premium Attivo",
+    premium: "Premium",
+    supportDeveloper: "Sostieni lo Sviluppatore",
+    premiumThankYou:
+      "Grazie per il tuo incredibile supporto! Stai aiutando a rendere possibile PetPlate e progetti futuri. 💚",
+    paywallTitle: "Sostieni PetPlate 💚",
+    paywallSubtitle:
+      "Aiutami a sviluppare questa app ulteriormente e molte altre in arrivo",
+    paywallMessage:
+      "PetPlate è un progetto passionale creato per aiutare i proprietari di animali domestici a prendere decisioni informate sulla nutrizione dei loro animali. Il tuo supporto significa molto e mi aiuta a continuare a migliorare questa app e a crearne di nuove! 🙏",
+    adFreeExperience: "Esperienza Senza Pubblicità",
+    adFreeDescription: "Naviga senza banner pubblicitari",
+    supportDevelopment: "Sostieni lo Sviluppo",
+    supportDevelopmentDescription:
+      "Aiuta a creare funzionalità più straordinarie",
+    futureApps: "App Future",
+    futureAppsDescription:
+      "Abilita lo sviluppo di nuovi strumenti per la cura degli animali",
+    bestValue: "MIGLIOR VALORE",
+    oneTimePayment: "Pagamento unico",
+    perMonth: "al mese",
+    noOffersAvailable: "Nessuna opzione di acquisto disponibile al momento.",
+    restorePurchasesButton: "Ripristina Acquisti",
+    subscriptionAutoRenews:
+      "• L'abbonamento si rinnova automaticamente a meno che non venga annullato",
+    cancelAnytime:
+      "• Annulla in qualsiasi momento dalle impostazioni del dispositivo",
+    paymentCharged: "• Pagamento addebitato sul tuo account App Store",
     welcomeTitle: "Benvenuto in AniFoodie",
     welcomeDescription:
       "Scopri quali cibi sono sicuri per i tuoi animali domestici",
@@ -781,6 +975,39 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     version: "Версия",
     aboutTheApp: "О приложении",
     howToUseApp: "Как пользоваться приложением",
+    supportPetPlate: "💚 Поддержать PetPlate",
+    supportMessage:
+      "Пожалуйста, рассмотрите возможность поддержать меня — это поможет мне развивать это приложение дальше и создавать многие другие",
+    supportBenefits: "✨ Без рекламы • Поддержка разработки • Новые функции",
+    restorePurchases: "Восстановить Покупки",
+    alreadyPurchased: "Уже купили? Восстановить Покупки",
+    premiumActive: "✨ Премиум Активен",
+    premium: "Премиум",
+    supportDeveloper: "Поддержать Разработчика",
+    premiumThankYou:
+      "Спасибо за вашу потрясающую поддержку! Вы помогаете сделать PetPlate и будущие проекты возможными. 💚",
+    paywallTitle: "Поддержать PetPlate 💚",
+    paywallSubtitle:
+      "Помогите мне развивать это приложение дальше и создавать многие другие",
+    paywallMessage:
+      "PetPlate — это проект страсти, созданный для помощи владельцам домашних животных в принятии обоснованных решений о питании их питомцев. Ваша поддержка много значит и помогает мне продолжать улучшать это приложение и создавать новые! 🙏",
+    adFreeExperience: "Без Рекламы",
+    adFreeDescription: "Просмотр без рекламных баннеров",
+    supportDevelopment: "Поддержка Разработки",
+    supportDevelopmentDescription:
+      "Помогите создать больше удивительных функций",
+    futureApps: "Будущие Приложения",
+    futureAppsDescription:
+      "Позвольте разработать новые инструменты для ухода за животными",
+    bestValue: "ЛУЧШЕЕ ПРЕДЛОЖЕНИЕ",
+    oneTimePayment: "Разовый платёж",
+    perMonth: "в месяц",
+    noOffersAvailable: "В настоящее время нет доступных вариантов покупки.",
+    restorePurchasesButton: "Восстановить Покупки",
+    subscriptionAutoRenews:
+      "• Подписка автоматически продлевается, если не отменена",
+    cancelAnytime: "• Отмените в любое время в настройках устройства",
+    paymentCharged: "• Платёж списывается с вашей учётной записи App Store",
     welcomeTitle: "Добро пожаловать в AniFoodie",
     welcomeDescription: "Узнайте, какие продукты безопасны для ваших питомцев",
     howItWorks: "Как это работает",
@@ -907,6 +1134,37 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     version: "Wersja",
     aboutTheApp: "Informacje o aplikacji",
     howToUseApp: "Jak korzystać z aplikacji",
+    supportPetPlate: "💚 Wesprzyj PetPlate",
+    supportMessage:
+      "Proszę rozważ wsparcie — pomoże mi to rozwijać tę aplikację dalej i wiele innych",
+    supportBenefits: "✨ Bez reklam • Wsparcie rozwoju • Nowe funkcje",
+    restorePurchases: "Przywróć Zakupy",
+    alreadyPurchased: "Już kupiłeś? Przywróć Zakupy",
+    premiumActive: "✨ Premium Aktywne",
+    premium: "Premium",
+    supportDeveloper: "Wesprzyj Dewelopera",
+    premiumThankYou:
+      "Dziękuję za niesamowite wsparcie! Pomagasz uczynić PetPlate i przyszłe projekty możliwymi. 💚",
+    paywallTitle: "Wesprzyj PetPlate 💚",
+    paywallSubtitle: "Pomóż mi rozwijać tę aplikację dalej i wiele innych",
+    paywallMessage:
+      "PetPlate to projekt pasji stworzony, aby pomóc właścicielom zwierząt podejmować świadome decyzje dotyczące żywienia ich pupili. Twoje wsparcie znaczy bardzo wiele i pomaga mi dalej ulepszać tę aplikację i tworzyć nowe! 🙏",
+    adFreeExperience: "Doświadczenie Bez Reklam",
+    adFreeDescription: "Przeglądaj bez banerów reklamowych",
+    supportDevelopment: "Wsparcie Rozwoju",
+    supportDevelopmentDescription: "Pomóż tworzyć więcej niesamowitych funkcji",
+    futureApps: "Przyszłe Aplikacje",
+    futureAppsDescription:
+      "Umożliw rozwój nowych narzędzi do opieki nad zwierzętami",
+    bestValue: "NAJLEPSZA WARTOŚĆ",
+    oneTimePayment: "Jednorazowa płatność",
+    perMonth: "miesięcznie",
+    noOffersAvailable: "W tej chwili brak dostępnych opcji zakupu.",
+    restorePurchasesButton: "Przywróć Zakupy",
+    subscriptionAutoRenews:
+      "• Subskrypcja odnawia się automatycznie, chyba że zostanie anulowana",
+    cancelAnytime: "• Anuluj w dowolnym momencie w ustawieniach urządzenia",
+    paymentCharged: "• Płatność pobierana z konta App Store",
     welcomeTitle: "Witaj w AniFoodie",
     welcomeDescription:
       "Odkryj, które produkty są bezpieczne dla Twoich zwierząt",

@@ -5,20 +5,24 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  SafeAreaView,
   StatusBar,
   ActivityIndicator,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import type { PurchasesPackage } from "react-native-purchases";
 
 import { usePurchases } from "../context/PurchaseContext";
 import { colors, spacing, typography } from "../styles";
+import { useLanguage } from "../hooks/useLanguage";
+import { useTranslations } from "../i18n/index";
 
 const PaywallScreen = () => {
   const navigation = useNavigation();
   const { offerings, purchasePackage, restorePurchases, isLoading } =
     usePurchases();
+  const { language } = useLanguage();
+  const { t } = useTranslations(language);
 
   const handlePurchase = async (packageToPurchase: PurchasesPackage) => {
     const success = await purchasePackage(packageToPurchase);
@@ -34,15 +38,15 @@ const PaywallScreen = () => {
 
   if (isLoading) {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
         <ActivityIndicator size="large" color={colors.primary} />
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" />
+    <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
+      <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
 
       {/* Header */}
       <View style={styles.header}>
@@ -57,38 +61,31 @@ const PaywallScreen = () => {
       <ScrollView style={styles.scrollView}>
         {/* Hero Section */}
         <View style={styles.heroSection}>
-          <Text style={styles.title}>Support PetPlate 💚</Text>
-          <Text style={styles.subtitle}>
-            Help me develop this app further and many more to come
-          </Text>
+          <Text style={styles.title}>{t("paywallTitle")}</Text>
+          <Text style={styles.subtitle}>{t("paywallSubtitle")}</Text>
         </View>
 
         {/* Support Message */}
         <View style={styles.supportMessageContainer}>
-          <Text style={styles.supportMessage}>
-            PetPlate is a passion project created to help pet owners make
-            informed decisions about their pets' nutrition. Your support means
-            the world and helps me continue improving this app and creating new
-            ones! 🙏
-          </Text>
+          <Text style={styles.supportMessage}>{t("paywallMessage")}</Text>
         </View>
 
         {/* Features */}
         <View style={styles.featuresContainer}>
           <FeatureItem
             icon="✨"
-            title="Ad-Free Experience"
-            description="Browse without banner ads"
+            title={t("adFreeExperience")}
+            description={t("adFreeDescription")}
           />
           <FeatureItem
             icon="🚀"
-            title="Support Development"
-            description="Help create more amazing features"
+            title={t("supportDevelopment")}
+            description={t("supportDevelopmentDescription")}
           />
           <FeatureItem
             icon="💝"
-            title="Future Apps"
-            description="Enable development of new pet care tools"
+            title={t("futureApps")}
+            description={t("futureAppsDescription")}
           />
         </View>
 
@@ -105,7 +102,7 @@ const PaywallScreen = () => {
                   <Text style={styles.packageTitle}>{pkg.product.title}</Text>
                   {pkg.packageType === "LIFETIME" && (
                     <View style={styles.bestValueBadge}>
-                      <Text style={styles.bestValueText}>BEST VALUE</Text>
+                      <Text style={styles.bestValueText}>{t("bestValue")}</Text>
                     </View>
                   )}
                 </View>
@@ -117,10 +114,12 @@ const PaywallScreen = () => {
                     {pkg.product.priceString}
                   </Text>
                   {pkg.packageType === "LIFETIME" && (
-                    <Text style={styles.packageSubtext}>One-time payment</Text>
+                    <Text style={styles.packageSubtext}>
+                      {t("oneTimePayment")}
+                    </Text>
                   )}
                   {pkg.packageType === "MONTHLY" && (
-                    <Text style={styles.packageSubtext}>per month</Text>
+                    <Text style={styles.packageSubtext}>{t("perMonth")}</Text>
                   )}
                 </View>
               </TouchableOpacity>
@@ -128,28 +127,22 @@ const PaywallScreen = () => {
           </View>
         ) : (
           <View style={styles.noOffersContainer}>
-            <Text style={styles.noOffersText}>
-              No purchase options available at the moment.
-            </Text>
+            <Text style={styles.noOffersText}>{t("noOffersAvailable")}</Text>
           </View>
         )}
 
         {/* Restore Button */}
         <TouchableOpacity style={styles.restoreButton} onPress={handleRestore}>
-          <Text style={styles.restoreButtonText}>Restore Purchases</Text>
+          <Text style={styles.restoreButtonText}>
+            {t("restorePurchasesButton")}
+          </Text>
         </TouchableOpacity>
 
         {/* Footer */}
         <View style={styles.footer}>
-          <Text style={styles.footerText}>
-            • Subscription auto-renews unless cancelled
-          </Text>
-          <Text style={styles.footerText}>
-            • Cancel anytime from your device settings
-          </Text>
-          <Text style={styles.footerText}>
-            • Payment charged to your App Store account
-          </Text>
+          <Text style={styles.footerText}>{t("subscriptionAutoRenews")}</Text>
+          <Text style={styles.footerText}>{t("cancelAnytime")}</Text>
+          <Text style={styles.footerText}>{t("paymentCharged")}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>

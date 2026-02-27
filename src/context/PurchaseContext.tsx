@@ -5,6 +5,7 @@ import Purchases, {
   PurchasesPackage,
   LOG_LEVEL,
 } from "react-native-purchases";
+import RevenueCatUI, { PAYWALL_RESULT } from "react-native-purchases-ui";
 import { Platform, Alert } from "react-native";
 import { PremiumOverride, DevFeatures } from "../utils/devFeatures";
 
@@ -31,7 +32,8 @@ interface PurchaseContextType {
   customerInfo: CustomerInfo | null;
   purchasePackage: (packageToPurchase: PurchasesPackage) => Promise<boolean>;
   restorePurchases: () => Promise<boolean>;
-  showPaywall: () => void;
+  showPaywall: () => Promise<boolean>;
+  showPaywallIfNeeded: () => Promise<boolean>;
   showCustomerCenter: () => void;
 }
 
@@ -43,7 +45,8 @@ const PurchaseContext = createContext<PurchaseContextType>({
   customerInfo: null,
   purchasePackage: async () => false,
   restorePurchases: async () => false,
-  showPaywall: () => {},
+  showPaywall: async () => false,
+  showPaywallIfNeeded: async () => false,
   showCustomerCenter: () => {},
 });
 
@@ -234,10 +237,88 @@ export const PurchaseProvider: React.FC<PurchaseProviderProps> = ({
     }
   };
 
-  // Placeholder for showing paywall (will implement in PaywallScreen)
-  const showPaywall = () => {
-    console.log("📱 Show paywall requested");
-    // This will be handled by navigation in the component
+  // Show RevenueCat UI Paywall
+  const showPaywall = async (): Promise<boolean> => {
+    try {
+      console.log("📱 Presenting RevenueCat UI paywall...");
+
+      const paywallResult: PAYWALL_RESULT = await RevenueCatUI.presentPaywall({
+        offering: offerings || undefined, // Use current offering or default
+      });
+
+      console.log("📱 Paywall result:", paywallResult);
+
+      switch (paywallResult) {
+        case PAYWALL_RESULT.PURCHASED:
+          console.log("✅ Purchase completed via RevenueCat UI");
+          // Refresh customer info
+          const info = await Purchases.getCustomerInfo();
+          updateCustomerInformation(info);
+          return true;
+
+        case PAYWALL_RESULT.RESTORED:
+          console.log("✅ Purchases restored via RevenueCat UI");
+          // Refresh customer info
+          const restoredInfo = await Purchases.getCustomerInfo();
+          updateCustomerInformation(restoredInfo);
+          return true;
+
+        case PAYWALL_RESULT.CANCELLED:
+          console.log("ℹ️ User cancelled paywall");
+          return false;
+
+        case PAYWALL_RESULT.NOT_PRESENTED:
+          console.log("⚠️ Paywall not presented");
+          Alert.alert(
+            "Paywall Unavailable",
+            "Unable to show purchase options at this time. Please try again later.",
+          );
+          return false;
+
+        case PAYWALL_RESULT.ERROR:
+          console.log("❌ Paywall error");
+          Alert.alert("Error", "Something went wrong. Please try again later.");
+          return false;
+
+        default:
+          return false;
+      }
+    } catch (error: any) {
+      console.error("❌ Error showing paywall:", error);
+      Alert.alert(
+        "Error",
+        error.message || "Failed to show purchase options. Please try again.",
+      );
+      return false;
+    }
+  };
+
+  // Show RevenueCat UI Paywall only if needed (user not subscribed)
+  const showPaywallIfNeeded = async (): Promise<boolean> => {
+    try {
+      console.log("📱 Checking if paywall needed...");
+
+      const paywallResult: PAYWALL_RESULT =
+        await RevenueCatUI.presentPaywallIfNeeded({
+          requiredEntitlementIdentifier: ENTITLEMENT_ID,
+        });
+
+      console.log("📱 Paywall if needed result:", paywallResult);
+
+      if (
+        paywallResult === PAYWALL_RESULT.PURCHASED ||
+        paywallResult === PAYWALL_RESULT.RESTORED
+      ) {
+        const info = await Purchases.getCustomerInfo();
+        updateCustomerInformation(info);
+        return true;
+      }
+
+      return false;
+    } catch (error: any) {
+      console.error("❌ Error showing paywall if needed:", error);
+      return false;
+    }
   };
 
   // Placeholder for showing customer center (will implement later)
@@ -257,6 +338,7 @@ export const PurchaseProvider: React.FC<PurchaseProviderProps> = ({
         purchasePackage,
         restorePurchases,
         showPaywall,
+        showPaywallIfNeeded,
         showCustomerCenter,
       }}
     >

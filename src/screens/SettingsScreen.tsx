@@ -5,15 +5,15 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  SafeAreaView,
   StatusBar,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import Constants from "expo-constants";
 
 import { useLanguage, Language } from "../hooks/useLanguage";
-import { TranslationKey } from "../i18n/index";
+import { TranslationKey, useTranslations } from "../i18n/index";
 import { TabParamList, RootStackParamList } from "../navigation/types";
 import { colors, spacing, typography } from "../styles";
 import TranslatedText from "../components/TranslatedText";
@@ -24,6 +24,7 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const SettingsScreen = () => {
   const { language, setLanguage } = useLanguage();
+  const { t } = useTranslations(language);
   const navigation = useNavigation<NavigationProp>();
   const { isSubscribed, isLoading, restorePurchases } = usePurchases();
 
@@ -65,8 +66,8 @@ const SettingsScreen = () => {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" />
+    <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
+      <StatusBar barStyle="light-content" backgroundColor={colors.gray200} />
       <View style={styles.header}>
         <TranslatedText
           style={styles.headerTitle}
@@ -105,21 +106,20 @@ const SettingsScreen = () => {
         {/* Remove Ads Section - Only show if not subscribed */}
         {!isSubscribed && !isLoading && (
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Support the Developer</Text>
+            <Text style={styles.sectionTitle}>{t("supportDeveloper")}</Text>
             <TouchableOpacity
               style={styles.removeAdsButton}
               onPress={handleRemoveAdsPress}
             >
               <View style={styles.supportMessageBox}>
                 <Text style={styles.removeAdsButtonTitle}>
-                  💚 Support PetPlate
+                  {t("supportPetPlate")}
                 </Text>
                 <Text style={styles.removeAdsButtonSubtitle}>
-                  Please consider supporting me — it will help me develop this
-                  app further and many more to come
+                  {t("supportMessage")}
                 </Text>
                 <Text style={styles.supportBenefits}>
-                  ✨ Remove ads • Support development • Future features
+                  {t("supportBenefits")}
                 </Text>
               </View>
               <Text style={styles.removeAdsButtonArrow}>›</Text>
@@ -131,7 +131,7 @@ const SettingsScreen = () => {
               onPress={handleRestorePurchases}
             >
               <Text style={styles.restorePurchasesText}>
-                Already purchased? Restore Purchases
+                {t("alreadyPurchased")}
               </Text>
             </TouchableOpacity>
           </View>
@@ -140,12 +140,11 @@ const SettingsScreen = () => {
         {/* Show Premium Status if subscribed */}
         {isSubscribed && (
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Premium</Text>
+            <Text style={styles.sectionTitle}>{t("premium")}</Text>
             <View style={styles.premiumBadge}>
-              <Text style={styles.premiumBadgeText}>✨ Premium Active</Text>
+              <Text style={styles.premiumBadgeText}>{t("premiumActive")}</Text>
               <Text style={styles.premiumBadgeSubtext}>
-                Thank you for your amazing support! You're helping make PetPlate
-                and future projects possible. 💚
+                {t("premiumThankYou")}
               </Text>
             </View>
           </View>
