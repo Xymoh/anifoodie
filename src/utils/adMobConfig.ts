@@ -1,4 +1,4 @@
-import { Platform } from "react-native";
+import { AppConfig } from "../config/appConfig";
 
 let mobileAds: any = null;
 let MaxAdContentRating: any = null;
@@ -20,42 +20,66 @@ export const initializeAdMob = async () => {
   }
 
   try {
+    // Check if initialize method exists
+    if (typeof mobileAds.initialize !== "function") {
+      console.log(
+        "AdMob initialize method not available - SDK may not be properly linked",
+      );
+      return;
+    }
+
     await mobileAds.initialize();
-    
+
     // Configure global ad settings
     if (MaxAdContentRating) {
       await mobileAds.setRequestConfiguration({
         // Update all future requests suitable for parental guidance
         maxAdContentRating: MaxAdContentRating.PG,
-        
+
         // Indicates that you want your content treated as child-directed for purposes of COPPA.
         tagForChildDirectedTreatment: true,
-        
+
         // Indicates that you want the ad request to be handled in a
         // manner suitable for users under the age of consent.
         tagForUnderAgeOfConsent: true,
-        
+
         // An array of test device IDs to allow.
-        testDeviceIdentifiers: ['EMULATOR'],
+        testDeviceIdentifiers: ["EMULATOR"],
       });
     }
-    
+
     console.log("AdMob initialized successfully");
   } catch (error) {
     console.error("Failed to initialize AdMob:", error);
   }
 };
 
-// Ad Unit IDs
-export const AD_UNIT_IDS = {
-  ios: {
-    banner: "ca-app-pub-5706076003529829/7260810204",
-  },
-  android: {
-    banner: "ca-app-pub-5706076003529829/3536622969",
-  },
+/**
+ * Get Banner Ad Unit ID
+ * Uses centralized AppConfig which reads from environment variables
+ *
+ * @param useTestAds - Optional override. If not provided, uses value from .env file
+ * @returns The appropriate ad unit ID for the current platform
+ */
+export const getBannerAdUnitId = (useTestAds?: boolean): string => {
+  return AppConfig.adMob.getBannerAdUnitId(useTestAds);
 };
 
-export const getBannerAdUnitId = () => {
-  return Platform.OS === "ios" ? AD_UNIT_IDS.ios.banner : AD_UNIT_IDS.android.banner;
+/**
+ * Legacy export for backward compatibility
+ * @deprecated Use AppConfig.adMob directly or getBannerAdUnitId()
+ */
+export const AD_UNIT_IDS = {
+  get ios() {
+    return {
+      banner: AppConfig.adMob.productionAdUnits.ios.banner,
+      testBanner: AppConfig.adMob.testAdUnits.ios.banner,
+    };
+  },
+  get android() {
+    return {
+      banner: AppConfig.adMob.productionAdUnits.android.banner,
+      testBanner: AppConfig.adMob.testAdUnits.android.banner,
+    };
+  },
 };

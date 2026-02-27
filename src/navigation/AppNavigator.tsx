@@ -12,6 +12,9 @@ import FoodDetailScreen from "../screens/FoodDetailScreen";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import FavoritesScreen from "../screens/FavoritesScreen";
 import SettingsScreen from "../screens/SettingsScreen";
+import PrivacyPolicyScreen from "../screens/PrivacyPolicyScreen";
+import PaywallScreen from "../screens/PaywallScreen";
+import DeveloperMenu from "../screens/DeveloperMenu";
 import { colors, shadow, spacing, typography } from "../styles";
 import { useOnboarding } from "../hooks/useOnboarding";
 import { useLanguage } from "../hooks/useLanguage";
@@ -19,6 +22,8 @@ import { useTranslations } from "../i18n/index";
 import AdMobBanner from "../components/AdMobBanner";
 import { AdProvider } from "../context/AdContext";
 import { FavoritesProvider } from "../context/FavoritesContext";
+import { PurchaseProvider, usePurchases } from "../context/PurchaseContext";
+import { DevFeatures } from "../utils/devFeatures";
 
 const AnimalsStack = createNativeStackNavigator<RootStackParamList>();
 const AnimalsStackScreen = () => (
@@ -118,6 +123,7 @@ const TabNavigator = () => {
   const { language } = useLanguage();
   const { t } = useTranslations(language);
   const insets = useSafeAreaInsets();
+  const { isSubscribed } = usePurchases(); // Check if user has purchased ad removal
 
   return (
     <View style={{ flex: 1 }}>
@@ -204,15 +210,17 @@ const TabNavigator = () => {
         />
       </Tab.Navigator>
 
-      {/* AdMob Banner positioned below the tab navigator */}
-      <View style={{ backgroundColor: colors.gray200 }}>
-        <AdMobBanner height={60} backgroundColor={colors.gray200} />
+      {/* Only show AdMob Banner if user hasn't purchased ad removal */}
+      {!isSubscribed && (
+        <View style={{ backgroundColor: colors.gray200 }}>
+          <AdMobBanner height={60} backgroundColor={colors.gray200} />
 
-        {/* Safe area padding at the bottom to prevent system UI overlap */}
-        <View
-          style={{ height: insets.bottom, backgroundColor: colors.gray200 }}
-        />
-      </View>
+          {/* Safe area padding at the bottom to prevent system UI overlap */}
+          <View
+            style={{ height: insets.bottom, backgroundColor: colors.gray200 }}
+          />
+        </View>
+      )}
     </View>
   );
 };
@@ -237,26 +245,51 @@ const AppNavigator = () => {
   }
 
   return (
-    <AdProvider>
-      <FavoritesProvider>
-        <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName={hasViewedWelcomeScreen ? "Main" : "Welcome"}
-          >
-            <Stack.Screen
-              name="Welcome"
-              component={WelcomeScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Main"
-              component={TabNavigator}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </FavoritesProvider>
-    </AdProvider>
+    <PurchaseProvider>
+      <AdProvider>
+        <FavoritesProvider>
+          <NavigationContainer>
+            <Stack.Navigator
+              initialRouteName={hasViewedWelcomeScreen ? "Main" : "Welcome"}
+            >
+              <Stack.Screen
+                name="Welcome"
+                component={WelcomeScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Main"
+                component={TabNavigator}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="PrivacyPolicy"
+                component={PrivacyPolicyScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Paywall"
+                component={PaywallScreen}
+                options={{
+                  headerShown: false,
+                  presentation: "modal",
+                }}
+              />
+              {DevFeatures.SHOW_DEV_MENU && (
+                <Stack.Screen
+                  name="DeveloperMenu"
+                  component={DeveloperMenu}
+                  options={{
+                    headerShown: false,
+                    presentation: "modal",
+                  }}
+                />
+              )}
+            </Stack.Navigator>
+          </NavigationContainer>
+        </FavoritesProvider>
+      </AdProvider>
+    </PurchaseProvider>
   );
 };
 

@@ -34,8 +34,16 @@ yarn-error.*
 .DS_Store
 *.pem
 
-# local env files
+# Environment files strategy:
+# - Commit .env.example (template for other developers)
+# - Commit .env.development and .env.production (shared configs)
+# - Ignore .env (developer's local copy)
+# - Ignore any .local variants (personal overrides)
+
+.env
 .env*.local
+.env.local
+.env.personal
 
 # typescript
 *.tsbuildinfo

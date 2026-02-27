@@ -1,6 +1,6 @@
-# AniFood - Animal Food Compatibility App
+# AniFoodie - Animal Food Compatibility App
 
-AniFood is a mobile application built with Expo and React Native that helps users determine what types of food animals can eat. This app is designed for pet owners, animal caretakers, and anyone who wants to ensure they're feeding their pets safely.
+AniFoodie is a mobile application built with Expo and React Native that helps users determine what types of food animals can eat. This app is designed for pet owners, animal caretakers, and anyone who wants to ensure they're feeding their pets safely.
 
 ## Features
 
@@ -9,7 +9,9 @@ AniFood is a mobile application built with Expo and React Native that helps user
 - **Favorites**: Save your most frequently checked animals and foods for quick access.
 - **Comprehensive Database**: Built on a detailed CSV dataset with compatibility information for various animals and foods.
 - **User-Friendly Interface**: Intuitive navigation and visual indicators for food compatibility status.
-- **Multilingual Support**: Available in English, Spanish, French, and German with language preferences saved between sessions.
+- **Multilingual Support**: Available in 7+ languages with language preferences saved between sessions.
+- **Premium Support**: Optional premium subscription to support development (via RevenueCat)
+- **Ad-Supported**: Free version supported by AdMob ads
 
 ## Compatibility Status Indicators
 
@@ -17,23 +19,70 @@ AniFood is a mobile application built with Expo and React Native that helps user
 - 🟠 **Acceptable in Small Quantities**: Can be given occasionally or in limited amounts
 - 🔴 **Not Allowed**: Unsafe for the animal to consume
 
+## Environment Configuration
+
+AniFoodie uses environment variables for configuration. **Your `.env` file is gitignored** for security.
+
+### Setup Environment Variables
+
+1. **Copy the example file**:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+2. **Add your AdMob IDs** in `.env`:
+
+   ```bash
+   # Replace XXXXXXXX with your actual AdMob IDs from https://apps.admob.com/
+   EXPO_PUBLIC_ADMOB_ANDROID_APP_ID=ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX
+   EXPO_PUBLIC_ADMOB_IOS_APP_ID=ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX
+   EXPO_PUBLIC_ADMOB_ANDROID_BANNER_ID=ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
+   EXPO_PUBLIC_ADMOB_IOS_BANNER_ID=ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
+   ```
+
+3. **Environment files**:
+   - `.env.example` - Template (committed to git)
+   - `.env.development` - Development defaults (committed to git)
+   - `.env.production` - Production defaults (committed to git)
+   - `.env` - Your local config (**gitignored** - NOT committed)
+
+### Environment Variables Reference
+
+```bash
+# AdMob Configuration
+EXPO_PUBLIC_USE_TEST_ADS=true                    # Toggle test/real ads
+EXPO_PUBLIC_ADMOB_ANDROID_APP_ID=ca-app-pub-... # Your AdMob Android App ID
+EXPO_PUBLIC_ADMOB_IOS_APP_ID=ca-app-pub-...     # Your AdMob iOS App ID
+EXPO_PUBLIC_ADMOB_ANDROID_BANNER_ID=ca-app-...  # Production Android Banner ID
+EXPO_PUBLIC_ADMOB_IOS_BANNER_ID=ca-app-...      # Production iOS Banner ID
+
+# Developer Features
+EXPO_PUBLIC_ENABLE_DEV_FEATURES=true            # Enable developer menu
+EXPO_PUBLIC_ENABLE_PREMIUM_OVERRIDE=true        # Allow premium testing
+```
+
+**Note**: AdMob test ad unit IDs are Google's official test IDs and are safe to share publicly.
+
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (version 14 or higher)
+- Node.js (version 18 or higher)
 - npm or yarn
 - Expo CLI
 
 ### Installation
 
 1. Clone the repository
+
 ```bash
-git clone https://github.com/yourusername/anifood.git
-cd anifood
+git clone https://github.com/Xymoh/anifoodie.git
+cd anifoodie
 ```
 
 2. Install dependencies
+
 ```bash
 npm install
 # or
@@ -41,6 +90,7 @@ yarn install
 ```
 
 3. Start the development server
+
 ```bash
 npx expo start
 # or

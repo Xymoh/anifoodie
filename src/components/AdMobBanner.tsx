@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Dimensions, Text } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { colors, shadow, spacing, typography } from "../styles";
 import { getBannerAdUnitId } from "../utils/adMobConfig";
+
+// Storage key for test ads setting (same as DeveloperMenu)
+const TEST_ADS_KEY = "@anifoodie_use_test_ads";
 
 // Conditionally import AdMob components
 let BannerAd: any = null;
@@ -30,10 +34,32 @@ const AdMobBanner: React.FC<AdMobBannerProps> = ({
   size,
 }) => {
   const screenWidth = Dimensions.get("window").width;
+  const [useTestAds, setUseTestAds] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    loadTestAdsPreference();
+  }, []);
+
+  const loadTestAdsPreference = async () => {
+    try {
+      const value = await AsyncStorage.getItem(TEST_ADS_KEY);
+      // If setting exists in storage, use it; otherwise use default from config
+      if (value !== null) {
+        setUseTestAds(value === "true");
+      } else {
+        setUseTestAds(null); // Will use default from AppConfig
+      }
+    } catch (error) {
+      console.error("Failed to load test ads preference:", error);
+      setUseTestAds(null); // Will use default from AppConfig
+    }
+  };
 
   const getAdUnitId = () => {
     if (adUnitId) return adUnitId;
-    return getBannerAdUnitId();
+    // Pass the test ads preference to getBannerAdUnitId
+    // If null, it will use the default from .env
+    return getBannerAdUnitId(useTestAds ?? undefined);
   };
 
   // If AdMob is not available, show a placeholder

@@ -17,12 +17,15 @@ import { TranslationKey } from "../i18n/index";
 import { TabParamList, RootStackParamList } from "../navigation/types";
 import { colors, spacing, typography } from "../styles";
 import TranslatedText from "../components/TranslatedText";
+import { usePurchases } from "../context/PurchaseContext";
+import { DevFeatures } from "../utils/devFeatures";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const SettingsScreen = () => {
   const { language, setLanguage } = useLanguage();
   const navigation = useNavigation<NavigationProp>();
+  const { isSubscribed, isLoading, restorePurchases } = usePurchases();
 
   // Get app version from Expo Constants
   const appVersion = Constants.expoConfig?.version || "1.0.0";
@@ -33,6 +36,22 @@ const SettingsScreen = () => {
 
   const handleAboutAppPress = () => {
     navigation.navigate("Welcome", { fromSettings: true });
+  };
+
+  const handlePrivacyPolicyPress = () => {
+    navigation.navigate("PrivacyPolicy", { section: "privacy" });
+  };
+
+  const handleTermsOfServicePress = () => {
+    navigation.navigate("PrivacyPolicy", { section: "terms" });
+  };
+
+  const handleRemoveAdsPress = () => {
+    navigation.navigate("Paywall");
+  };
+
+  const handleRestorePurchases = async () => {
+    await restorePurchases();
   };
 
   const languages: { translationKey: TranslationKey; value: Language }[] = [
@@ -83,6 +102,55 @@ const SettingsScreen = () => {
           </View>
         </View>
 
+        {/* Remove Ads Section - Only show if not subscribed */}
+        {!isSubscribed && !isLoading && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Support the Developer</Text>
+            <TouchableOpacity
+              style={styles.removeAdsButton}
+              onPress={handleRemoveAdsPress}
+            >
+              <View style={styles.supportMessageBox}>
+                <Text style={styles.removeAdsButtonTitle}>
+                  💚 Support PetPlate
+                </Text>
+                <Text style={styles.removeAdsButtonSubtitle}>
+                  Please consider supporting me — it will help me develop this
+                  app further and many more to come
+                </Text>
+                <Text style={styles.supportBenefits}>
+                  ✨ Remove ads • Support development • Future features
+                </Text>
+              </View>
+              <Text style={styles.removeAdsButtonArrow}>›</Text>
+            </TouchableOpacity>
+
+            {/* Restore Purchases Link */}
+            <TouchableOpacity
+              style={styles.restorePurchasesLink}
+              onPress={handleRestorePurchases}
+            >
+              <Text style={styles.restorePurchasesText}>
+                Already purchased? Restore Purchases
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {/* Show Premium Status if subscribed */}
+        {isSubscribed && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Premium</Text>
+            <View style={styles.premiumBadge}>
+              <Text style={styles.premiumBadgeText}>✨ Premium Active</Text>
+              <Text style={styles.premiumBadgeSubtext}>
+                Thank you for your amazing support! You're helping make PetPlate
+                and future projects possible. 💚
+              </Text>
+            </View>
+          </View>
+        )}
+
         <View style={styles.section}>
           <TranslatedText
             style={styles.sectionTitle}
@@ -102,7 +170,7 @@ const SettingsScreen = () => {
         <View style={styles.section}>
           <TranslatedText style={styles.sectionTitle} translationKey="about" />
           <View style={styles.aboutContainer}>
-            <Text style={styles.aboutText}>AniFoodie</Text>
+            <Text style={styles.aboutText}>PetPlate</Text>
             <View style={styles.versionContainer}>
               <TranslatedText
                 style={styles.versionText}
@@ -112,6 +180,55 @@ const SettingsScreen = () => {
             </View>
           </View>
         </View>
+
+        <View style={styles.section}>
+          <TranslatedText
+            style={styles.sectionTitle}
+            translationKey="legalTitle"
+          />
+          <TouchableOpacity
+            style={styles.legalButton}
+            onPress={handlePrivacyPolicyPress}
+          >
+            <TranslatedText
+              style={styles.legalButtonText}
+              translationKey="privacyPolicy"
+            />
+            <Text style={styles.legalButtonArrow}>›</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.legalButton, styles.legalButtonLast]}
+            onPress={handleTermsOfServicePress}
+          >
+            <TranslatedText
+              style={styles.legalButtonText}
+              translationKey="termsOfService"
+            />
+            <Text style={styles.legalButtonArrow}>›</Text>
+          </TouchableOpacity>
+        </View>
+
+        {/* Developer Menu - Only in development builds */}
+        {DevFeatures.SHOW_DEV_MENU && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>🛠️ Developer Tools</Text>
+            <TouchableOpacity
+              style={styles.devMenuButton}
+              onPress={() => navigation.navigate("DeveloperMenu")}
+            >
+              <View>
+                <Text style={styles.devMenuButtonText}>Developer Menu</Text>
+                <Text style={styles.devMenuButtonSubtext}>
+                  Premium override, secret codes, debug tools
+                </Text>
+              </View>
+              <Text style={styles.legalButtonArrow}>›</Text>
+            </TouchableOpacity>
+            <Text style={styles.devWarning}>
+              ⚠️ Development build only - Auto-hidden in production
+            </Text>
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -207,6 +324,120 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: typography.fontSize.medium,
     fontWeight: typography.fontWeight.bold as "700",
+  },
+  legalButton: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: spacing.md,
+    borderTopWidth: 1,
+    borderTopColor: colors.gray400,
+    backgroundColor: colors.gray200,
+  },
+  legalButtonLast: {
+    borderBottomWidth: 1,
+    borderBottomColor: colors.gray400,
+  },
+  legalButtonText: {
+    fontSize: typography.fontSize.medium,
+    color: colors.gray800,
+    fontWeight: typography.fontWeight.medium as "500",
+  },
+  legalButtonArrow: {
+    fontSize: typography.fontSize.xl,
+    color: colors.primary,
+    fontWeight: typography.fontWeight.bold as "700",
+  },
+  removeAdsButton: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: spacing.md,
+    borderRadius: spacing.radiusMedium,
+    backgroundColor: colors.primary,
+    borderWidth: 2,
+    borderColor: colors.primaryDark,
+  },
+  supportMessageBox: {
+    flex: 1,
+  },
+  removeAdsButtonTitle: {
+    fontSize: typography.fontSize.medium,
+    color: colors.white,
+    fontWeight: typography.fontWeight.bold as "700",
+    marginBottom: 6,
+  },
+  removeAdsButtonSubtitle: {
+    fontSize: typography.fontSize.small,
+    color: colors.white,
+    lineHeight: 18,
+    marginBottom: 8,
+    opacity: 0.95,
+  },
+  supportBenefits: {
+    fontSize: typography.fontSize.tiny,
+    color: colors.white,
+    opacity: 0.85,
+  },
+  removeAdsButtonArrow: {
+    fontSize: typography.fontSize.xxl,
+    color: colors.white,
+    fontWeight: typography.fontWeight.bold as "700",
+    marginLeft: spacing.sm,
+  },
+  restorePurchasesLink: {
+    marginTop: spacing.md,
+    padding: spacing.sm,
+    alignItems: "center",
+  },
+  restorePurchasesText: {
+    fontSize: typography.fontSize.small,
+    color: colors.primary,
+    textDecorationLine: "underline",
+  },
+  premiumBadge: {
+    padding: spacing.md,
+    borderRadius: spacing.radiusMedium,
+    backgroundColor: colors.success + "20",
+    borderWidth: 2,
+    borderColor: colors.success,
+    alignItems: "center",
+  },
+  premiumBadgeText: {
+    fontSize: typography.fontSize.medium,
+    color: colors.gray900,
+    fontWeight: typography.fontWeight.bold as "700",
+    marginBottom: 4,
+  },
+  premiumBadgeSubtext: {
+    fontSize: typography.fontSize.small,
+    color: colors.gray700,
+  },
+  devMenuButton: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: spacing.md,
+    borderRadius: spacing.radiusMedium,
+    backgroundColor: colors.warning + "20",
+    borderWidth: 2,
+    borderColor: colors.warning,
+  },
+  devMenuButtonText: {
+    fontSize: typography.fontSize.medium,
+    color: colors.gray900,
+    fontWeight: typography.fontWeight.bold as "700",
+    marginBottom: 4,
+  },
+  devMenuButtonSubtext: {
+    fontSize: typography.fontSize.small,
+    color: colors.gray700,
+  },
+  devWarning: {
+    fontSize: typography.fontSize.small,
+    color: colors.textSecondary,
+    marginTop: spacing.sm,
+    fontStyle: "italic",
   },
 });
 

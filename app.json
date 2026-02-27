@@ -7,6 +7,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
+    "description": "PetPlate helps you discover which foods are safe for your pets and which to avoid. Browse 33+ animals across mammals, birds, reptiles, amphibians, and fish — with detailed food safety ratings in 7 languages.",
     "splash": {
       "image": "./assets/icon.png",
       "resizeMode": "contain",
@@ -15,17 +16,21 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.cymoh.petplate",
+      "buildNumber": "1",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSUserTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you."
       }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#121212"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.cymoh.petplate"
+      "package": "com.cymoh.petplate",
+      "versionCode": 1,
+      "permissions": []
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -40,9 +45,16 @@
         "react-native-google-mobile-ads",
         {
           "androidAppId": "ca-app-pub-5706076003529829~1455602146",
-          "iosAppId": "ca-app-pub-5706076003529829~7711402196"
+          "iosAppId": "ca-app-pub-5706076003529829~7711402196",
+          "skAdNetworkItems": [
+            "cstr6suwn9.skadnetwork",
+            "4fzdc2evr5.skadnetwork",
+            "2fnua5tdw4.skadnetwork",
+            "ydx93a7ass.skadnetwork"
+          ]
         }
-      ]
+      ],
+      "expo-asset"
     ],
     "owner": "cymoh"
   }

@@ -7,7 +7,10 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "test-all": "npm run ios && npm run android"
+    "test-all": "npm run ios && npm run android",
+    "build:dev": "EXPO_PUBLIC_ENV=development eas build",
+    "build:prod": "EXPO_PUBLIC_ENV=production eas build",
+    "prebuild:clean": "expo prebuild --clean"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.1.2",
@@ -15,17 +18,21 @@
     "@react-navigation/native": "^7.1.11",
     "@react-navigation/native-stack": "^7.3.16",
     "@types/papaparse": "^5.3.16",
-    "expo": "^53.0.12",
-    "expo-splash-screen": "^0.30.9",
+    "expo": "~53.0.27",
+    "expo-asset": "~11.1.7",
+    "expo-constants": "~17.1.8",
+    "expo-dev-client": "~5.2.4",
+    "expo-file-system": "~18.1.11",
+    "expo-splash-screen": "^0.30.10",
     "expo-status-bar": "~2.2.3",
     "papaparse": "^5.5.3",
     "react": "19.0.0",
-    "react-native": "^0.79.4",
+    "react-native": "^0.79.6",
     "react-native-google-mobile-ads": "^15.4.0",
+    "react-native-purchases": "^9.10.4",
+    "react-native-purchases-ui": "^9.10.4",
     "react-native-safe-area-context": "^5.4.0",
-    "react-native-screens": "^4.11.1",
-    "expo-constants": "~17.1.6",
-    "expo-dev-client": "~5.2.2"
+    "react-native-screens": "^4.11.1"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
