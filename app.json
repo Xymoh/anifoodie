@@ -15,7 +15,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.cymoh.petplate",
+      "bundleIdentifier": "com.cymoh.petplate.app",
       "buildNumber": "1",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
@@ -28,7 +28,7 @@
         "backgroundColor": "#121212"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.cymoh.petplate",
+      "package": "com.cymoh.petplate.app",
       "versionCode": 1,
       "permissions": []
     },
