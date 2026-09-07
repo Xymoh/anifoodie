@@ -50,6 +50,8 @@ export type TranslationKey =
   | "subscriptionAutoRenews"
   | "cancelAnytime"
   | "paymentCharged"
+  | "paymentChargedGooglePlay"
+  | "adPrivacySettings"
 
   // Welcome screen
   | "welcomeTitle"
@@ -206,7 +208,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     subscriptionAutoRenews: "• Subscription auto-renews unless cancelled",
     cancelAnytime: "• Cancel anytime from your device settings",
     paymentCharged: "• Payment charged to your App Store account",
-    welcomeTitle: "Welcome to AniFoodie",
+    paymentChargedGooglePlay: "• Payment charged to your Google Play account",
+    adPrivacySettings: "Ad privacy settings",
+    welcomeTitle: "Welcome to PetPlate",
     welcomeDescription: "Discover what foods are safe for your pets",
     howItWorks: "How it works",
     welcomeExplanation:
@@ -278,10 +282,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     lastUpdated: "Last updated: February 22, 2026",
     privacyPolicyTitle: "Privacy Policy",
     privacyPolicyIntro:
-      'AniFoodie ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we handle information when you use our mobile application.',
+      'PetPlate ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we handle information when you use our mobile application.',
     privacyPolicyDataCollection: "Information We Collect",
     privacyPolicyDataCollectionBody:
-      "AniFoodie does not collect, store, or transmit any personally identifiable information. All your data (favorites, language preferences) is stored locally on your device only and is never sent to our servers.",
+      "PetPlate does not collect, store, or transmit any personally identifiable information. All your data (favorites, language preferences) is stored locally on your device only and is never sent to our servers.",
     privacyPolicyAds: "Advertising",
     privacyPolicyAdsBody:
       "We use Google AdMob to display advertisements. AdMob may collect certain device information and use cookies to serve personalized ads. You can review Google's Privacy Policy at https://policies.google.com/privacy. If you are in the EU/EEA, ads are served in a privacy-safe manner compliant with GDPR.",
@@ -293,25 +297,25 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
       'We may update this Privacy Policy from time to time. We will notify you of any changes by updating the "Last updated" date in this policy. Continued use of the app after changes constitutes your acceptance of the new policy.',
     privacyPolicyContact: "Contact Us",
     privacyPolicyContactBody:
-      "If you have any questions about this Privacy Policy, please contact us at: anifoodie.app@gmail.com",
+      "If you have any questions about this Privacy Policy, please contact us at: szymonrus@proton.me",
     termsOfServiceTitle: "Terms of Service",
     termsOfServiceIntro:
-      "By downloading or using AniFoodie, you agree to be bound by these Terms of Service. Please read them carefully.",
+      "By downloading or using PetPlate, you agree to be bound by these Terms of Service. Please read them carefully.",
     termsOfServiceUse: "Acceptable Use",
     termsOfServiceUseBody:
-      "AniFoodie is provided for personal, non-commercial use only. You may not copy, modify, distribute, sell, or lease any part of the app or its content.",
+      "PetPlate is provided for personal, non-commercial use only. You may not copy, modify, distribute, sell, or lease any part of the app or its content.",
     termsOfServiceDisclaimer: "Medical Disclaimer",
     termsOfServiceDisclaimerBody:
-      "The food safety information in AniFoodie is for general informational purposes only and does not constitute veterinary advice. Always consult a qualified veterinarian before making dietary changes for your pet. We are not liable for any harm resulting from reliance on the app's content.",
+      "The food safety information in PetPlate is for general informational purposes only and does not constitute veterinary advice. Always consult a qualified veterinarian before making dietary changes for your pet. We are not liable for any harm resulting from reliance on the app's content.",
     termsOfServiceLiability: "Limitation of Liability",
     termsOfServiceLiabilityBody:
-      "To the fullest extent permitted by law, AniFoodie and its developers shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the app.",
+      "To the fullest extent permitted by law, PetPlate and its developers shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the app.",
     termsOfServiceChanges: "Changes to Terms",
     termsOfServiceChangesBody:
       "We reserve the right to modify these Terms at any time. Your continued use of the app after changes are posted constitutes your acceptance of the revised Terms.",
     termsOfServiceContact: "Contact",
     termsOfServiceContactBody:
-      "For any questions regarding these Terms, contact us at: anifoodie.app@gmail.com",
+      "For any questions regarding these Terms, contact us at: szymonrus@proton.me",
   },
   es: {
     animals: "Animales",
@@ -365,7 +369,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     cancelAnytime:
       "• Cancela en cualquier momento desde la configuración de tu dispositivo",
     paymentCharged: "• El pago se carga a tu cuenta de App Store",
-    welcomeTitle: "Bienvenido a AniFoodie",
+    paymentChargedGooglePlay: "• El pago se carga a tu cuenta de Google Play",
+    adPrivacySettings: "Configuración de privacidad de anuncios",
+    welcomeTitle: "Bienvenido a PetPlate",
     welcomeDescription: "Descubre qué alimentos son seguros para tus mascotas",
     howItWorks: "Cómo funciona",
     welcomeExplanation:
@@ -437,10 +443,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     lastUpdated: "Última actualización: 22 de febrero de 2026",
     privacyPolicyTitle: "Política de Privacidad",
     privacyPolicyIntro:
-      'AniFoodie ("nosotros") se compromete a proteger su privacidad. Esta Política de Privacidad explica cómo manejamos la información cuando utiliza nuestra aplicación móvil.',
+      'PetPlate ("nosotros") se compromete a proteger su privacidad. Esta Política de Privacidad explica cómo manejamos la información cuando utiliza nuestra aplicación móvil.',
     privacyPolicyDataCollection: "Información que recopilamos",
     privacyPolicyDataCollectionBody:
-      "AniFoodie no recopila, almacena ni transmite información de identificación personal. Todos sus datos (favoritos, preferencias de idioma) se almacenan localmente en su dispositivo y nunca se envían a nuestros servidores.",
+      "PetPlate no recopila, almacena ni transmite información de identificación personal. Todos sus datos (favoritos, preferencias de idioma) se almacenan localmente en su dispositivo y nunca se envían a nuestros servidores.",
     privacyPolicyAds: "Publicidad",
     privacyPolicyAdsBody:
       "Utilizamos Google AdMob para mostrar anuncios. AdMob puede recopilar cierta información del dispositivo y usar cookies para servir anuncios personalizados. Puede revisar la Política de Privacidad de Google en https://policies.google.com/privacy.",
@@ -452,25 +458,25 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
       'Podemos actualizar esta Política de Privacidad de vez en cuando. Le notificaremos de cualquier cambio actualizando la fecha de "Última actualización" en esta política.',
     privacyPolicyContact: "Contáctenos",
     privacyPolicyContactBody:
-      "Si tiene alguna pregunta sobre esta Política de Privacidad, contáctenos en: anifoodie.app@gmail.com",
+      "Si tiene alguna pregunta sobre esta Política de Privacidad, contáctenos en: szymonrus@proton.me",
     termsOfServiceTitle: "Términos de Servicio",
     termsOfServiceIntro:
-      "Al descargar o utilizar AniFoodie, acepta estar sujeto a estos Términos de Servicio. Por favor, léalos cuidadosamente.",
+      "Al descargar o utilizar PetPlate, acepta estar sujeto a estos Términos de Servicio. Por favor, léalos cuidadosamente.",
     termsOfServiceUse: "Uso aceptable",
     termsOfServiceUseBody:
-      "AniFoodie se proporciona únicamente para uso personal y no comercial. No puede copiar, modificar, distribuir, vender o arrendar ninguna parte de la aplicación.",
+      "PetPlate se proporciona únicamente para uso personal y no comercial. No puede copiar, modificar, distribuir, vender o arrendar ninguna parte de la aplicación.",
     termsOfServiceDisclaimer: "Aviso médico",
     termsOfServiceDisclaimerBody:
-      "La información sobre seguridad alimentaria en AniFoodie es solo para fines informativos y no constituye asesoramiento veterinario. Siempre consulte a un veterinario calificado antes de realizar cambios en la dieta de su mascota.",
+      "La información sobre seguridad alimentaria en PetPlate es solo para fines informativos y no constituye asesoramiento veterinario. Siempre consulte a un veterinario calificado antes de realizar cambios en la dieta de su mascota.",
     termsOfServiceLiability: "Limitación de responsabilidad",
     termsOfServiceLiabilityBody:
-      "En la medida máxima permitida por la ley, AniFoodie y sus desarrolladores no serán responsables de ningún daño indirecto, incidental o consecuente derivado del uso de la aplicación.",
+      "En la medida máxima permitida por la ley, PetPlate y sus desarrolladores no serán responsables de ningún daño indirecto, incidental o consecuente derivado del uso de la aplicación.",
     termsOfServiceChanges: "Cambios en los términos",
     termsOfServiceChangesBody:
       "Nos reservamos el derecho de modificar estos Términos en cualquier momento. El uso continuado de la aplicación después de los cambios constituye su aceptación.",
     termsOfServiceContact: "Contacto",
     termsOfServiceContactBody:
-      "Para cualquier pregunta sobre estos Términos, contáctenos en: anifoodie.app@gmail.com",
+      "Para cualquier pregunta sobre estos Términos, contáctenos en: szymonrus@proton.me",
   },
   fr: {
     animals: "Animaux",
@@ -526,7 +532,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     cancelAnytime:
       "• Annulez à tout moment depuis les paramètres de votre appareil",
     paymentCharged: "• Paiement débité sur votre compte App Store",
-    welcomeTitle: "Bienvenue sur AniFoodie",
+    paymentChargedGooglePlay: "• Paiement débité sur votre compte Google Play",
+    adPrivacySettings: "Paramètres de confidentialité des publicités",
+    welcomeTitle: "Bienvenue sur PetPlate",
     welcomeDescription: "Découvrez quels aliments sont sûrs pour vos animaux",
     howItWorks: "Comment ça marche",
     welcomeExplanation:
@@ -598,10 +606,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     lastUpdated: "Dernière mise à jour : 22 février 2026",
     privacyPolicyTitle: "Politique de Confidentialité",
     privacyPolicyIntro:
-      'AniFoodie ("nous") s\'engage à protéger votre vie privée. Cette Politique de Confidentialité explique comment nous traitons les informations lorsque vous utilisez notre application mobile.',
+      'PetPlate ("nous") s\'engage à protéger votre vie privée. Cette Politique de Confidentialité explique comment nous traitons les informations lorsque vous utilisez notre application mobile.',
     privacyPolicyDataCollection: "Informations que nous collectons",
     privacyPolicyDataCollectionBody:
-      "AniFoodie ne collecte, ne stocke ni ne transmet aucune information personnelle identifiable. Toutes vos données (favoris, préférences de langue) sont stockées localement sur votre appareil et ne sont jamais envoyées à nos serveurs.",
+      "PetPlate ne collecte, ne stocke ni ne transmet aucune information personnelle identifiable. Toutes vos données (favoris, préférences de langue) sont stockées localement sur votre appareil et ne sont jamais envoyées à nos serveurs.",
     privacyPolicyAds: "Publicité",
     privacyPolicyAdsBody:
       "Nous utilisons Google AdMob pour afficher des publicités. AdMob peut collecter certaines informations sur l'appareil et utiliser des cookies pour diffuser des annonces personnalisées. Vous pouvez consulter la Politique de Confidentialité de Google sur https://policies.google.com/privacy.",
@@ -613,25 +621,25 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
       'Nous pouvons mettre à jour cette Politique de Confidentialité de temps en temps. Nous vous informerons de tout changement en mettant à jour la date de "Dernière mise à jour" dans cette politique.',
     privacyPolicyContact: "Nous contacter",
     privacyPolicyContactBody:
-      "Si vous avez des questions sur cette Politique de Confidentialité, contactez-nous à : anifoodie.app@gmail.com",
+      "Si vous avez des questions sur cette Politique de Confidentialité, contactez-nous à : szymonrus@proton.me",
     termsOfServiceTitle: "Conditions d'Utilisation",
     termsOfServiceIntro:
-      "En téléchargeant ou en utilisant AniFoodie, vous acceptez d'être lié par ces Conditions d'Utilisation. Veuillez les lire attentivement.",
+      "En téléchargeant ou en utilisant PetPlate, vous acceptez d'être lié par ces Conditions d'Utilisation. Veuillez les lire attentivement.",
     termsOfServiceUse: "Utilisation acceptable",
     termsOfServiceUseBody:
-      "AniFoodie est fourni uniquement à des fins personnelles et non commerciales. Vous ne pouvez pas copier, modifier, distribuer, vendre ou louer une partie de l'application.",
+      "PetPlate est fourni uniquement à des fins personnelles et non commerciales. Vous ne pouvez pas copier, modifier, distribuer, vendre ou louer une partie de l'application.",
     termsOfServiceDisclaimer: "Avertissement médical",
     termsOfServiceDisclaimerBody:
-      "Les informations sur la sécurité alimentaire dans AniFoodie sont uniquement à titre informatif et ne constituent pas un conseil vétérinaire. Consultez toujours un vétérinaire qualifié avant de modifier le régime alimentaire de votre animal.",
+      "Les informations sur la sécurité alimentaire dans PetPlate sont uniquement à titre informatif et ne constituent pas un conseil vétérinaire. Consultez toujours un vétérinaire qualifié avant de modifier le régime alimentaire de votre animal.",
     termsOfServiceLiability: "Limitation de responsabilité",
     termsOfServiceLiabilityBody:
-      "Dans toute la mesure permise par la loi, AniFoodie et ses développeurs ne seront pas responsables des dommages indirects, accessoires ou consécutifs résultant de l'utilisation de l'application.",
+      "Dans toute la mesure permise par la loi, PetPlate et ses développeurs ne seront pas responsables des dommages indirects, accessoires ou consécutifs résultant de l'utilisation de l'application.",
     termsOfServiceChanges: "Modifications des conditions",
     termsOfServiceChangesBody:
       "Nous nous réservons le droit de modifier ces Conditions à tout moment. Votre utilisation continue de l'application après les modifications constitue votre acceptation.",
     termsOfServiceContact: "Contact",
     termsOfServiceContactBody:
-      "Pour toute question concernant ces Conditions, contactez-nous à : anifoodie.app@gmail.com",
+      "Pour toute question concernant ces Conditions, contactez-nous à : szymonrus@proton.me",
   },
   de: {
     animals: "Tiere",
@@ -686,7 +694,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
       "• Abonnement verlängert sich automatisch, sofern nicht gekündigt",
     cancelAnytime: "• Jederzeit in den Geräteeinstellungen kündbar",
     paymentCharged: "• Zahlung wird Ihrem App Store-Konto belastet",
-    welcomeTitle: "Willkommen bei AniFoodie",
+    paymentChargedGooglePlay: "• Zahlung wird Ihrem Google Play-Konto belastet",
+    adPrivacySettings: "Datenschutzeinstellungen für Werbung",
+    welcomeTitle: "Willkommen bei PetPlate",
     welcomeDescription:
       "Entdecken Sie, welche Lebensmittel für Ihre Haustiere sicher sind",
     howItWorks: "Wie es funktioniert",
@@ -759,10 +769,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     lastUpdated: "Zuletzt aktualisiert: 22. Februar 2026",
     privacyPolicyTitle: "Datenschutzrichtlinie",
     privacyPolicyIntro:
-      'AniFoodie ("wir") verpflichtet sich, Ihre Privatsphäre zu schützen. Diese Datenschutzrichtlinie erklärt, wie wir Informationen verarbeiten, wenn Sie unsere mobile App nutzen.',
+      'PetPlate ("wir") verpflichtet sich, Ihre Privatsphäre zu schützen. Diese Datenschutzrichtlinie erklärt, wie wir Informationen verarbeiten, wenn Sie unsere mobile App nutzen.',
     privacyPolicyDataCollection: "Von uns erhobene Informationen",
     privacyPolicyDataCollectionBody:
-      "AniFoodie erfasst, speichert oder überträgt keine personenbezogenen Daten. Alle Ihre Daten (Favoriten, Spracheinstellungen) werden nur lokal auf Ihrem Gerät gespeichert und niemals an unsere Server übertragen.",
+      "PetPlate erfasst, speichert oder überträgt keine personenbezogenen Daten. Alle Ihre Daten (Favoriten, Spracheinstellungen) werden nur lokal auf Ihrem Gerät gespeichert und niemals an unsere Server übertragen.",
     privacyPolicyAds: "Werbung",
     privacyPolicyAdsBody:
       "Wir verwenden Google AdMob zur Anzeige von Werbung. AdMob kann bestimmte Geräteinformationen erfassen und Cookies verwenden, um personalisierte Anzeigen zu schalten. Die Datenschutzrichtlinie von Google finden Sie unter https://policies.google.com/privacy.",
@@ -774,25 +784,25 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
       'Wir können diese Datenschutzrichtlinie von Zeit zu Zeit aktualisieren. Wir informieren Sie über Änderungen, indem wir das Datum "Zuletzt aktualisiert" in dieser Richtlinie aktualisieren.',
     privacyPolicyContact: "Kontakt",
     privacyPolicyContactBody:
-      "Bei Fragen zu dieser Datenschutzrichtlinie kontaktieren Sie uns unter: anifoodie.app@gmail.com",
+      "Bei Fragen zu dieser Datenschutzrichtlinie kontaktieren Sie uns unter: szymonrus@proton.me",
     termsOfServiceTitle: "Nutzungsbedingungen",
     termsOfServiceIntro:
-      "Mit dem Herunterladen oder der Nutzung von AniFoodie erklären Sie sich mit diesen Nutzungsbedingungen einverstanden. Bitte lesen Sie sie sorgfältig durch.",
+      "Mit dem Herunterladen oder der Nutzung von PetPlate erklären Sie sich mit diesen Nutzungsbedingungen einverstanden. Bitte lesen Sie sie sorgfältig durch.",
     termsOfServiceUse: "Zulässige Nutzung",
     termsOfServiceUseBody:
-      "AniFoodie wird ausschließlich für den persönlichen, nicht-kommerziellen Gebrauch bereitgestellt. Sie dürfen keine Teile der App kopieren, modifizieren, verteilen, verkaufen oder vermieten.",
+      "PetPlate wird ausschließlich für den persönlichen, nicht-kommerziellen Gebrauch bereitgestellt. Sie dürfen keine Teile der App kopieren, modifizieren, verteilen, verkaufen oder vermieten.",
     termsOfServiceDisclaimer: "Medizinischer Haftungsausschluss",
     termsOfServiceDisclaimerBody:
-      "Die Informationen zur Lebensmittelsicherheit in AniFoodie dienen nur zu allgemeinen Informationszwecken und stellen keine tierärztliche Beratung dar. Konsultieren Sie immer einen qualifizierten Tierarzt, bevor Sie die Ernährung Ihres Haustieres ändern.",
+      "Die Informationen zur Lebensmittelsicherheit in PetPlate dienen nur zu allgemeinen Informationszwecken und stellen keine tierärztliche Beratung dar. Konsultieren Sie immer einen qualifizierten Tierarzt, bevor Sie die Ernährung Ihres Haustieres ändern.",
     termsOfServiceLiability: "Haftungsbeschränkung",
     termsOfServiceLiabilityBody:
-      "Im größtmöglichen gesetzlich zulässigen Umfang haftet AniFoodie und seine Entwickler nicht für indirekte, zufällige oder Folgeschäden, die aus der Nutzung der App entstehen.",
+      "Im größtmöglichen gesetzlich zulässigen Umfang haftet PetPlate und seine Entwickler nicht für indirekte, zufällige oder Folgeschäden, die aus der Nutzung der App entstehen.",
     termsOfServiceChanges: "Änderungen der Bedingungen",
     termsOfServiceChangesBody:
       "Wir behalten uns das Recht vor, diese Bedingungen jederzeit zu ändern. Ihre fortgesetzte Nutzung der App nach Änderungen gilt als Ihre Zustimmung.",
     termsOfServiceContact: "Kontakt",
     termsOfServiceContactBody:
-      "Bei Fragen zu diesen Bedingungen kontaktieren Sie uns unter: anifoodie.app@gmail.com",
+      "Bei Fragen zu diesen Bedingungen kontaktieren Sie uns unter: szymonrus@proton.me",
   },
   it: {
     animals: "Animali",
@@ -848,7 +858,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     cancelAnytime:
       "• Annulla in qualsiasi momento dalle impostazioni del dispositivo",
     paymentCharged: "• Pagamento addebitato sul tuo account App Store",
-    welcomeTitle: "Benvenuto in AniFoodie",
+    paymentChargedGooglePlay: "• Pagamento addebitato sul tuo account Google Play",
+    adPrivacySettings: "Impostazioni privacy annunci",
+    welcomeTitle: "Benvenuto in PetPlate",
     welcomeDescription:
       "Scopri quali cibi sono sicuri per i tuoi animali domestici",
     howItWorks: "Come funziona",
@@ -921,10 +933,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     lastUpdated: "Ultimo aggiornamento: 22 febbraio 2026",
     privacyPolicyTitle: "Informativa sulla Privacy",
     privacyPolicyIntro:
-      'AniFoodie ("noi") si impegna a proteggere la tua privacy. Questa Informativa sulla Privacy spiega come gestiamo le informazioni quando utilizzi la nostra applicazione mobile.',
+      'PetPlate ("noi") si impegna a proteggere la tua privacy. Questa Informativa sulla Privacy spiega come gestiamo le informazioni quando utilizzi la nostra applicazione mobile.',
     privacyPolicyDataCollection: "Informazioni che raccogliamo",
     privacyPolicyDataCollectionBody:
-      "AniFoodie non raccoglie, archivia né trasmette informazioni personali identificabili. Tutti i tuoi dati (preferiti, preferenze di lingua) sono memorizzati localmente sul tuo dispositivo e non vengono mai inviati ai nostri server.",
+      "PetPlate non raccoglie, archivia né trasmette informazioni personali identificabili. Tutti i tuoi dati (preferiti, preferenze di lingua) sono memorizzati localmente sul tuo dispositivo e non vengono mai inviati ai nostri server.",
     privacyPolicyAds: "Pubblicità",
     privacyPolicyAdsBody:
       "Utilizziamo Google AdMob per mostrare pubblicità. AdMob può raccogliere informazioni sul dispositivo e utilizzare cookie per mostrare annunci personalizzati. Puoi consultare la Privacy Policy di Google su https://policies.google.com/privacy.",
@@ -936,25 +948,25 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
       'Potremmo aggiornare questa Informativa sulla Privacy di tanto in tanto. Ti informeremo di eventuali modifiche aggiornando la data "Ultimo aggiornamento" in questa informativa.',
     privacyPolicyContact: "Contattaci",
     privacyPolicyContactBody:
-      "Per domande su questa Informativa sulla Privacy, contattaci a: anifoodie.app@gmail.com",
+      "Per domande su questa Informativa sulla Privacy, contattaci a: szymonrus@proton.me",
     termsOfServiceTitle: "Termini di Servizio",
     termsOfServiceIntro:
-      "Scaricando o utilizzando AniFoodie, accetti di essere vincolato da questi Termini di Servizio. Leggili attentamente.",
+      "Scaricando o utilizzando PetPlate, accetti di essere vincolato da questi Termini di Servizio. Leggili attentamente.",
     termsOfServiceUse: "Uso accettabile",
     termsOfServiceUseBody:
-      "AniFoodie è fornito esclusivamente per uso personale e non commerciale. Non puoi copiare, modificare, distribuire, vendere o concedere in licenza alcuna parte dell'app.",
+      "PetPlate è fornito esclusivamente per uso personale e non commerciale. Non puoi copiare, modificare, distribuire, vendere o concedere in licenza alcuna parte dell'app.",
     termsOfServiceDisclaimer: "Avviso medico",
     termsOfServiceDisclaimerBody:
-      "Le informazioni sulla sicurezza alimentare in AniFoodie sono solo a scopo informativo e non costituiscono un consiglio veterinario. Consulta sempre un veterinario qualificato prima di modificare la dieta del tuo animale.",
+      "Le informazioni sulla sicurezza alimentare in PetPlate sono solo a scopo informativo e non costituiscono un consiglio veterinario. Consulta sempre un veterinario qualificato prima di modificare la dieta del tuo animale.",
     termsOfServiceLiability: "Limitazione di responsabilità",
     termsOfServiceLiabilityBody:
-      "Nella misura massima consentita dalla legge, AniFoodie e i suoi sviluppatori non saranno responsabili per danni indiretti, incidentali o consequenziali derivanti dall'uso dell'app.",
+      "Nella misura massima consentita dalla legge, PetPlate e i suoi sviluppatori non saranno responsabili per danni indiretti, incidentali o consequenziali derivanti dall'uso dell'app.",
     termsOfServiceChanges: "Modifiche ai termini",
     termsOfServiceChangesBody:
       "Ci riserviamo il diritto di modificare questi Termini in qualsiasi momento. L'uso continuato dell'app dopo le modifiche costituisce la tua accettazione.",
     termsOfServiceContact: "Contatto",
     termsOfServiceContactBody:
-      "Per domande su questi Termini, contattaci a: anifoodie.app@gmail.com",
+      "Per domande su questi Termini, contattaci a: szymonrus@proton.me",
   },
   ru: {
     animals: "Животные",
@@ -1008,7 +1020,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
       "• Подписка автоматически продлевается, если не отменена",
     cancelAnytime: "• Отмените в любое время в настройках устройства",
     paymentCharged: "• Платёж списывается с вашей учётной записи App Store",
-    welcomeTitle: "Добро пожаловать в AniFoodie",
+    paymentChargedGooglePlay: "• Платёж списывается с вашей учётной записи Google Play",
+    adPrivacySettings: "Настройки конфиденциальности рекламы",
+    welcomeTitle: "Добро пожаловать в PetPlate",
     welcomeDescription: "Узнайте, какие продукты безопасны для ваших питомцев",
     howItWorks: "Как это работает",
     welcomeExplanation:
@@ -1080,10 +1094,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     lastUpdated: "Последнее обновление: 22 февраля 2026 г.",
     privacyPolicyTitle: "Политика конфиденциальности",
     privacyPolicyIntro:
-      "AniFoodie («мы») стремится защищать вашу конфиденциальность. Эта Политика конфиденциальности объясняет, как мы обрабатываем информацию при использовании нашего мобильного приложения.",
+      "PetPlate («мы») стремится защищать вашу конфиденциальность. Эта Политика конфиденциальности объясняет, как мы обрабатываем информацию при использовании нашего мобильного приложения.",
     privacyPolicyDataCollection: "Информация, которую мы собираем",
     privacyPolicyDataCollectionBody:
-      "AniFoodie не собирает, не хранит и не передаёт персональные данные. Все ваши данные (избранное, языковые настройки) хранятся только локально на вашем устройстве и никогда не отправляются на наши серверы.",
+      "PetPlate не собирает, не хранит и не передаёт персональные данные. Все ваши данные (избранное, языковые настройки) хранятся только локально на вашем устройстве и никогда не отправляются на наши серверы.",
     privacyPolicyAds: "Реклама",
     privacyPolicyAdsBody:
       "Мы используем Google AdMob для показа рекламы. AdMob может собирать определённые сведения об устройстве и использовать файлы cookie для показа персонализированной рекламы. Ознакомьтесь с Политикой конфиденциальности Google на https://policies.google.com/privacy.",
@@ -1095,25 +1109,25 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
       "Мы можем периодически обновлять эту Политику конфиденциальности. Об изменениях мы сообщим, обновив дату «Последнее обновление» в этой политике.",
     privacyPolicyContact: "Свяжитесь с нами",
     privacyPolicyContactBody:
-      "По вопросам об этой Политике конфиденциальности свяжитесь с нами: anifoodie.app@gmail.com",
+      "По вопросам об этой Политике конфиденциальности свяжитесь с нами: szymonrus@proton.me",
     termsOfServiceTitle: "Условия использования",
     termsOfServiceIntro:
-      "Загружая или используя AniFoodie, вы соглашаетесь соблюдать настоящие Условия использования. Пожалуйста, прочитайте их внимательно.",
+      "Загружая или используя PetPlate, вы соглашаетесь соблюдать настоящие Условия использования. Пожалуйста, прочитайте их внимательно.",
     termsOfServiceUse: "Допустимое использование",
     termsOfServiceUseBody:
-      "AniFoodie предоставляется исключительно для личного некоммерческого использования. Вы не можете копировать, изменять, распространять, продавать или сдавать в аренду какую-либо часть приложения.",
+      "PetPlate предоставляется исключительно для личного некоммерческого использования. Вы не можете копировать, изменять, распространять, продавать или сдавать в аренду какую-либо часть приложения.",
     termsOfServiceDisclaimer: "Медицинская оговорка",
     termsOfServiceDisclaimerBody:
-      "Информация о безопасности продуктов питания в AniFoodie предназначена только для общих информационных целей и не является ветеринарным советом. Всегда консультируйтесь с квалифицированным ветеринаром перед изменением рациона питомца.",
+      "Информация о безопасности продуктов питания в PetPlate предназначена только для общих информационных целей и не является ветеринарным советом. Всегда консультируйтесь с квалифицированным ветеринаром перед изменением рациона питомца.",
     termsOfServiceLiability: "Ограничение ответственности",
     termsOfServiceLiabilityBody:
-      "В максимально допустимой законом мере AniFoodie и её разработчики не несут ответственности за косвенный, случайный или последующий ущерб, возникший в результате использования приложения.",
+      "В максимально допустимой законом мере PetPlate и её разработчики не несут ответственности за косвенный, случайный или последующий ущерб, возникший в результате использования приложения.",
     termsOfServiceChanges: "Изменения условий",
     termsOfServiceChangesBody:
       "Мы оставляем за собой право изменять настоящие Условия в любое время. Продолжение использования приложения после изменений означает ваше согласие с ними.",
     termsOfServiceContact: "Контакт",
     termsOfServiceContactBody:
-      "По вопросам об этих Условиях свяжитесь с нами: anifoodie.app@gmail.com",
+      "По вопросам об этих Условиях свяжитесь с нами: szymonrus@proton.me",
   },
   pl: {
     animals: "Zwierzęta",
@@ -1165,7 +1179,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
       "• Subskrypcja odnawia się automatycznie, chyba że zostanie anulowana",
     cancelAnytime: "• Anuluj w dowolnym momencie w ustawieniach urządzenia",
     paymentCharged: "• Płatność pobierana z konta App Store",
-    welcomeTitle: "Witaj w AniFoodie",
+    paymentChargedGooglePlay: "• Płatność pobierana z konta Google Play",
+    adPrivacySettings: "Ustawienia prywatności reklam",
+    welcomeTitle: "Witaj w PetPlate",
     welcomeDescription:
       "Odkryj, które produkty są bezpieczne dla Twoich zwierząt",
     howItWorks: "Jak to działa",
@@ -1238,10 +1254,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     lastUpdated: "Ostatnia aktualizacja: 22 lutego 2026",
     privacyPolicyTitle: "Polityka Prywatności",
     privacyPolicyIntro:
-      'AniFoodie ("my") zobowiązuje się do ochrony Twojej prywatności. Niniejsza Polityka Prywatności wyjaśnia, w jaki sposób przetwarzamy informacje podczas korzystania z naszej aplikacji mobilnej.',
+      'PetPlate ("my") zobowiązuje się do ochrony Twojej prywatności. Niniejsza Polityka Prywatności wyjaśnia, w jaki sposób przetwarzamy informacje podczas korzystania z naszej aplikacji mobilnej.',
     privacyPolicyDataCollection: "Zbierane informacje",
     privacyPolicyDataCollectionBody:
-      "AniFoodie nie zbiera, nie przechowuje ani nie przesyła żadnych danych osobowych. Wszystkie Twoje dane (ulubione, preferencje językowe) są przechowywane wyłącznie lokalnie na Twoim urządzeniu i nigdy nie są wysyłane na nasze serwery.",
+      "PetPlate nie zbiera, nie przechowuje ani nie przesyła żadnych danych osobowych. Wszystkie Twoje dane (ulubione, preferencje językowe) są przechowywane wyłącznie lokalnie na Twoim urządzeniu i nigdy nie są wysyłane na nasze serwery.",
     privacyPolicyAds: "Reklamy",
     privacyPolicyAdsBody:
       "Używamy Google AdMob do wyświetlania reklam. AdMob może zbierać pewne informacje o urządzeniu i używać plików cookie do wyświetlania spersonalizowanych reklam. Politykę Prywatności Google możesz przejrzeć na https://policies.google.com/privacy.",
@@ -1253,25 +1269,25 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
       'Możemy od czasu do czasu aktualizować niniejszą Politykę Prywatności. Poinformujemy Cię o wszelkich zmianach, aktualizując datę "Ostatniej aktualizacji" w tej polityce.',
     privacyPolicyContact: "Skontaktuj się z nami",
     privacyPolicyContactBody:
-      "W przypadku pytań dotyczących niniejszej Polityki Prywatności, skontaktuj się z nami: anifoodie.app@gmail.com",
+      "W przypadku pytań dotyczących niniejszej Polityki Prywatności, skontaktuj się z nami: szymonrus@proton.me",
     termsOfServiceTitle: "Warunki Korzystania",
     termsOfServiceIntro:
-      "Pobierając lub używając AniFoodie, zgadzasz się na przestrzeganie niniejszych Warunków Korzystania. Przeczytaj je uważnie.",
+      "Pobierając lub używając PetPlate, zgadzasz się na przestrzeganie niniejszych Warunków Korzystania. Przeczytaj je uważnie.",
     termsOfServiceUse: "Dopuszczalne użytkowanie",
     termsOfServiceUseBody:
-      "AniFoodie jest udostępniany wyłącznie do osobistego, niekomercyjnego użytku. Nie wolno kopiować, modyfikować, dystrybuować, sprzedawać ani wynajmować żadnej części aplikacji.",
+      "PetPlate jest udostępniany wyłącznie do osobistego, niekomercyjnego użytku. Nie wolno kopiować, modyfikować, dystrybuować, sprzedawać ani wynajmować żadnej części aplikacji.",
     termsOfServiceDisclaimer: "Zastrzeżenie medyczne",
     termsOfServiceDisclaimerBody:
-      "Informacje o bezpieczeństwie żywności w AniFoodie służą wyłącznie ogólnym celom informacyjnym i nie stanowią porady weterynaryjnej. Zawsze konsultuj się z wykwalifikowanym weterynarzem przed zmianą diety swojego zwierzęcia.",
+      "Informacje o bezpieczeństwie żywności w PetPlate służą wyłącznie ogólnym celom informacyjnym i nie stanowią porady weterynaryjnej. Zawsze konsultuj się z wykwalifikowanym weterynarzem przed zmianą diety swojego zwierzęcia.",
     termsOfServiceLiability: "Ograniczenie odpowiedzialności",
     termsOfServiceLiabilityBody:
-      "W maksymalnym zakresie dozwolonym przez prawo, AniFoodie i jej twórcy nie ponoszą odpowiedzialności za pośrednie, przypadkowe ani wynikowe szkody wynikające z korzystania z aplikacji.",
+      "W maksymalnym zakresie dozwolonym przez prawo, PetPlate i jej twórcy nie ponoszą odpowiedzialności za pośrednie, przypadkowe ani wynikowe szkody wynikające z korzystania z aplikacji.",
     termsOfServiceChanges: "Zmiany warunków",
     termsOfServiceChangesBody:
       "Zastrzegamy sobie prawo do modyfikowania niniejszych Warunków w dowolnym momencie. Dalsze korzystanie z aplikacji po zmianach oznacza Twoją akceptację.",
     termsOfServiceContact: "Kontakt",
     termsOfServiceContactBody:
-      "W przypadku pytań dotyczących niniejszych Warunków, skontaktuj się z nami: anifoodie.app@gmail.com",
+      "W przypadku pytań dotyczących niniejszych Warunków, skontaktuj się z nami: szymonrus@proton.me",
   },
 };
 

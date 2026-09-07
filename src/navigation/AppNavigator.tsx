@@ -20,7 +20,6 @@ import { useOnboarding } from "../hooks/useOnboarding";
 import { useLanguage } from "../hooks/useLanguage";
 import { useTranslations } from "../i18n/index";
 import AdMobBanner from "../components/AdMobBanner";
-import { AdProvider } from "../context/AdContext";
 import { FavoritesProvider } from "../context/FavoritesContext";
 import { PurchaseProvider, usePurchases } from "../context/PurchaseContext";
 import { DevFeatures } from "../utils/devFeatures";
@@ -246,49 +245,47 @@ const AppNavigator = () => {
 
   return (
     <PurchaseProvider>
-      <AdProvider>
-        <FavoritesProvider>
-          <NavigationContainer>
-            <Stack.Navigator
-              initialRouteName={hasViewedWelcomeScreen ? "Main" : "Welcome"}
-            >
+      <FavoritesProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName={hasViewedWelcomeScreen ? "Main" : "Welcome"}
+          >
+            <Stack.Screen
+              name="Welcome"
+              component={WelcomeScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Main"
+              component={TabNavigator}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="PrivacyPolicy"
+              component={PrivacyPolicyScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Paywall"
+              component={PaywallScreen}
+              options={{
+                headerShown: false,
+                presentation: "modal",
+              }}
+            />
+            {DevFeatures.SHOW_DEV_MENU && (
               <Stack.Screen
-                name="Welcome"
-                component={WelcomeScreen}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Main"
-                component={TabNavigator}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="PrivacyPolicy"
-                component={PrivacyPolicyScreen}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Paywall"
-                component={PaywallScreen}
+                name="DeveloperMenu"
+                component={DeveloperMenu}
                 options={{
                   headerShown: false,
                   presentation: "modal",
                 }}
               />
-              {DevFeatures.SHOW_DEV_MENU && (
-                <Stack.Screen
-                  name="DeveloperMenu"
-                  component={DeveloperMenu}
-                  options={{
-                    headerShown: false,
-                    presentation: "modal",
-                  }}
-                />
-              )}
-            </Stack.Navigator>
-          </NavigationContainer>
-        </FavoritesProvider>
-      </AdProvider>
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FavoritesProvider>
     </PurchaseProvider>
   );
 };

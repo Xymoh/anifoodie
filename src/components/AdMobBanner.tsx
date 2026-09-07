@@ -3,7 +3,7 @@ import { View, StyleSheet, Dimensions, Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { colors, shadow, spacing, typography } from "../styles";
-import { getBannerAdUnitId } from "../utils/adMobConfig";
+import { getBannerAdUnitId, useAdsState } from "../utils/adMobConfig";
 
 // Storage key for test ads setting (same as DeveloperMenu)
 const TEST_ADS_KEY = "@anifoodie_use_test_ads";
@@ -35,6 +35,7 @@ const AdMobBanner: React.FC<AdMobBannerProps> = ({
 }) => {
   const screenWidth = Dimensions.get("window").width;
   const [useTestAds, setUseTestAds] = useState<boolean | null>(null);
+  const ads = useAdsState();
 
   useEffect(() => {
     loadTestAdsPreference();
@@ -44,25 +45,14 @@ const AdMobBanner: React.FC<AdMobBannerProps> = ({
     try {
       const value = await AsyncStorage.getItem(TEST_ADS_KEY);
       // If setting exists in storage, use it; otherwise use default from config
-      if (value !== null) {
-        setUseTestAds(value === "true");
-      } else {
-        setUseTestAds(null); // Will use default from AppConfig
-      }
+      setUseTestAds(value !== null ? value === "true" : null);
     } catch (error) {
       console.error("Failed to load test ads preference:", error);
-      setUseTestAds(null); // Will use default from AppConfig
+      setUseTestAds(null);
     }
   };
 
-  const getAdUnitId = () => {
-    if (adUnitId) return adUnitId;
-    // Pass the test ads preference to getBannerAdUnitId
-    // If null, it will use the default from .env
-    return getBannerAdUnitId(useTestAds ?? undefined);
-  };
-
-  // If AdMob is not available, show a placeholder
+  // Native module missing (e.g. Expo Go): show a placeholder so layout is visible.
   if (!BannerAd || !BannerAdSize) {
     return (
       <View
@@ -81,6 +71,34 @@ const AdMobBanner: React.FC<AdMobBannerProps> = ({
     );
   }
 
+  // Do not request ads before the SDK is ready or if consent does not allow it.
+  if (!ads.initialized || !ads.canRequestAds) {
+    return null;
+  }
+
+  const adUnitToUse = adUnitId || getBannerAdUnitId(useTestAds ?? undefined);
+
+  if (!adUnitToUse) {
+    return (
+      <View
+        style={[
+          styles.container,
+          { backgroundColor, height, width: screenWidth },
+        ]}
+      >
+        <View style={styles.placeholderContainer}>
+          <Text style={styles.placeholderText}>
+            AdMob unit is not configured.
+          </Text>
+          <Text style={styles.placeholderSubtext}>
+            Set EXPO_PUBLIC_ADMOB_ANDROID_BANNER_ID /
+            EXPO_PUBLIC_ADMOB_IOS_BANNER_ID in .env or enable test ads.
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <View
       style={[
@@ -89,11 +107,8 @@ const AdMobBanner: React.FC<AdMobBannerProps> = ({
       ]}
     >
       <BannerAd
-        unitId={getAdUnitId()}
+        unitId={adUnitToUse}
         size={size || BannerAdSize.BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: false,
-        }}
         onAdLoaded={() => {
           console.log("AdMob Banner loaded");
         }}

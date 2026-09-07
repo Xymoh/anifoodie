@@ -6,13 +6,28 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_ENABLE_DEV_FEATURES": "true",
+        "EXPO_PUBLIC_ENABLE_PREMIUM_OVERRIDE": "true",
+        "EXPO_PUBLIC_USE_TEST_ADS": "true"
+      }
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_ENABLE_DEV_FEATURES": "true",
+        "EXPO_PUBLIC_ENABLE_PREMIUM_OVERRIDE": "true",
+        "EXPO_PUBLIC_USE_TEST_ADS": "true"
+      }
     },
     "production": {
-      "autoIncrement": true
+      "autoIncrement": true,
+      "env": {
+        "EXPO_PUBLIC_ENABLE_DEV_FEATURES": "false",
+        "EXPO_PUBLIC_ENABLE_PREMIUM_OVERRIDE": "false",
+        "EXPO_PUBLIC_USE_TEST_ADS": "false"
+      }
     }
   },
   "submit": {

@@ -7,6 +7,7 @@ import {
   ScrollView,
   StatusBar,
   ActivityIndicator,
+  Platform,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
@@ -24,6 +25,12 @@ const PaywallScreen = () => {
   const { language } = useLanguage();
   const { t } = useTranslations(language);
 
+  // Auto-renew wording only applies when a subscription package is on offer.
+  const hasSubscriptionPackage =
+    offerings?.availablePackages.some(
+      (pkg) => pkg.product.subscriptionPeriod != null,
+    ) ?? false;
+
   const handlePurchase = async (packageToPurchase: PurchasesPackage) => {
     const success = await purchasePackage(packageToPurchase);
     if (success) {
@@ -32,20 +39,26 @@ const PaywallScreen = () => {
   };
 
   const handleRestore = async () => {
-    const success = await restorePurchases();
-    // Navigation will stay on screen regardless to let user see the alert
+    // Stay on this screen so the user sees the result alert.
+    await restorePurchases();
   };
 
   if (isLoading) {
     return (
-      <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
+      <SafeAreaView
+        style={styles.container}
+        edges={["top", "left", "right", "bottom"]}
+      >
         <ActivityIndicator size="large" color={colors.primary} />
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
+    <SafeAreaView
+      style={styles.container}
+      edges={["top", "left", "right", "bottom"]}
+    >
       <StatusBar barStyle="light-content" backgroundColor={colors.primary} />
 
       {/* Header */}
@@ -140,9 +153,21 @@ const PaywallScreen = () => {
 
         {/* Footer */}
         <View style={styles.footer}>
-          <Text style={styles.footerText}>{t("subscriptionAutoRenews")}</Text>
-          <Text style={styles.footerText}>{t("cancelAnytime")}</Text>
-          <Text style={styles.footerText}>{t("paymentCharged")}</Text>
+          {hasSubscriptionPackage && (
+            <>
+              <Text style={styles.footerText}>
+                {t("subscriptionAutoRenews")}
+              </Text>
+              <Text style={styles.footerText}>{t("cancelAnytime")}</Text>
+            </>
+          )}
+          <Text style={styles.footerText}>
+            {t(
+              Platform.OS === "android"
+                ? "paymentChargedGooglePlay"
+                : "paymentCharged",
+            )}
+          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>

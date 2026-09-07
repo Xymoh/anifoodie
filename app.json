@@ -30,7 +30,7 @@
       "edgeToEdgeEnabled": true,
       "package": "com.cymoh.petplate.app",
       "versionCode": 1,
-      "permissions": []
+      "permissions": ["com.google.android.gms.permission.AD_ID"]
     },
     "web": {
       "favicon": "./assets/favicon.png"

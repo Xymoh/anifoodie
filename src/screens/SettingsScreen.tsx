@@ -19,6 +19,7 @@ import { colors, spacing, typography } from "../styles";
 import TranslatedText from "../components/TranslatedText";
 import { usePurchases } from "../context/PurchaseContext";
 import { DevFeatures } from "../utils/devFeatures";
+import { showAdPrivacyOptions, useAdsState } from "../utils/adMobConfig";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -27,6 +28,7 @@ const SettingsScreen = () => {
   const { t } = useTranslations(language);
   const navigation = useNavigation<NavigationProp>();
   const { isSubscribed, isLoading, restorePurchases } = usePurchases();
+  const { privacyOptionsRequired } = useAdsState();
 
   // Get app version from Expo Constants
   const appVersion = Constants.expoConfig?.version || "1.0.0";
@@ -195,6 +197,19 @@ const SettingsScreen = () => {
             />
             <Text style={styles.legalButtonArrow}>›</Text>
           </TouchableOpacity>
+          {/* GDPR: EEA users must be able to revisit their ad consent choice */}
+          {privacyOptionsRequired && !isSubscribed && (
+            <TouchableOpacity
+              style={styles.legalButton}
+              onPress={showAdPrivacyOptions}
+            >
+              <TranslatedText
+                style={styles.legalButtonText}
+                translationKey="adPrivacySettings"
+              />
+              <Text style={styles.legalButtonArrow}>›</Text>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
             style={[styles.legalButton, styles.legalButtonLast]}
             onPress={handleTermsOfServicePress}

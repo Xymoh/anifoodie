@@ -48,14 +48,18 @@ const WelcomeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
-      {isFromSettings && (
-        <View style={styles.backButtonContainer}>
-          <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
-            <Text style={styles.backButtonText}>←</Text>
-          </TouchableOpacity>
-        </View>
-      )}
       <ScrollView contentContainerStyle={styles.scrollContent}>
+        {isFromSettings && (
+          <View style={styles.topBar}>
+            <TouchableOpacity
+              style={styles.backButton}
+              onPress={handleBackPress}
+            >
+              <Text style={styles.backButtonText}>←</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
         <View style={styles.header}>
           <TranslatedText style={styles.title} translationKey="welcomeTitle" />
           <TranslatedText
@@ -372,17 +376,23 @@ const styles = StyleSheet.create({
     lineHeight: typography.lineHeight.normal * typography.fontSize.medium,
     flex: 1,
   },
-  backButtonContainer: {
-    position: "absolute",
-    top: spacing.xl + spacing.lg,
-    left: spacing.md,
-    zIndex: 10,
+  topBar: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    paddingHorizontal: spacing.md,
+    paddingBottom: spacing.sm,
+    marginTop: spacing.sm,
   },
   backButton: {
     padding: spacing.sm,
+    borderRadius: spacing.radiusSmall,
+    borderWidth: 1,
+    borderColor: colors.gray300,
+    backgroundColor: colors.card,
   },
   backButtonText: {
-    fontSize: 24,
+    fontSize: typography.fontSize.large,
     color: colors.textPrimary,
   },
 });

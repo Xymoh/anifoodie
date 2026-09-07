@@ -10,19 +10,23 @@ import { Platform, Alert } from "react-native";
 import { PremiumOverride, DevFeatures } from "../utils/devFeatures";
 
 // RevenueCat API Keys - Platform-specific
-// TODO: Replace with your production keys from RevenueCat dashboard
+// Get these from RevenueCat Dashboard → Project Settings → API Keys → SDK API Keys
 const REVENUECAT_API_KEY =
   Platform.select({
-    // Android: Get from RevenueCat Dashboard → API Keys → "Public Google Play API Key"
-    android: "goog_YOUR_GOOGLE_PLAY_KEY_HERE",
+    // Android: SDK API key from RevenueCat Dashboard
+    // To obtain: Dashboard → Project Settings → API Keys → Android (in SDK API Keys section)
+    android:
+      process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_KEY || "goog_YOUR_ANDROID_KEY",
 
-    // iOS: Get from RevenueCat Dashboard → API Keys → "Public Apple App Store API Key"
-    // (Add later when ready for iOS deployment)
-    ios: "appl_YOUR_IOS_KEY_HERE",
-  }) || "test_QJUpHXTpVwJSzukmkOodsMgVdjQ"; // Fallback test key
+    // iOS: Add when ready for iOS deployment
+    // To obtain: Dashboard → Project Settings → API Keys → iOS (in SDK API Keys section)
+    ios: process.env.EXPO_PUBLIC_REVENUECAT_IOS_KEY || "appl_YOUR_IOS_KEY",
+  }) || "goog_YOUR_ANDROID_KEY";
 
-// Entitlement identifier - must match RevenueCat dashboard (same for both platforms)
-const ENTITLEMENT_ID = "PetPlate Pro";
+// Entitlement identifier - MUST match RevenueCat dashboard
+// Create this in: Dashboard → Project Settings → Entitlements → Add Entitlement
+// Use the same entitlement ID for both iOS and Android
+const ENTITLEMENT_ID = "pro"; // Use lowercase, matches RevenueCat dashboard
 
 interface PurchaseContextType {
   isSubscribed: boolean;
