@@ -4,6 +4,9 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { AnimalName, CompatibilityStatus } from "../types";
+import { getStatusNote } from "../data/data-utils";
+import { getStatusNoteTranslation } from "../i18n/food/food-translations";
+import { useLanguage } from "../hooks/useLanguage";
 import { RootStackParamList } from "../navigation/types";
 import { useFavorites } from "../context/FavoritesContext";
 import { colors, spacing, typography, shadow } from "../styles";
@@ -27,6 +30,8 @@ const AnimalCard = React.memo(({ animal, status }: AnimalCardProps) => {
   const navigation = useNavigation<NavigationProp>();
   const { isAnimalFavorite, toggleFavoriteAnimal } = useFavorites();
   const { translateAnimal } = useDynamicTranslations();
+  const { language } = useLanguage();
+  const note = getStatusNote(status);
 
   const handlePress = () => {
     navigation.navigate("AnimalDetail", { animalName: animal });
@@ -41,13 +46,20 @@ const AnimalCard = React.memo(({ animal, status }: AnimalCardProps) => {
       <View style={styles.topRow}>
         <View style={styles.nameContainer}>
           <AnimalIcon animal={animal} size={28} />
-          <Text
-            style={styles.animalName}
-            numberOfLines={2}
-            ellipsizeMode="tail"
-          >
-            {translateAnimal(animal)}
-          </Text>
+          <View style={styles.textContainer}>
+            <Text
+              style={styles.animalName}
+              numberOfLines={2}
+              ellipsizeMode="tail"
+            >
+              {translateAnimal(animal)}
+            </Text>
+            {note && (
+              <Text style={styles.note} numberOfLines={1}>
+                {getStatusNoteTranslation(note, language)}
+              </Text>
+            )}
+          </View>
         </View>
         <View style={styles.rightContainer}>
           <FavoriteButton
@@ -93,13 +105,20 @@ const styles = StyleSheet.create({
   spacer: {
     height: spacing.xs,
   },
+  textContainer: {
+    marginLeft: spacing.sm,
+    flex: 1,
+    minWidth: 0,
+  },
   animalName: {
     fontSize: typography.fontSize.large,
     fontWeight: typography.fontWeight.semiBold as "600",
     color: colors.textPrimary,
-    marginLeft: spacing.sm,
-    flex: 1,
-    minWidth: 0,
+  },
+  note: {
+    fontSize: typography.fontSize.medium,
+    color: colors.statusAcceptable,
+    marginTop: spacing.tiny,
   },
 });
 

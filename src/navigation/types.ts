@@ -8,7 +8,7 @@ export type RootStackParamList = {
   Welcome: { fromSettings?: boolean } | undefined;
   Main: undefined;
   AnimalDetail: { animalName: AnimalName };
-  FoodDetail: { foodName: string };
+  FoodDetail: { foodName: string; category?: string };
   PrivacyPolicy: { section?: "privacy" | "terms" };
   Paywall: undefined;
   DeveloperMenu: undefined;

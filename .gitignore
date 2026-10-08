@@ -47,3 +47,6 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# Generated food-data review output
+scripts/food-data/out/

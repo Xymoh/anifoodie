@@ -14,7 +14,9 @@ export type FoodType =
   | "Protein"
   | "Dairy"
   | "Meat"
-  | "Nut";
+  | "Nut"
+  | "Other"
+  | "Feeder";
 
 interface FoodTypeFilterProps {
   selectedType: FoodType;
@@ -42,6 +44,8 @@ const FoodTypeFilter = ({
         "Dairy",
         "Meat",
         "Nut",
+        "Other",
+        "Feeder",
       ].includes(type)
     ),
   ] as FoodType[];
@@ -55,6 +59,8 @@ const FoodTypeFilter = ({
     if (type === "Grain") return "grains";
     if (type === "Meat") return "meat";
     if (type === "Nut") return "nuts";
+    if (type === "Other") return "otherFoods";
+    if (type === "Feeder") return "feederFoods";
     return type.toLowerCase(); // Fallback
   };
 

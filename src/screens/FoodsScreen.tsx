@@ -167,8 +167,8 @@ const FoodsScreen = React.memo(() => {
   ]);
 
   const handleFoodPress = React.useCallback(
-    (foodName: string) => {
-      navigation.navigate("FoodDetail", { foodName });
+    (foodName: string, category?: string) => {
+      navigation.navigate("FoodDetail", { foodName, category });
     },
     [navigation]
   );
@@ -196,8 +196,8 @@ const FoodsScreen = React.memo(() => {
       }, [item, toggleFavoriteFood]);
 
       const handlePress = React.useCallback(() => {
-        handleFoodPress(item.item);
-      }, [item.item, handleFoodPress]);
+        handleFoodPress(item.item, item.category);
+      }, [item.item, item.category, handleFoodPress]);
 
       const isFavorite = isFoodFavorite(item);
       const translatedName = translateFood(getSimplifiedFoodName(item));

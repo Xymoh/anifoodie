@@ -204,6 +204,28 @@ export const foodTranslations: Record<Language, FoodTranslationDictionary> = {
     // Nut - Peanut
     'Peanuts (unsalted)': 'Peanuts (unsalted)',
     'Peanut Butter (unsweetened)': 'Peanut Butter (unsweetened)',
+
+    // Added foods
+    'Macadamia Nuts': 'Macadamia Nuts',
+    'Walnuts': 'Walnuts',
+    'Sunflower Seeds (unsalted)': 'Sunflower Seeds (unsalted)',
+    'Pumpkin Seeds (unsalted)': 'Pumpkin Seeds (unsalted)',
+    'Egg (cooked)': 'Egg (cooked)',
+    'Chocolate': 'Chocolate',
+    'Xylitol (sugar-free gum)': 'Xylitol (sugar-free gum)',
+    'Honey': 'Honey',
+    'Coffee': 'Coffee',
+    'Alcohol': 'Alcohol',
+    'Crickets': 'Crickets',
+    'Mealworms': 'Mealworms',
+    'Dubia Roaches': 'Dubia Roaches',
+    'Black Soldier Fly Larvae': 'Black Soldier Fly Larvae',
+    'Waxworms': 'Waxworms',
+    'Earthworms': 'Earthworms',
+    'Bloodworms': 'Bloodworms',
+    'Brine Shrimp': 'Brine Shrimp',
+    'Feeder Rodents (frozen-thawed)': 'Feeder Rodents (frozen-thawed)',
+    'Stomach Tripe': 'Stomach Tripe',
   },
   es: {
     // Vegetales - Verduras de hoja
@@ -406,6 +428,28 @@ export const foodTranslations: Record<Language, FoodTranslationDictionary> = {
     // Nut - Peanut
     'Peanuts (unsalted)': 'Cacahuetes (sin sal)',
     'Peanut Butter (unsweetened)': 'Mantequilla de cacahuete (sin azúcar)',
+
+    // Added foods
+    'Macadamia Nuts': 'Nueces de macadamia',
+    'Walnuts': 'Nueces',
+    'Sunflower Seeds (unsalted)': 'Semillas de girasol (sin sal)',
+    'Pumpkin Seeds (unsalted)': 'Semillas de calabaza (sin sal)',
+    'Egg (cooked)': 'Huevo (cocido)',
+    'Chocolate': 'Chocolate',
+    'Xylitol (sugar-free gum)': 'Xilitol (chicle sin azúcar)',
+    'Honey': 'Miel',
+    'Coffee': 'Café',
+    'Alcohol': 'Alcohol',
+    'Crickets': 'Grillos',
+    'Mealworms': 'Gusanos de la harina',
+    'Dubia Roaches': 'Cucarachas dubia',
+    'Black Soldier Fly Larvae': 'Larvas de mosca soldado negra',
+    'Waxworms': 'Gusanos de cera',
+    'Earthworms': 'Lombrices de tierra',
+    'Bloodworms': 'Larvas rojas de mosquito',
+    'Brine Shrimp': 'Artemia',
+    'Feeder Rodents (frozen-thawed)': 'Roedores de alimento (descongelados)',
+    'Stomach Tripe': 'Callos (tripa)',
   },
   fr: {
     // Légumes - Légumes à feuilles
@@ -608,6 +652,28 @@ export const foodTranslations: Record<Language, FoodTranslationDictionary> = {
     // Noix - Cacahuètes
     'Peanuts (unsalted)': 'Cacahuètes (non salées)',
     'Peanut Butter (unsweetened)': 'Beurre de cacahuète (non sucré)',
+
+    // Added foods
+    'Macadamia Nuts': 'Noix de macadamia',
+    'Walnuts': 'Noix',
+    'Sunflower Seeds (unsalted)': 'Graines de tournesol (non salées)',
+    'Pumpkin Seeds (unsalted)': 'Graines de courge (non salées)',
+    'Egg (cooked)': 'Œuf (cuit)',
+    'Chocolate': 'Chocolat',
+    'Xylitol (sugar-free gum)': 'Xylitol (chewing-gum sans sucre)',
+    'Honey': 'Miel',
+    'Coffee': 'Café',
+    'Alcohol': 'Alcool',
+    'Crickets': 'Grillons',
+    'Mealworms': 'Vers de farine',
+    'Dubia Roaches': 'Blattes dubia',
+    'Black Soldier Fly Larvae': 'Larves de mouche soldat noire',
+    'Waxworms': 'Larves de fausse teigne',
+    'Earthworms': 'Vers de terre',
+    'Bloodworms': 'Vers de vase',
+    'Brine Shrimp': 'Artémias',
+    'Feeder Rodents (frozen-thawed)': 'Rongeurs proies (décongelés)',
+    'Stomach Tripe': 'Tripes',
   },
   de: {
     // Gemüse - Blattgemüse
@@ -810,6 +876,28 @@ export const foodTranslations: Record<Language, FoodTranslationDictionary> = {
     // Nüsse - Erdnüsse
     'Peanuts (unsalted)': 'Erdnüsse (ungesalzen)',
     'Peanut Butter (unsweetened)': 'Erdnussbutter (ungesüßt)',
+
+    // Added foods
+    'Macadamia Nuts': 'Macadamianüsse',
+    'Walnuts': 'Walnüsse',
+    'Sunflower Seeds (unsalted)': 'Sonnenblumenkerne (ungesalzen)',
+    'Pumpkin Seeds (unsalted)': 'Kürbiskerne (ungesalzen)',
+    'Egg (cooked)': 'Ei (gekocht)',
+    'Chocolate': 'Schokolade',
+    'Xylitol (sugar-free gum)': 'Xylit (zuckerfreier Kaugummi)',
+    'Honey': 'Honig',
+    'Coffee': 'Kaffee',
+    'Alcohol': 'Alkohol',
+    'Crickets': 'Heimchen',
+    'Mealworms': 'Mehlwürmer',
+    'Dubia Roaches': 'Dubia-Schaben',
+    'Black Soldier Fly Larvae': 'Larven der Schwarzen Soldatenfliege',
+    'Waxworms': 'Wachsmaden',
+    'Earthworms': 'Regenwürmer',
+    'Bloodworms': 'Rote Mückenlarven',
+    'Brine Shrimp': 'Artemia (Salinenkrebse)',
+    'Feeder Rodents (frozen-thawed)': 'Futternager (aufgetaut)',
+    'Stomach Tripe': 'Pansen',
   },
   it: {
     // Verdure - Verdure a foglia
@@ -1012,6 +1100,28 @@ export const foodTranslations: Record<Language, FoodTranslationDictionary> = {
     // Noci - Arachidi
     'Peanuts (unsalted)': 'Arachidi (non salate)',
     'Peanut Butter (unsweetened)': 'Burro di arachidi (non zuccherato)',
+
+    // Added foods
+    'Macadamia Nuts': 'Noci di macadamia',
+    'Walnuts': 'Noci',
+    'Sunflower Seeds (unsalted)': 'Semi di girasole (non salati)',
+    'Pumpkin Seeds (unsalted)': 'Semi di zucca (non salati)',
+    'Egg (cooked)': 'Uovo (cotto)',
+    'Chocolate': 'Cioccolato',
+    'Xylitol (sugar-free gum)': 'Xilitolo (gomma senza zucchero)',
+    'Honey': 'Miele',
+    'Coffee': 'Caffè',
+    'Alcohol': 'Alcol',
+    'Crickets': 'Grilli',
+    'Mealworms': 'Tarme della farina',
+    'Dubia Roaches': 'Blatte dubia',
+    'Black Soldier Fly Larvae': 'Larve di mosca soldato nera',
+    'Waxworms': 'Camole del miele',
+    'Earthworms': 'Lombrichi',
+    'Bloodworms': 'Larve rosse di chironomo',
+    'Brine Shrimp': 'Artemia',
+    'Feeder Rodents (frozen-thawed)': 'Roditori da pasto (scongelati)',
+    'Stomach Tripe': 'Trippa',
   },
   ru: {
     // Овощи - Листовые овощи
@@ -1214,6 +1324,28 @@ export const foodTranslations: Record<Language, FoodTranslationDictionary> = {
     // Орехи - Арахис
     'Peanuts (unsalted)': 'Арахис (без соли)',
     'Peanut Butter (unsweetened)': 'Арахисовое масло (без сахара)',
+
+    // Added foods
+    'Macadamia Nuts': 'Орехи макадамия',
+    'Walnuts': 'Грецкие орехи',
+    'Sunflower Seeds (unsalted)': 'Семена подсолнечника (несолёные)',
+    'Pumpkin Seeds (unsalted)': 'Тыквенные семечки (несолёные)',
+    'Egg (cooked)': 'Яйцо (варёное)',
+    'Chocolate': 'Шоколад',
+    'Xylitol (sugar-free gum)': 'Ксилит (жвачка без сахара)',
+    'Honey': 'Мёд',
+    'Coffee': 'Кофе',
+    'Alcohol': 'Алкоголь',
+    'Crickets': 'Сверчки',
+    'Mealworms': 'Мучные черви',
+    'Dubia Roaches': 'Тараканы дубия',
+    'Black Soldier Fly Larvae': 'Личинки чёрной львинки',
+    'Waxworms': 'Личинки восковой моли',
+    'Earthworms': 'Дождевые черви',
+    'Bloodworms': 'Мотыль',
+    'Brine Shrimp': 'Артемия',
+    'Feeder Rodents (frozen-thawed)': 'Кормовые грызуны (размороженные)',
+    'Stomach Tripe': 'Рубец',
   },
   pl: {
     // Warzywa - Warzywa liściaste
@@ -1416,6 +1548,28 @@ export const foodTranslations: Record<Language, FoodTranslationDictionary> = {
     // Orzechy - Orzeszki ziemne
     'Peanuts (unsalted)': 'Orzeszki ziemne (niesolone)',
     'Peanut Butter (unsweetened)': 'Masło orzechowe (bez cukru)',
+
+    // Added foods
+    'Macadamia Nuts': 'Orzechy makadamia',
+    'Walnuts': 'Orzechy włoskie',
+    'Sunflower Seeds (unsalted)': 'Pestki słonecznika (niesolone)',
+    'Pumpkin Seeds (unsalted)': 'Pestki dyni (niesolone)',
+    'Egg (cooked)': 'Jajko (gotowane)',
+    'Chocolate': 'Czekolada',
+    'Xylitol (sugar-free gum)': 'Ksylitol (guma bez cukru)',
+    'Honey': 'Miód',
+    'Coffee': 'Kawa',
+    'Alcohol': 'Alkohol',
+    'Crickets': 'Świerszcze',
+    'Mealworms': 'Mączniki',
+    'Dubia Roaches': 'Karaczany dubia',
+    'Black Soldier Fly Larvae': 'Larwy czarnej muchy żołnierza',
+    'Waxworms': 'Larwy barciaka',
+    'Earthworms': 'Dżdżownice',
+    'Bloodworms': 'Ochotka',
+    'Brine Shrimp': 'Artemia (solowiec)',
+    'Feeder Rodents (frozen-thawed)': 'Gryzonie karmowe (rozmrożone)',
+    'Stomach Tripe': 'Flaki (żwacz)',
   }
 };
 
@@ -1428,6 +1582,9 @@ export const statusTranslations: Record<Language, Record<string, string>> = {
     'acceptable in small quantities (boiled)': 'acceptable in small quantities (boiled)',
     'acceptable in small quantities (ripe only)': 'acceptable in small quantities (ripe only)',
     'acceptable in small quantities (cooked)': 'acceptable in small quantities (cooked)',
+    'allowed (cooked)': 'allowed (cooked)',
+    'allowed (without seeds/pits)': 'allowed (without seeds/pits)',
+    'acceptable in small quantities (without seeds/pits)': 'acceptable in small quantities (without seeds/pits)',
   },
   es: {
     'allowed': 'permitido',
@@ -1437,6 +1594,9 @@ export const statusTranslations: Record<Language, Record<string, string>> = {
     'acceptable in small quantities (boiled)': 'aceptable en pequeñas cantidades (hervido)',
     'acceptable in small quantities (ripe only)': 'aceptable en pequeñas cantidades (solo maduro)',
     'acceptable in small quantities (cooked)': 'aceptable en pequeñas cantidades (cocido)',
+    'allowed (cooked)': 'permitido (cocido)',
+    'allowed (without seeds/pits)': 'permitido (sin semillas ni hueso)',
+    'acceptable in small quantities (without seeds/pits)': 'aceptable en pequeñas cantidades (sin semillas ni hueso)',
   },
   fr: {
     'allowed': 'autorisé',
@@ -1446,6 +1606,9 @@ export const statusTranslations: Record<Language, Record<string, string>> = {
     'acceptable in small quantities (boiled)': 'acceptable en petites quantités (bouilli)',
     'acceptable in small quantities (ripe only)': 'acceptable en petites quantités (mûr seulement)',
     'acceptable in small quantities (cooked)': 'acceptable en petites quantités (cuit)',
+    'allowed (cooked)': 'autorisé (cuit)',
+    'allowed (without seeds/pits)': 'autorisé (sans pépins ni noyau)',
+    'acceptable in small quantities (without seeds/pits)': 'acceptable en petites quantités (sans pépins ni noyau)',
   },
   de: {
     'allowed': 'erlaubt',
@@ -1455,6 +1618,9 @@ export const statusTranslations: Record<Language, Record<string, string>> = {
     'acceptable in small quantities (boiled)': 'in kleinen Mengen akzeptabel (gekocht)',
     'acceptable in small quantities (ripe only)': 'in kleinen Mengen akzeptabel (nur reif)',
     'acceptable in small quantities (cooked)': 'in kleinen Mengen akzeptabel (gekocht)',
+    'allowed (cooked)': 'erlaubt (gekocht)',
+    'allowed (without seeds/pits)': 'erlaubt (ohne Kerne/Steine)',
+    'acceptable in small quantities (without seeds/pits)': 'in kleinen Mengen akzeptabel (ohne Kerne/Steine)',
   },
   it: {
     'allowed': 'consentito',
@@ -1464,6 +1630,9 @@ export const statusTranslations: Record<Language, Record<string, string>> = {
     'acceptable in small quantities (boiled)': 'accettabile in piccole quantità (bollito)',
     'acceptable in small quantities (ripe only)': 'accettabile in piccole quantità (solo maturo)',
     'acceptable in small quantities (cooked)': 'accettabile in piccole quantità (cotto)',
+    'allowed (cooked)': 'consentito (cotto)',
+    'allowed (without seeds/pits)': 'consentito (senza semi né nocciolo)',
+    'acceptable in small quantities (without seeds/pits)': 'accettabile in piccole quantità (senza semi né nocciolo)',
   },
   ru: {
     'allowed': 'разрешено',
@@ -1473,6 +1642,9 @@ export const statusTranslations: Record<Language, Record<string, string>> = {
     'acceptable in small quantities (boiled)': 'приемлемо в небольших количествах (вареное)',
     'acceptable in small quantities (ripe only)': 'приемлемо в небольших количествах (только спелое)',
     'acceptable in small quantities (cooked)': 'приемлемо в небольших количествах (вареное)',
+    'allowed (cooked)': 'разрешено (в приготовленном виде)',
+    'allowed (without seeds/pits)': 'разрешено (без семян и косточек)',
+    'acceptable in small quantities (without seeds/pits)': 'приемлемо в небольших количествах (без семян и косточек)',
   },
   pl: {
     'allowed': 'dozwolone',
@@ -1482,6 +1654,9 @@ export const statusTranslations: Record<Language, Record<string, string>> = {
     'acceptable in small quantities (boiled)': 'akceptowalne w małych ilościach (gotowane)',
     'acceptable in small quantities (ripe only)': 'akceptowalne w małych ilościach (tylko dojrzałe)',
     'acceptable in small quantities (cooked)': 'akceptowalne w małych ilościach (ugotowane)',
+    'allowed (cooked)': 'dozwolone (po ugotowaniu)',
+    'allowed (without seeds/pits)': 'dozwolone (bez pestek)',
+    'acceptable in small quantities (without seeds/pits)': 'akceptowalne w małych ilościach (bez pestek)',
   }
 };
 
@@ -1491,4 +1666,54 @@ export const getFoodTranslation = (foodName: string, language: Language): string
 
 export const getSafetyTranslation = (status: string, language: Language): string => {
   return statusTranslations[language][status] || statusTranslations.en[status] || status;
-}; 
+};
+
+// Short preparation note shown under a food or animal, from the bracket in its status.
+export const statusNoteTranslations: Record<Language, Record<string, string>> = {
+  en: {
+    'cooked': 'Cooked only',
+    'boiled': 'Boiled only',
+    'ripe only': 'Ripe only',
+    'without seeds/pits': 'Remove seeds/pits',
+  },
+  es: {
+    'cooked': 'Solo cocido',
+    'boiled': 'Solo hervido',
+    'ripe only': 'Solo maduro',
+    'without seeds/pits': 'Sin semillas ni hueso',
+  },
+  fr: {
+    'cooked': 'Cuit uniquement',
+    'boiled': 'Bouilli uniquement',
+    'ripe only': 'Mûr uniquement',
+    'without seeds/pits': 'Retirer pépins et noyau',
+  },
+  de: {
+    'cooked': 'Nur gekocht',
+    'boiled': 'Nur abgekocht',
+    'ripe only': 'Nur reif',
+    'without seeds/pits': 'Kerne/Steine entfernen',
+  },
+  it: {
+    'cooked': 'Solo cotto',
+    'boiled': 'Solo bollito',
+    'ripe only': 'Solo maturo',
+    'without seeds/pits': 'Togliere semi e nocciolo',
+  },
+  ru: {
+    'cooked': 'Только в приготовленном виде',
+    'boiled': 'Только варёное',
+    'ripe only': 'Только спелое',
+    'without seeds/pits': 'Удалите семена и косточки',
+  },
+  pl: {
+    'cooked': 'Tylko po ugotowaniu',
+    'boiled': 'Tylko gotowane',
+    'ripe only': 'Tylko dojrzałe',
+    'without seeds/pits': 'Usuń pestki',
+  },
+};
+
+export const getStatusNoteTranslation = (note: string, language: Language): string => {
+  return statusNoteTranslations[language]?.[note] || statusNoteTranslations.en[note] || note;
+};

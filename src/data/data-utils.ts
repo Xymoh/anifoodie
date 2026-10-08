@@ -85,9 +85,17 @@ export const getAllAnimals = (): AnimalName[] => {
   return animalNames;
 };
 
-export const getFoodItemByName = (foodName: string): FoodItem | null => {
+// Names repeat across categories (e.g. "Liver" under Chicken, Beef, Pork), so pass the
+// category whenever it is known.
+export const getFoodItemByName = (foodName: string, category?: string): FoodItem | null => {
   const data = parseCSVData();
-  return data.find(item => item.item === foodName) || null;
+  return data.find(item => item.item === foodName && (!category || item.category === category)) || null;
+};
+
+// "acceptable in small quantities (cooked)" → "cooked"; null when the status has no note.
+export const getStatusNote = (status: string | undefined): string | null => {
+  const match = status ? /\(([^)]+)\)\s*$/.exec(status) : null;
+  return match ? match[1] : null;
 };
 
 export const getFoodCategories = (): { type: string; categories: string[] }[] => {
@@ -148,7 +156,7 @@ export const getFoodsForAnimal = (animalName: AnimalName): FilteredResults => {
     const status = item.compatibility[animalName] as string;
     const trimmedStatus = status.trim();
     
-    if (trimmedStatus === 'allowed' || trimmedStatus === 'allowed (boiled)') {
+    if (trimmedStatus.startsWith('allowed')) {
       filtered.allowed.push(item);
     } else if (trimmedStatus === 'not allowed') {
       filtered.notAllowed.push(item);
@@ -160,39 +168,29 @@ export const getFoodsForAnimal = (animalName: AnimalName): FilteredResults => {
   return filtered;
 };
 
-export const getAnimalsForFood = (foodItem: string): Record<CompatibilityStatus, AnimalName[]> => {
-  const data = parseCSVData();
+export const getAnimalsForFood = (
+  foodItem: string,
+  category?: string,
+): Record<CompatibilityStatus, AnimalName[]> => {
   const result: Record<CompatibilityStatus, AnimalName[]> = {
     'allowed': [],
     'allowed (boiled)': [],
+    'allowed (cooked)': [],
+    'allowed (without seeds/pits)': [],
     'not allowed': [],
     'acceptable in small quantities': [],
     'acceptable in small quantities (boiled)': [],
     'acceptable in small quantities (ripe only)': [],
     'acceptable in small quantities (cooked)': [],
+    'acceptable in small quantities (without seeds/pits)': [],
   };
-  
-  const foodData = data.find(item => item.item === foodItem);
+
+  const foodData = getFoodItemByName(foodItem, category);
   if (!foodData) return result;
-  
+
   Object.entries(foodData.compatibility).forEach(([animal, status]) => {
-    const trimmedStatus = status.trim();
-    if (trimmedStatus === 'allowed') {
-      result['allowed'].push(animal as AnimalName);
-    } else if (trimmedStatus === 'allowed (boiled)') {
-      result['allowed (boiled)'].push(animal as AnimalName);
-    } else if (trimmedStatus === 'not allowed') {
-      result['not allowed'].push(animal as AnimalName);
-    } else if (trimmedStatus === 'acceptable in small quantities') {
-      result['acceptable in small quantities'].push(animal as AnimalName);
-    } else if (trimmedStatus === 'acceptable in small quantities (boiled)') {
-      result['acceptable in small quantities (boiled)'].push(animal as AnimalName);
-    } else if (trimmedStatus === 'acceptable in small quantities (ripe only)') {
-      result['acceptable in small quantities (ripe only)'].push(animal as AnimalName);
-    } else if (trimmedStatus === 'acceptable in small quantities (cooked)') {
-      result['acceptable in small quantities (cooked)'].push(animal as AnimalName);
-    }
+    result[status.trim() as CompatibilityStatus]?.push(animal as AnimalName);
   });
-  
+
   return result;
 };

@@ -7,7 +7,13 @@ import { FoodItem } from "../types";
 import { RootStackParamList } from "../navigation/types";
 import { useFavorites } from "../context/FavoritesContext";
 import { colors, spacing, typography, shadow } from "../styles";
-import { getSimplifiedFoodName, getDisplayCategory } from "../data/data-utils";
+import {
+  getSimplifiedFoodName,
+  getDisplayCategory,
+  getStatusNote,
+} from "../data/data-utils";
+import { getStatusNoteTranslation } from "../i18n/food/food-translations";
+import { useLanguage } from "../hooks/useLanguage";
 import { useDynamicTranslations } from "../hooks/useDynamicTranslations";
 
 import FoodIcon from "./FoodIcon";
@@ -28,9 +34,14 @@ const FoodCard = React.memo(({ food, animalName }: FoodCardProps) => {
   const navigation = useNavigation<NavigationProp>();
   const { isFoodFavorite, toggleFavoriteFood } = useFavorites();
   const { translateFood, translateCategory } = useDynamicTranslations();
+  const { language } = useLanguage();
+  const note = getStatusNote(food.compatibility[animalName]);
 
   const handlePress = () => {
-    navigation.navigate("FoodDetail", { foodName: food.item });
+    navigation.navigate("FoodDetail", {
+      foodName: food.item,
+      category: food.category,
+    });
   };
 
   const handleToggleFavorite = (e: boolean) => {
@@ -63,6 +74,11 @@ const FoodCard = React.memo(({ food, animalName }: FoodCardProps) => {
             >
               {translateCategory(getDisplayCategory(food))}
             </Text>
+            {note && (
+              <Text style={styles.note} numberOfLines={1}>
+                {getStatusNoteTranslation(note, language)}
+              </Text>
+            )}
           </View>
         </View>
         <View style={styles.rightContainer}>
@@ -122,6 +138,11 @@ const styles = StyleSheet.create({
   categoryName: {
     fontSize: typography.fontSize.medium,
     color: colors.textSecondary,
+    marginTop: spacing.tiny,
+  },
+  note: {
+    fontSize: typography.fontSize.medium,
+    color: colors.statusAcceptable,
     marginTop: spacing.tiny,
   },
 });

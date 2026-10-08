@@ -1,0 +1,298 @@
+<title>PetPlate Food Safety Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Atkinson+Hyperlegible+Next:wght@400;600&display=swap">
+<style>
+/* Layout: a review console — summary strip, then a per-animal checklist or the full food × animal grid. */
+:root {
+  --bg: #f6f6fb;
+  --surface: #ffffff;
+  --line: #dddbe9;
+  --fg: #1d1b2b;
+  --muted: #64617a;
+  --accent: #0079ad;
+  --accent-soft: #e2f3fb;
+  --ok: #1d8a57;
+  --ok-soft: #dcf3e6;
+  --warn: #9a6a00;
+  --warn-soft: #fbefcd;
+  --bad: #c22d47;
+  --bad-soft: #fbe1e6;
+  --judge: #7a3fc4;
+  --judge-soft: #efe5fb;
+  --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible Next", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #18171f; --surface: #232131; --line: #383652; --fg: #ecebf5; --muted: #a3a0bd;
+    --accent: #5dcfff; --accent-soft: #163447;
+    --ok: #4bf0aa; --ok-soft: #173a2c; --warn: #ffd84c; --warn-soft: #3d3418;
+    --bad: #ff7a92; --bad-soft: #45202a; --judge: #c9a2ff; --judge-soft: #2f2445;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #18171f; --surface: #232131; --line: #383652; --fg: #ecebf5; --muted: #a3a0bd;
+  --accent: #5dcfff; --accent-soft: #163447;
+  --ok: #4bf0aa; --ok-soft: #173a2c; --warn: #ffd84c; --warn-soft: #3d3418;
+  --bad: #ff7a92; --bad-soft: #45202a; --judge: #c9a2ff; --judge-soft: #2f2445;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 15px/1.5 var(--body); }
+.wrap { max-width: 1100px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 80px; display: grid; gap: 24px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(26px, 4vw, 36px); line-height: 1.1; }
+h2 { font-size: 20px; }
+h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-family: var(--body); font-weight: 600; }
+p { margin: 0; max-width: 68ch; }
+.lede { color: var(--muted); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: grid; gap: 2px; }
+.stat b { font: 700 24px/1.1 var(--display); font-variant-numeric: tabular-nums; }
+.stat span { color: var(--muted); font-size: 13px; }
+.stat.bad b { color: var(--bad); } .stat.judge b { color: var(--judge); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13px; color: var(--muted); align-items: center; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 999px; font-size: 13px; font-weight: 600; white-space: nowrap; }
+.pill.y { background: var(--ok-soft); color: var(--ok); }
+.pill.s { background: var(--warn-soft); color: var(--warn); }
+.pill.n { background: var(--bad-soft); color: var(--bad); }
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); }
+.tabs button { font: 600 15px var(--body); background: none; border: 0; color: var(--muted); padding: 10px 14px; border-bottom: 2px solid transparent; cursor: pointer; }
+.tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--accent); }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.controls label { display: inline-flex; gap: 6px; align-items: center; font-size: 14px; cursor: pointer; }
+select, input[type="search"] { font: 15px var(--body); color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; }
+input[type="search"] { min-width: 0; flex: 1 1 180px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips button { font: 14px var(--body); background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+.chips button[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.summary { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+.group { display: grid; gap: 0; }
+.group > h3 { padding: 18px 0 8px; }
+.row { display: grid; grid-template-columns: minmax(130px, 210px) minmax(0, 1fr); gap: 4px 16px; padding: 10px 12px; background: var(--surface); border: 1px solid var(--line); border-top: 0; }
+.group > h3 + .row { border-top: 1px solid var(--line); border-radius: 10px 10px 0 0; }
+.row:last-child { border-radius: 0 0 10px 10px; }
+.group > h3 + .row:last-child { border-radius: 10px; }
+.row.fixed { box-shadow: inset 3px 0 0 var(--bad); }
+.name { font-weight: 600; min-width: 0; }
+.name small { display: block; font-weight: 400; color: var(--muted); font-size: 13px; }
+.verdict { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; min-width: 0; }
+.was { font-size: 13px; color: var(--muted); }
+.was s { color: var(--muted); }
+.why { grid-column: 2; color: var(--muted); font-size: 14px; min-width: 0; }
+.tag { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 1px 7px; border-radius: 4px; }
+.tag.judge { background: var(--judge-soft); color: var(--judge); }
+.tag.new { background: var(--accent-soft); color: var(--accent); }
+.src { font-size: 12px; color: var(--accent); white-space: nowrap; }
+.empty { padding: 24px; text-align: center; color: var(--muted); background: var(--surface); border: 1px dashed var(--line); border-radius: 10px; }
+.gridbox { overflow: auto; max-height: 75vh; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { border-collapse: separate; border-spacing: 0; font-size: 12px; }
+th, td { padding: 0; }
+thead th { position: sticky; top: 0; background: var(--surface); z-index: 2; height: 118px; vertical-align: bottom; border-bottom: 1px solid var(--line); }
+thead th div { writing-mode: vertical-rl; transform: rotate(180deg); padding: 6px 0; font-weight: 600; white-space: nowrap; }
+tbody th { position: sticky; left: 0; background: var(--surface); z-index: 1; text-align: left; font-weight: 400; padding: 0 10px; white-space: nowrap; border-right: 1px solid var(--line); max-width: 220px; overflow: hidden; text-overflow: ellipsis; }
+thead th:first-child { left: 0; z-index: 3; }
+td button { display: block; width: 20px; height: 20px; margin: 1px; border: 0; border-radius: 3px; cursor: pointer; padding: 0; font: 700 10px var(--body); }
+td button.y { background: var(--ok-soft); color: var(--ok); }
+td button.s { background: var(--warn-soft); color: var(--warn); }
+td button.n { background: var(--bad-soft); color: var(--bad); }
+td button.chg { outline: 2px solid currentColor; outline-offset: -2px; }
+td button.dim { opacity: .18; }
+tr.typehead th { position: sticky; left: 0; background: var(--bg); font: 600 12px var(--body); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); padding: 10px; }
+.detail { position: sticky; bottom: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: grid; gap: 6px; box-shadow: 0 -6px 20px rgb(0 0 0 / .08); }
+.sources { display: grid; gap: 6px; font-size: 14px; }
+.sources div { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 10px; }
+.sources code { color: var(--accent); font-weight: 600; }
+@media (max-width: 640px) {
+  .row { grid-template-columns: minmax(0, 1fr); }
+  .why { grid-column: 1; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header style="display:grid;gap:10px">
+    <h1>PetPlate food safety review</h1>
+    <p class="lede">Every food × animal answer the app will show, with the reason and source behind it. Cells marked <span class="tag judge">judgement call</span> are where vet guidance differs or is thin, so they need a second look. A red edge means the app currently says a food is allowed or OK in small amounts, and the new data says it isn't.</p>
+  </header>
+
+  <section class="stats" id="stats" aria-label="Summary"></section>
+
+  <div class="legend">
+    <span class="pill y">allowed</span>
+    <span class="pill s">small quantities</span>
+    <span class="pill n">not allowed</span>
+    <span>Notes in brackets (cooked, boiled, ripe only, without seeds/pits) are shown in the app.</span>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tab-animal" aria-selected="true" aria-controls="view-animal">By animal</button>
+    <button role="tab" id="tab-grid" aria-selected="false" aria-controls="view-grid">Full grid</button>
+  </div>
+
+  <section id="view-animal" role="tabpanel" aria-labelledby="tab-animal" style="display:grid;gap:14px">
+    <div class="chips" id="chips"></div>
+    <div class="controls">
+      <select id="animal" aria-label="Animal"></select>
+      <select id="status" aria-label="Status filter">
+        <option value="">All answers</option>
+        <option value="y">Allowed</option>
+        <option value="s">Small quantities</option>
+        <option value="n">Not allowed</option>
+      </select>
+      <input type="search" id="q" placeholder="Search foods" aria-label="Search foods">
+      <label><input type="checkbox" id="onlyChanged"> Changed</label>
+      <label><input type="checkbox" id="onlyFixed"> Dangerous fixes</label>
+      <label><input type="checkbox" id="onlyJudge"> Judgement calls</label>
+      <label><input type="checkbox" id="onlyNew"> New foods</label>
+    </div>
+    <p class="summary" id="summary"></p>
+    <div id="list" style="display:grid;gap:4px"></div>
+  </section>
+
+  <section id="view-grid" role="tabpanel" aria-labelledby="tab-grid" hidden style="display:grid;gap:12px">
+    <div class="controls">
+      <label><input type="checkbox" id="gChanged"> Highlight changed cells</label>
+      <label><input type="checkbox" id="gJudge"> Highlight judgement calls</label>
+      <span class="summary">Tap a cell for its reason. Letters: Y allowed, S small quantities, N not allowed.</span>
+    </div>
+    <div class="gridbox"><table id="grid"></table></div>
+    <div class="detail" id="detail" hidden></div>
+  </section>
+
+  <section style="display:grid;gap:10px">
+    <h2>Sources</h2>
+    <div class="sources" id="sources"></div>
+    <p class="lede" id="foot"></p>
+  </section>
+</div>
+
+<script>
+const D = __DATA__;
+const A = D.animals;
+const base = (s) => s.startsWith('not') ? 'n' : s.startsWith('acceptable') ? 's' : 'y';
+const label = (s) => s.replace('acceptable in small quantities', 'small quantities');
+const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const foodName = (r) => r[0] === 'Meat' ? `${r[1]} · ${r[2]}` : r[2];
+const cell = (r, ai) => {
+  const [s, re, low, old] = r[4][ai];
+  const st = D.statuses[s];
+  const was = old < 0 ? null : D.statuses[old];
+  return { st, b: base(st), reason: D.reasons[re][0], src: D.reasons[re][1], low: !!low, was,
+    changed: was != null && was !== st, fixed: was != null && base(was) !== 'n' && base(st) === 'n' };
+};
+const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
+
+// Summary
+const st = D.stats;
+document.getElementById('stats').innerHTML = [
+  [D.rows.length, `foods × ${A.length} animals`],
+  [st.changed.toLocaleString(), 'answers changed vs. the current app'],
+  [st.dangerousFixed.toLocaleString(), 'answers that said OK and now say not allowed', 'bad'],
+  [st.low.toLocaleString(), 'judgement calls to double-check', 'judge'],
+].map(([n, t, c]) => `<div class="stat ${c || ''}"><b>${n}</b><span>${t}</span></div>`).join('');
+
+// By-animal view
+const sel = document.getElementById('animal');
+sel.innerHTML = A.map((a, i) => `<option value="${i}">${a}</option>`).join('');
+const quick = ['Dog', 'Cat', 'Rabbit', 'Guinea Pig', 'Hamster', 'Parakeet', 'Bearded Dragon'];
+const chips = document.getElementById('chips');
+chips.innerHTML = quick.map((a) => `<button type="button" data-a="${A.indexOf(a)}">${a}</button>`).join('');
+chips.addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; sel.value = b.dataset.a; renderList(); });
+const ids = ['status', 'q', 'onlyChanged', 'onlyFixed', 'onlyJudge', 'onlyNew'];
+const el = Object.fromEntries(ids.map((i) => [i, document.getElementById(i)]));
+sel.value = store.get('pp-animal') ?? '0';
+[sel, ...Object.values(el)].forEach((x) => x.addEventListener('input', renderList));
+
+function renderList() {
+  const ai = +sel.value;
+  store.set('pp-animal', String(ai));
+  chips.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.a === ai)));
+  const q = el.q.value.trim().toLowerCase();
+  const counts = { y: 0, s: 0, n: 0, changed: 0, fixed: 0, low: 0 };
+  const groups = new Map();
+  for (const r of D.rows) {
+    const c = cell(r, ai);
+    counts[c.b]++; if (c.changed) counts.changed++; if (c.fixed) counts.fixed++; if (c.low) counts.low++;
+    if (el.status.value && c.b !== el.status.value) continue;
+    if (el.onlyChanged.checked && !c.changed) continue;
+    if (el.onlyFixed.checked && !c.fixed) continue;
+    if (el.onlyJudge.checked && !c.low) continue;
+    if (el.onlyNew.checked && !r[3]) continue;
+    if (q && !`${r[0]} ${r[1]} ${r[2]}`.toLowerCase().includes(q)) continue;
+    const g = r[0] === 'Meat' ? `Meat · ${r[1]}` : `${r[0]} · ${r[1]}`;
+    if (!groups.has(g)) groups.set(g, []);
+    groups.get(g).push([r, c]);
+  }
+  document.getElementById('summary').textContent =
+    `${A[ai]}: ${counts.y} allowed, ${counts.s} small quantities, ${counts.n} not allowed · ${counts.changed} changed, ${counts.fixed} dangerous answers fixed, ${counts.low} judgement calls`;
+  const list = document.getElementById('list');
+  if (!groups.size) { list.innerHTML = '<div class="empty">No foods match these filters. Clear a filter or the search to see more.</div>'; return; }
+  list.innerHTML = [...groups].map(([g, items]) => `<div class="group"><h3>${esc(g)}</h3>${items.map(([r, c]) => `
+    <div class="row${c.fixed ? ' fixed' : ''}">
+      <div class="name">${esc(r[2])}${r[3] ? ' <span class="tag new">new</span>' : ''}</div>
+      <div class="verdict">
+        <span class="pill ${c.b}">${esc(label(c.st))}</span>
+        ${c.changed ? `<span class="was">was <s>${esc(label(c.was))}</s></span>` : ''}
+        ${c.low ? '<span class="tag judge">judgement call</span>' : ''}
+      </div>
+      <div class="why">${esc(c.reason)} <span class="src">${esc(c.src.replaceAll(',', ' · '))}</span></div>
+    </div>`).join('')}</div>`).join('');
+}
+
+// Grid view
+const grid = document.getElementById('grid');
+const detail = document.getElementById('detail');
+const short = { y: 'Y', s: 'S', n: 'N' };
+function renderGrid() {
+  const hc = document.getElementById('gChanged').checked;
+  const hj = document.getElementById('gJudge').checked;
+  let lastType = '';
+  const body = D.rows.map((r, ri) => {
+    const head = r[0] !== lastType ? `<tr class="typehead"><th colspan="${A.length + 1}">${esc(r[0])}</th></tr>` : '';
+    lastType = r[0];
+    return head + `<tr><th title="${esc(foodName(r))}">${esc(foodName(r))}</th>${A.map((a, ai) => {
+      const c = cell(r, ai);
+      const dim = (hc && !c.changed) || (hj && !c.low);
+      return `<td><button type="button" class="${c.b}${c.changed && hc ? ' chg' : ''}${dim ? ' dim' : ''}" data-r="${ri}" data-a="${ai}" aria-label="${esc(foodName(r))}, ${a}: ${esc(c.st)}">${short[c.b]}</button></td>`;
+    }).join('')}</tr>`;
+  }).join('');
+  grid.innerHTML = `<thead><tr><th></th>${A.map((a) => `<th><div>${a}</div></th>`).join('')}</tr></thead><tbody>${body}</tbody>`;
+}
+grid.addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  const r = D.rows[+b.dataset.r]; const a = A[+b.dataset.a]; const c = cell(r, +b.dataset.a);
+  detail.hidden = false;
+  detail.innerHTML = `<strong>${esc(foodName(r))} → ${esc(a)}</strong>
+    <div class="verdict"><span class="pill ${c.b}">${esc(label(c.st))}</span>${c.changed ? `<span class="was">was <s>${esc(label(c.was))}</s></span>` : ''}${c.low ? '<span class="tag judge">judgement call</span>' : ''}</div>
+    <div class="why" style="grid-column:auto">${esc(c.reason)} <span class="src">${esc(c.src.replaceAll(',', ' · '))}</span></div>`;
+});
+['gChanged', 'gJudge'].forEach((i) => document.getElementById(i).addEventListener('input', renderGrid));
+
+// Tabs
+const tabs = { animal: document.getElementById('tab-animal'), grid: document.getElementById('tab-grid') };
+let gridBuilt = false;
+function show(which) {
+  for (const [k, t] of Object.entries(tabs)) {
+    t.setAttribute('aria-selected', String(k === which));
+    document.getElementById(`view-${k}`).hidden = k !== which;
+  }
+  if (which === 'grid' && !gridBuilt) { renderGrid(); gridBuilt = true; }
+  store.set('pp-tab', which);
+}
+tabs.animal.addEventListener('click', () => show('animal'));
+tabs.grid.addEventListener('click', () => show('grid'));
+
+// Sources & footer
+document.getElementById('sources').innerHTML = Object.entries(D.sources)
+  .map(([k, v]) => `<div><code>${k}</code><span>${esc(v)}</span></div>`).join('');
+document.getElementById('foot').textContent =
+  `Generated ${D.generated}. Removed: ${D.removed.join(', ') || 'none'} (duplicate of Vegetable / Corn). ` +
+  'This is a first pass written from published vet guidance. It is not veterinary advice and should be checked by a vet before release.';
+
+renderList();
+show(store.get('pp-tab') === 'grid' ? 'grid' : 'animal');
+</script>

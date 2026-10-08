@@ -38,11 +38,11 @@ interface SectionData {
 }
 
 const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
-  const { foodName } = route.params;
+  const { foodName, category } = route.params;
   const navigation = useNavigation();
   const [searchQuery, setSearchQuery] = useState("");
-  const animalData = getAnimalsForFood(foodName);
-  const foodItem = getFoodItemByName(foodName);
+  const animalData = getAnimalsForFood(foodName, category);
+  const foodItem = getFoodItemByName(foodName, category);
   const { language } = useLanguage();
   const { t } = useTranslations(language);
   const { translateFood } = useDynamicTranslations();
@@ -69,16 +69,12 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
   }, [translatedFoods]);
 
   const sections: SectionData[] = useMemo(() => {
-    let filteredAllowed = [
-      ...animalData["allowed"],
-      ...animalData["allowed (boiled)"],
-    ];
-    let filteredAcceptable = [
-      ...animalData["acceptable in small quantities"],
-      ...animalData["acceptable in small quantities (boiled)"],
-      ...animalData["acceptable in small quantities (ripe only)"],
-      ...animalData["acceptable in small quantities (cooked)"],
-    ];
+    const withPrefix = (prefix: string) =>
+      (Object.keys(animalData) as CompatibilityStatus[])
+        .filter((status) => status.startsWith(prefix))
+        .flatMap((status) => animalData[status]);
+    let filteredAllowed = withPrefix("allowed");
+    let filteredAcceptable = withPrefix("acceptable");
     let filteredNotAllowed = animalData["not allowed"];
 
     // Apply search filter if query exists
@@ -130,9 +126,15 @@ const FoodDetailScreen = ({ route }: FoodDetailScreenProps) => {
 
   const renderAnimalItem = React.useCallback(
     ({ item, section }: { item: AnimalName; section: SectionData }) => (
-      <AnimalCard animal={item} status={section.status} />
+      <AnimalCard
+        animal={item}
+        status={
+          (foodItem?.compatibility[item] as CompatibilityStatus) ||
+          section.status
+        }
+      />
     ),
-    []
+    [foodItem]
   );
 
   return (

@@ -79,8 +79,8 @@ const FavoritesScreen = () => {
     navigation.navigate("AnimalDetail", { animalName });
   };
 
-  const handleFoodPress = (foodName: string) => {
-    navigation.navigate("FoodDetail", { foodName });
+  const handleFoodPress = (foodName: string, category?: string) => {
+    navigation.navigate("FoodDetail", { foodName, category });
   };
 
   const renderSectionHeader = ({ section }: { section: Section }) => (
@@ -130,7 +130,7 @@ const FavoritesScreen = () => {
       return (
         <TouchableOpacity
           style={styles.item}
-          onPress={() => handleFoodPress(foodItem.item)}
+          onPress={() => handleFoodPress(foodItem.item, foodItem.category)}
         >
           <View style={styles.contentContainer}>
             <FoodIcon

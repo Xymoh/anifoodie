@@ -62,6 +62,17 @@ export const categoryTranslations: Record<Language, CategoryTranslationDictionar
     'Dairy': 'Dairy',
     'Grain': 'Grain',
     'Nut': 'Nut',
+
+    // Added categories and types
+    'Seeds': 'Seeds',
+    'Eggs': 'Eggs',
+    'Sweets': 'Sweets',
+    'Drinks': 'Drinks',
+    'Insects': 'Insects',
+    'Worms': 'Worms',
+    'Aquatic Live Food': 'Aquatic Live Food',
+    'Whole Prey': 'Whole Prey',
+    'Feeder': 'Feeder Foods',
   },
   es: {
     // Vegetable categories
@@ -121,7 +132,18 @@ export const categoryTranslations: Record<Language, CategoryTranslationDictionar
     'Meat': 'Carne',
     'Dairy': 'Lácteo',
     'Grain': 'Grano',
-    'Nut': 'Nuez'
+    'Nut': 'Nuez',
+
+    // Added categories and types
+    'Seeds': 'Semillas',
+    'Eggs': 'Huevos',
+    'Sweets': 'Dulces',
+    'Drinks': 'Bebidas',
+    'Insects': 'Insectos',
+    'Worms': 'Gusanos',
+    'Aquatic Live Food': 'Alimento vivo acuático',
+    'Whole Prey': 'Presas enteras',
+    'Feeder': 'Alimento vivo',
   },
   fr: {
     // Vegetable categories
@@ -181,7 +203,18 @@ export const categoryTranslations: Record<Language, CategoryTranslationDictionar
     "Meat": "Viande",
     "Dairy": "Produits Laitiers",
     "Grain": "Céréale",
-    "Nut": "Noix"
+    "Nut": "Noix",
+
+    // Added categories and types
+    'Seeds': 'Graines',
+    'Eggs': 'Œufs',
+    'Sweets': 'Sucreries',
+    'Drinks': 'Boissons',
+    'Insects': 'Insectes',
+    'Worms': 'Vers',
+    'Aquatic Live Food': 'Nourriture vivante aquatique',
+    'Whole Prey': 'Proies entières',
+    'Feeder': 'Proies',
   },
   de: {
     // Vegetable categories
@@ -241,7 +274,18 @@ export const categoryTranslations: Record<Language, CategoryTranslationDictionar
     "Meat": "Fleisch",
     "Dairy": "Milchprodukte",
     "Grain": "Getreide",
-    "Nut": "Nuss"
+    "Nut": "Nuss",
+
+    // Added categories and types
+    'Seeds': 'Samen',
+    'Eggs': 'Eier',
+    'Sweets': 'Süßigkeiten',
+    'Drinks': 'Getränke',
+    'Insects': 'Insekten',
+    'Worms': 'Würmer',
+    'Aquatic Live Food': 'Wasser-Lebendfutter',
+    'Whole Prey': 'Ganze Beutetiere',
+    'Feeder': 'Futtertiere',
   },
   it: {
     // Vegetable categories
@@ -294,6 +338,23 @@ export const categoryTranslations: Record<Language, CategoryTranslationDictionar
     // Nut categories
     'Tree Nut': 'Frutta Secca',
     'Peanut': 'Arachidi',
+
+    // Added categories and types
+    'Seeds': 'Semi',
+    'Eggs': 'Uova',
+    'Sweets': 'Dolci',
+    'Drinks': 'Bevande',
+    'Insects': 'Insetti',
+    'Worms': 'Vermi',
+    'Aquatic Live Food': 'Cibo vivo acquatico',
+    'Whole Prey': 'Prede intere',
+    'Feeder': 'Cibo vivo',
+    'Vegetable': 'Verdura',
+    'Fruit': 'Frutta',
+    'Meat': 'Carne',
+    'Dairy': 'Latticini',
+    'Grain': 'Cereali',
+    'Nut': 'Frutta secca',
   },
   ru: {
     // Vegetable categories
@@ -346,6 +407,23 @@ export const categoryTranslations: Record<Language, CategoryTranslationDictionar
     // Nut categories
     "Tree Nut": "Орехи",
     "Peanut": "Арахис",
+
+    // Added categories and types
+    'Seeds': 'Семена',
+    'Eggs': 'Яйца',
+    'Sweets': 'Сладости',
+    'Drinks': 'Напитки',
+    'Insects': 'Насекомые',
+    'Worms': 'Черви',
+    'Aquatic Live Food': 'Живой корм для водных животных',
+    'Whole Prey': 'Целая добыча',
+    'Feeder': 'Живой корм',
+    'Vegetable': 'Овощи',
+    'Fruit': 'Фрукты',
+    'Meat': 'Мясо',
+    'Dairy': 'Молочные продукты',
+    'Grain': 'Зерновые',
+    'Nut': 'Орехи',
   },
   pl: {
     // Vegetable categories
@@ -398,6 +476,23 @@ export const categoryTranslations: Record<Language, CategoryTranslationDictionar
     // Nut categories
     'Tree Nut': 'Orzechy Drzewne',
     'Peanut': 'Orzeszki Ziemne',
+
+    // Added categories and types
+    'Seeds': 'Pestki',
+    'Eggs': 'Jajka',
+    'Sweets': 'Słodycze',
+    'Drinks': 'Napoje',
+    'Insects': 'Owady',
+    'Worms': 'Robaki',
+    'Aquatic Live Food': 'Pokarm żywy wodny',
+    'Whole Prey': 'Całe zwierzęta karmowe',
+    'Feeder': 'Pokarm żywy',
+    'Vegetable': 'Warzywa',
+    'Fruit': 'Owoce',
+    'Meat': 'Mięso',
+    'Dairy': 'Nabiał',
+    'Grain': 'Zboża',
+    'Nut': 'Orzechy',
   }
 };
 

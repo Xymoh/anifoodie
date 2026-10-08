@@ -306,6 +306,27 @@ const foodImages: FoodImages = {
   peanuts_unsalted: require("../../assets/products/peanuts_unsalted.png"),
   peanut_butter_unsweetened: require("../../assets/products/peanut_butter_unsweetened.png"),
 
+  // Added foods
+  macadamia_nuts: require("../../assets/products/macadamia_nuts.png"),
+  walnuts: require("../../assets/products/walnuts.png"),
+  sunflower_seeds: require("../../assets/products/sunflower_seeds.png"),
+  pumpkin_seeds: require("../../assets/products/pumpkin_seeds.png"),
+  egg_cooked: require("../../assets/products/egg_cooked.png"),
+  chocolate: require("../../assets/products/chocolate.png"),
+  xylitol_gum: require("../../assets/products/xylitol_gum.png"),
+  honey: require("../../assets/products/honey.png"),
+  coffee: require("../../assets/products/coffee.png"),
+  alcohol: require("../../assets/products/alcohol.png"),
+  crickets: require("../../assets/products/crickets.png"),
+  mealworms: require("../../assets/products/mealworms.png"),
+  dubia_roaches: require("../../assets/products/dubia_roaches.png"),
+  bsf_larvae: require("../../assets/products/bsf_larvae.png"),
+  waxworms: require("../../assets/products/waxworms.png"),
+  earthworms: require("../../assets/products/earthworms.png"),
+  bloodworms: require("../../assets/products/bloodworms.png"),
+  brine_shrimp: require("../../assets/products/brine_shrimp.png"),
+  feeder_rodents: require("../../assets/products/feeder_rodents.png"),
+
   // Special icons
   boil: require("../../assets/icons/boil.png"),
 };
@@ -400,7 +421,7 @@ const FoodIcon = React.memo(
 
     // Check if the item requires boiling
     const requiresBoiling =
-      status && (status.includes("boiled") || status.includes("(boiled)"));
+      status && (status.includes("(boiled)") || status.includes("(cooked)"));
 
     // Calculate container and image dimensions
     const containerSize = size + 24;

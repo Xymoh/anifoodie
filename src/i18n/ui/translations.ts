@@ -103,6 +103,8 @@ export type TranslationKey =
   | "grains"
   | "meat"
   | "nuts"
+  | "otherFoods"
+  | "feederFoods"
 
   // Favorites Screen
   | "noFavorites"
@@ -214,7 +216,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     welcomeDescription: "Discover what foods are safe for your pets",
     howItWorks: "How it works",
     welcomeExplanation:
-      "AniFood helps you discover which foods are safe for your pets and which are potentially harmful.",
+      "PetPlate helps you discover which foods are safe for your pets and which are potentially harmful.",
     searchByAnimal: "Search by Animal",
     searchByAnimalDescription:
       "Select an animal to see what foods they can eat, should eat in moderation, or should avoid completely.",
@@ -258,6 +260,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     grains: "Grains",
     meat: "Meat",
     nuts: "Nuts",
+    otherFoods: "Other",
+    feederFoods: "Feeder foods",
     noFavorites: "No favorites yet",
     addFavorites: "Add items to your favorites",
     favoriteAnimals: "Favorite Animals",
@@ -375,7 +379,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     welcomeDescription: "Descubre qué alimentos son seguros para tus mascotas",
     howItWorks: "Cómo funciona",
     welcomeExplanation:
-      "AniFood te ayuda a descubrir qué alimentos son seguros para tus mascotas y cuáles son potencialmente dañinos.",
+      "PetPlate te ayuda a descubrir qué alimentos son seguros para tus mascotas y cuáles son potencialmente dañinos.",
     searchByAnimal: "Buscar por Animal",
     searchByAnimalDescription:
       "Selecciona un animal para ver qué alimentos pueden comer, cuáles deberían comer con moderación o cuáles deberían evitar por completo.",
@@ -419,6 +423,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     grains: "Granos",
     meat: "Carne",
     nuts: "Frutos secos",
+    otherFoods: "Otros",
+    feederFoods: "Alimento vivo",
     noFavorites: "Aún no hay favoritos",
     addFavorites: "Agregar elementos a tus favoritos",
     favoriteAnimals: "Animales Favoritos",
@@ -538,7 +544,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     welcomeDescription: "Découvrez quels aliments sont sûrs pour vos animaux",
     howItWorks: "Comment ça marche",
     welcomeExplanation:
-      "AniFood vous aide à découvrir quels aliments sont sûrs pour vos animaux et lesquels sont potentiellement nocifs.",
+      "PetPlate vous aide à découvrir quels aliments sont sûrs pour vos animaux et lesquels sont potentiellement nocifs.",
     searchByAnimal: "Rechercher par Animal",
     searchByAnimalDescription:
       "Sélectionnez un animal pour voir quels aliments ils peuvent manger, devraient manger avec modération ou devraient éviter complètement.",
@@ -582,6 +588,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     grains: "Céréales",
     meat: "Viande",
     nuts: "Noix",
+    otherFoods: "Autres",
+    feederFoods: "Proies",
     noFavorites: "Pas encore de favoris",
     addFavorites: "Ajouter des éléments à vos favoris",
     favoriteAnimals: "Animaux Favoris",
@@ -701,7 +709,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
       "Entdecken Sie, welche Lebensmittel für Ihre Haustiere sicher sind",
     howItWorks: "Wie es funktioniert",
     welcomeExplanation:
-      "AniFood hilft Ihnen zu entdecken, welche Lebensmittel für Ihre Haustiere sicher sind und welche potenziell schädlich sind.",
+      "PetPlate hilft Ihnen zu entdecken, welche Lebensmittel für Ihre Haustiere sicher sind und welche potenziell schädlich sind.",
     searchByAnimal: "Nach Tier suchen",
     searchByAnimalDescription:
       "Wählen Sie ein Tier aus, um zu sehen, welche Lebensmittel es essen kann, welche es in Maßen essen sollte oder welche es komplett vermeiden sollte.",
@@ -745,6 +753,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     grains: "Getreide",
     meat: "Fleisch",
     nuts: "Nüsse",
+    otherFoods: "Sonstiges",
+    feederFoods: "Futtertiere",
     noFavorites: "Noch keine Favoriten",
     addFavorites: "Fügen Sie Elemente zu Ihren Favoriten hinzu",
     favoriteAnimals: "Lieblingstiere",
@@ -865,7 +875,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
       "Scopri quali cibi sono sicuri per i tuoi animali domestici",
     howItWorks: "Come funziona",
     welcomeExplanation:
-      "AniFood ti aiuta a scoprire quali cibi sono sicuri per i tuoi animali domestici e quali sono potenzialmente dannosi.",
+      "PetPlate ti aiuta a scoprire quali cibi sono sicuri per i tuoi animali domestici e quali sono potenzialmente dannosi.",
     searchByAnimal: "Cerca per Animale",
     searchByAnimalDescription:
       "Seleziona un animale per vedere quali cibi possono mangiare, quali dovrebbero mangiare con moderazione o quali dovrebbero evitare completamente.",
@@ -909,6 +919,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     grains: "Cereali",
     meat: "Carne",
     nuts: "Frutta secca",
+    otherFoods: "Altro",
+    feederFoods: "Cibo vivo",
     noFavorites: "Ancora nessun preferito",
     addFavorites: "Aggiungi elementi ai tuoi preferiti",
     favoriteAnimals: "Animali Preferiti",
@@ -1026,7 +1038,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     welcomeDescription: "Узнайте, какие продукты безопасны для ваших питомцев",
     howItWorks: "Как это работает",
     welcomeExplanation:
-      "AniFood помогает вам узнать, какие продукты безопасны для ваших питомцев, а какие потенциально опасны.",
+      "PetPlate помогает вам узнать, какие продукты безопасны для ваших питомцев, а какие потенциально опасны.",
     searchByAnimal: "Поиск по животному",
     searchByAnimalDescription:
       "Выберите животное, чтобы узнать, какие продукты они могут есть, какие следует есть умеренно или каких следует избегать полностью.",
@@ -1070,6 +1082,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     grains: "Зерновые",
     meat: "Мясо",
     nuts: "Орехи",
+    otherFoods: "Другое",
+    feederFoods: "Живой корм",
     noFavorites: "Пока нет избранного",
     addFavorites: "Добавить элементы в избранное",
     favoriteAnimals: "Избранные животные",
@@ -1186,7 +1200,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
       "Odkryj, które produkty są bezpieczne dla Twoich zwierząt",
     howItWorks: "Jak to działa",
     welcomeExplanation:
-      "AniFood pomaga Ci odkryć, które produkty są bezpieczne dla Twoich zwierząt, a które potencjalnie szkodliwe.",
+      "PetPlate pomaga Ci odkryć, które produkty są bezpieczne dla Twoich zwierząt, a które potencjalnie szkodliwe.",
     searchByAnimal: "Szukaj według zwierzęcia",
     searchByAnimalDescription:
       "Wybierz zwierzę, aby zobaczyć, jakie produkty może jeść, które powinno jeść z umiarem lub których powinno całkowicie unikać.",
@@ -1230,6 +1244,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     grains: "Zboża",
     meat: "Mięso",
     nuts: "Orzechy",
+    otherFoods: "Inne",
+    feederFoods: "Pokarm żywy",
     noFavorites: "Brak ulubionych",
     addFavorites: "Dodaj elementy do ulubionych",
     favoriteAnimals: "Ulubione zwierzęta",
